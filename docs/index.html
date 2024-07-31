@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>DriveArena: A Controllable Generative Simulation Platform for Autonomous Driving</title>
+  <link rel="icon" type="image/x-icon" href="static/images/icon.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link href='https://fonts.googleapis.com/css?family=Kalam' rel='stylesheet'>
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <!-- <script defer src="static/js/fontawesome.all.min.js"></script> -->
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://kit.fontawesome.com/dcd6d05807.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.0/marked.min.js"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .title.is-1.publication-title {
+      margin: 0;
+      position: relative;
+      display: inline-block;
+    }
+    .title-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <div class="title-container">
+              <h1 class="title is-2 publication-title">
+                <span class="title-original">
+                  <img src="static/images/icon.png" alt="DRIVEARENA Icon" style="vertical-align: middle; margin-right: 8px; width: 95px; height: auto;">
+                  <span style="color: #ff7e5f;" >DriveArena: </span> A Closed-loop Generative Simulation<br> Platform for Autonomous Driving
+                </span>
+              </h1>
+            </div>
+            <br>
+            <h2 class="subtitle has-text-centered">
+              <span style="font-size: 32px; font-weight: bold; font-family: kalam; color: #ff7e5f;">Global Roads, Virtual Tests, Agents Progress !<br> </span>
+            </h2>
+            <hr>
+
+            <br>
+            <div class="is-size-4 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=xGuZsikAAAAJ&hl=zh-CN" target="_blank">Xuemeng Yang</a><sup>1,<i class="fa-solid fa-scale-balanced fa-xs fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://wenlc.cn/" target="_blank">Licheng Wen</a><sup>1,<i class="fa-solid fa-scale-balanced fa-xs fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://april.zju.edu.cn/team/yukai-ma/" target="_blank">Yukai Ma</a><sup>2,1,<i class="fa-solid fa-scale-balanced fa-xs fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=OUtPkg0AAAAJ&hl=en" target="_blank">Jianbiao Mei</a><sup>2,1,<i class="fa-solid fa-scale-balanced fa-xs fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sankin97.github.io/" target="_blank">Xin Li</a><sup>3,<i class="fa-solid fa-scale-balanced fa-xs fa-shake"></i></sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/tiantian-wei-90328b262/" target="_blank">Tiantian Wei</a><sup>1,4,<i class="fa-solid fa-scale-balanced fa-xs fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://wenjie-2000.github.io/cv/" target="_blank">Wenjie Lei</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=vIU6eHYAAAAJ" target="_blank">Daocheng Fu</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://pinlong-cai.github.io/" target="_blank">Pinlong Cai</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=w9fTWKQAAAAJ&hl=zh-CN" target="_blank">Min Dou</a><sup>1</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=K0PpvLkAAAAJ" target="_blank">Botian Shi</a><sup>1,<i class="fa-regular fa-envelope fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://faculty.ecnu.edu.cn/_s16/hl2/main.psp" target="_blank">Liang He</a><sup>5</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://april.zju.edu.cn/team/dr-yong-liu/" target="_blank">Yong Liu</a><sup>2,<i class="fa-regular fa-envelope fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=gFtI-8QAAAAJ" target="_blank">Yu Qiao</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <br> 
+              <span class="author-block"><sup>1</sup>Shanghai Artificial Intelligence Laboratory</span>
+              <span class="author-block"><sup>2</sup>Zhejiang University</span>
+              <br>
+              <span class="author-block"><sup>3</sup>Shanghai Jiao Tong University</span>
+              <span class="author-block"><sup>4</sup>Technical University of Munich</span>
+              <span class="author-block"><sup>5</sup>East China Normal University</span>
+              <span class="eql-cntrb"><br><sup><i class="fa-solid fa-scale-balanced fa-xs fa-shake"></i></sup>Equal contribution, <sup><i class="fa-regular fa-envelope fa-shake"></i></sup>Corresponding author</span>
+              <!-- <span class="eql-cntrb"><small></small></span> -->
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv PDF link -->
+                <!-- <span class="link-block">
+                  <a href=" " target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span> -->
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source src="static/videos/singapore.mp4" type="video/mp4">
+      </video>
+      <span class="video-caption">SINGAPORE ONE-NORTH<br> 106 FRAME <br> 2Hz</span>
+    </div>
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source src="static/videos/boston.mp4" type="video/mp4">
+      </video>
+      <span class="video-caption">BOSTON SEAPORT <br> 118 FRAME <br> 2Hz</span>
+    </div>
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source src="static/videos/boston_thomas_park.mp4" type="video/mp4">
+      </video>
+      <span class="video-caption">BOSTON THOMAS PARK <br> 200 FRAME <br> 2Hz</span>
+    </div>
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source src="static/videos/carla.mp4" type="video/mp4">
+      </video>
+      <span class="video-caption">CARLA TOWN05 <br> 26 FRAME <br> 2Hz</span>
+    </div>
+
+    <h2 class="subtitle has-text-centered">
+      <em>Closed-loop simulations with UniAD in generated environments.</em><br>
+    </h2>
+
+    <center>
+      <embed type="image/png" src="static/images/maps.png" width="60%" />
+    </center>
+    <h2 class="subtitle has-text-centered">
+      <br>
+      <em><span style="font-size: 24px; font-weight: bold;">..... And support any worldwide street maps !<br> </span></em>
+      <br>
+    
+    </h2>
+  </section>
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-three-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              <b>
+                <span style="font-size: 18px;">
+                  This paper presented DriveArena, the first high-fidelity closed-loop simulation 
+                  system designed for driving agents navigating in real scenarios. DriveArena features 
+                  a flexible, modular architecture, allowing for the seamless interchange of its 
+                  core components: Traffic Manager, a traffic simulator capable of generating realistic 
+                  traffic flow on any worldwide street map, and World Manager, a high-fidelity conditional 
+                  generative model with infinite autoregression. This powerful synergy empowers any 
+                  driving agent capable of processing real-world images to navigate in DriveArena's 
+                  simulated environment. The agent perceives its surroundings through images 
+                  generated by World Manager and output trajectories; then these trajectories are 
+                  fed into Traffic Manager, achieving realistic interactions with other vehicles and 
+                  producing a new scene layout. Finally, the latest scene layout is relayed back 
+                  into World Manager, perpetuating the simulation cycle. This iterative process fosters 
+                  closed-loop exploration within a highly realistic environment, providing a valuable 
+                  platform for developing and evaluating driving agents across diverse and challenging 
+                  scenarios. DriveArena signifies a substantial leap forward in leveraging generative image 
+                  data for the driving simulation platform, opening insights for closed-loop autonomous 
+                  driving.
+
+                </span>
+              </b>
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- End paper abstract -->
+
+
+
+  <section class="section" id="Architecture">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title">DriveArena Architecture</h2>
+          <div class="hero-body">
+            <center>
+              <embed type="image/png" src="static/images/pipeline_2.png" width="85%" />
+            </center>
+            <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+              The framework of our proposed DriveArena consists of two key components: 
+              a <b>Traffic Manager</b> functioning as the backend physical engine and 
+              a <b>World Dreamer</b> serving as the real-world image renderer. 
+              Unlike conventional approaches, our DriveArena does not rely on pre-built digital
+              assets or reconstructed 3D road models. Instead, the <b>Traffic Manager</b> adapts to road 
+              networks of any city in OpenStreetMap (OSM) format, which can be directly downloaded from the 
+              internet. This flexibility enables closed-loop traffic simulations on diverse urban layouts.
+            </h2>
+            <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+              The<b> Traffic Manager</b> in DriveArena receives ego trajectories output by
+              the autonomous driving agent and manages the movement of all background vehicles. It
+              utilizes explicit traffic flow generation algorithms and enables the generation of a wider range of uncom-
+              mon and potentially unsafe traffic scenarios, while also facilitating real-time collision detection between vehicles.
+            </h2>
+            <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+              The<b> World Dreamer</b> in DriveArena generates realistic camera images that
+              precisely correspond to the Traffic Manager's output. It
+              also allows for user-defined prompts to control various elements of the generated images, such as street view style,
+              time of day, and weather conditions, enhancing the diversity
+              of the generated scenes. Specifically, it employs a diffusion-based
+              model that utilizes the current map and vehicle layouts as control 
+              conditions to produce surround-view images with cross-view and temporal consistency. 
+            </h2>
+            
+            <!-- <center>
+              <embed type="image/png" src="static/images/maps.png" width="100%" />
+            </center> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section hero is-small is-light">
+    <!-- <div class="hero-body"> -->
+      <div class="container">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title">Generation Results based on nuScenes Data</h2>
+            <div class="hero-body">
+              <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+                The videos below present generation results using different text prompts on the same road network. 
+                The layout conditions are projected onto the surrounding images. 
+                The four sets of videos and text prompts exhibit significant differences in weather
+                and lighting and can maintain their own styles during the continuous iteration process. 
+                Each image illustrates that the road structure and vehicles strictly adhere to the given 
+                control conditions while maintaining excellent consistency in the surrounding view.
+              </h2>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="video-container">
+        <!-- <video autoplay muted loop> -->
+        <video class="sync-video" muted loop>
+          <source src="static/videos/sunny.mp4" type="video/mp4">
+        </video>
+        <span class="video-caption">"daytime, sunny, downtown, red buildings, cars......"</span>
+      </div>
+      <div class="video-container">
+        <!-- <video autoplay muted loop> -->
+        <video class="sync-video" muted loop>
+          <source src="static/videos/rainy.mp4" type="video/mp4">
+        </video>
+        <span class="video-caption">"daytime, rainy, suburban, low buildings, wet surface......“</span>
+      </div>
+      <div class="video-container">
+        <!-- <video autoplay muted loop> -->
+        <video class="sync-video" muted loop>
+          <source src="static/videos/cloudy.mp4" type="video/mp4">
+        </video>
+        <span class="video-caption">"daytime, cloudy, nature, green trees....."</span>
+      </div>
+      <div class="video-container">
+        <!-- <video autoplay muted loop> -->
+        <video class="sync-video" muted loop>
+          <source src="static/videos/night.mp4" type="video/mp4">
+        </video>
+        <span class="video-caption">"night, clear, suburban, streetlights......"</span>
+      </div>
+  </section>
+  
+
+  <!-- Image carousel -->
+  <section class="section hero is-small">
+    <!-- <div class="hero-body"> -->
+      <div class="container">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title">Generation Results Using Different Road Networks as Input</h2>
+            <!-- </div> -->
+            <div class="hero-body">
+
+              <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+                We randomly select one frame of images from the nuScenes dataset as reference images, 
+                and choose three scenes from OSM and Carla. The inference are performed on them with DriveArena respectively. 
+                As demonstrated below, the generated vehicles and road networks conform closely to control conditions, demonstrating strong 
+                control capabilities. The style and weather of the generated pictures can also be consistent with the reference images.
+              </h2>
+              <center>
+                <img src="static/images/ref-images.png" alt="MY ALT TEXT" width="70%" />
+              </center>
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="item">
+                  <!-- Your image here -->
+                  <center>
+                    <img src="static/images/scene1.png" alt="MY ALT TEXT" width="95%" />
+                  </center>
+                  <h2 class="subtitle has-text-centered">
+                    A generated scene based on a randomly selected OSM roadmap.
+                  </h2>
+                </div>
+                <div class="item">
+                  <!-- Your image here -->
+                  <center>
+                    <img src="static/images/scene2.png" alt="MY ALT TEXT" width="95%" />
+                  </center>
+                  <h2 class="subtitle has-text-centered">
+                    A generated scene based on a randomly selected OSM roadmap.
+                  </h2>
+                </div>
+                <div class="item">
+                  <!-- Your image here -->
+                  <center>
+                    <img src="static/images/scene3.png" alt="MY ALT TEXT" width="95%" />
+                  </center>
+                  <h2 class="subtitle has-text-centered">
+                    A generated scene based on a randomly selected CARLA roadmap.
+                  </h2>
+                </div>
+              </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+  </section>
+  <!-- End image carousel -->
+
+  <!-- Image carousel -->
+  <section class="section hero is-small is-light">
+      <div class="container">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title">Generation Results Based on nuPlan Roadmaps</h2>
+            <div class="hero-body">
+              <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+                We also performed the inference directly on nuPlan dataset with World Dreamer to validate the scalability. 
+                World Dreamer is fully trained on nuScenes dataset. The nuPlan data, on the other hand, originates from cities different from nuScenes 
+                and features varying camera numbers and parameters.
+                We select 6 cameras with a similar layout to the nuScenes dataset, and nuPlan's camera parameters are employed 
+                to project object boxes and lane lines onto corresponding images as control conditions. As shown below, World Dreamer adheres 
+                well to these conditions and generated coherent images when deployed in new cities and even with novel camera configurations.
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <center>
+              <img src="static/images/nuplan_boston.png" alt="MY ALT TEXT" width="105%" />
+            </center>
+          </div>
+          <div class="item">
+            <center>
+              <img src="static/images/nuplan_pittsburgh.png" alt="MY ALT TEXT" width="105%" />
+            </center>
+          </div>
+          <div class="item">
+            <center>
+              <img src="static/images/nuplan_lasvegas.png" alt="MY ALT TEXT" width="105%" />
+            </center>
+          </div>
+
+        </div>
+        <h2 class="subtitle has-text-centered">
+          Zero-shot inference on nuPlan data.
+        </h2>
+      </div>
+  </section>
+  <!-- End image carousel -->
+
+
+  <!-- Image carousel -->
+  <section class="section hero is-small">
+    <!-- <div class="hero-body"> -->
+      <div class="container">
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title">Comparison with MagicDrive on CARLA Road Networks</h2>
+            <div class="hero-body">
+              <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+                We used both MagicDrive and our World Dreamer
+                to generate realistic images on the same Carla road network, which road style 
+                differs significantly from that of nuScenes. 
+                Consequently, the performance of MagicDrive, is slightly inferior in
+                these conditions. As indicated by the yellow arrow, MagicDrive
+                struggles with generating curved roads and fitting
+                wide roads accurately. DriveArena, however, can produce 
+                reasonable pictures that follow the road structure.
+              </h2>
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="item">
+                  <center>
+                    <img src="static/images/magicdrive_comp1.png" alt="MY ALT TEXT" width="85%" />
+                  </center>
+                  <h2 class="subtitle has-text-centered">
+                    <!-- A generated scene with the text prompt "daytime, sunny, downtown, red buildings, cars......". -->
+                  </h2>
+                </div>
+                <div class="item">
+                  <!-- Your image here -->
+                  <center>
+                    <img src="static/images/magicdrive_comp2.png" alt="MY ALT TEXT" width="85%" />
+                  </center>
+                  <h2 class="subtitle has-text-centered">
+                    <!-- A generated scene with the text prompt "daytime, rainy, suburban, low buildings, wet surface......". -->
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+  </section>
+  <!-- End image carousel -->
+
+   <!-- Image carousel -->
+   <section class="section hero is-small is-light">
+    <!-- <div class="hero-body"> -->
+      <div class="container">
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title">Closed-Loop Driving in Simulation</h2>
+            <div class="hero-body">
+              <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+                End-to-end vehicle control algorithms, such as <a href="https://github.com/OpenDriveLab/UniAD" style="color: rgb(32, 100, 210);">UniAD</a>, 
+                <a href="https://github.com/westlake-autolab/FusionAD" style="color: rgb(32, 100, 210);">FusionAD</a> and <a href="https://github.com/PJLab-ADG/DriveLikeAHuman" style="color: rgb(32, 100, 210);">Drive Like A Human</a>, 
+                are typically trained 
+                and evaluated on open-loop datasets. However, these algorithms lack the capability 
+                to generalize directly to simulators for closed-loop evaluation, which hinders the demonstration of their true 
+                performance potential. Therefore, we deploy UniAD with DriveArena to examine its true driving ability in closed-loop simulation.
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div class="video-container">
+          <video autoplay muted loop>
+            <source src="static/videos/uniad_closed_loop.mp4" type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Performance of UniAD in a closed-loop simulation with DriveArena.
+          </h2>
+        </div>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <!-- Your image here -->
+            <center>
+              <img src="static/images/failure_case1.png" alt="MY ALT TEXT" width="70%" />
+            </center>
+            
+          </div>
+          <div class="item">
+            <!-- Your image here -->
+            <center>
+              <img src="static/images/failure_case2.png" alt="MY ALT TEXT" width="70%" />
+            </center>
+            <h2 class="subtitle has-text-centered">
+              <!-- A generated scene with the text prompt "daytime, rainy, suburban, low buildings, wet surface......". -->
+            </h2>
+          </div>
+          <div class="item">
+            <!-- Your image here -->
+            <center>
+              <img src="static/images/failure_case3.png" alt="MY ALT TEXT" width="70%" />
+            </center>
+            <h2 class="subtitle has-text-centered">
+              <!-- A generated scene with the text prompt "daytime, rainy, suburban, low buildings, wet surface......". -->
+            </h2>
+          </div>
+        </div>
+        <h2 class="subtitle has-text-centered">
+          Corner cases generated through planning failures of UniAD in the closed-loop simulation.
+        </h2>
+      </div>
+    <!-- </div> -->
+  </section>
+  <!-- End image carousel -->
+
+  <section class="section hero is-small">
+    <!-- <div class="hero-body"> -->
+      <div class="container">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <!-- <h2 class="title">COMING SOON</h2> -->
+            <h2 class="title">
+              Infinite Multi-View Video Generation
+            </h2>
+            
+            <!-- </div> -->
+            <div class="publication-links">
+              <!-- Arxiv PDF link -->
+              <span class="link-block">
+                <a href=" " target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <!-- ArXiv abstract Link -->
+              <span class="link-block">
+                <a href="" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- ArXiv abstract Link -->
+              <span class="link-block">
+                <a href="" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <br>
+              <div class="hero-body">
+                <h2 class="subtitle has-text-centered">
+                  <b>COMING SOON...</b>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="video-container">
+        <video autoplay muted loop>
+          <source src="static/videos/multi_frame_4.mp4" type="video/mp4">
+        </video>
+        <!-- <span class="video-caption">"night, clear, suburban, streetlights......"</span> -->
+      </div>
+      <div class="video-container">
+        <video autoplay muted loop>
+          <source src="static/videos/multi_frame_3.mp4" type="video/mp4">
+        </video>
+        <!-- <span class="video-caption">"daytime, cloudy, nature, green trees....."</span> -->
+      </div>
+      <div class="video-container">
+        <video autoplay muted loop>
+          <source src="static/videos/multi_frame_1.mp4" type="video/mp4">
+        </video>
+        <!-- <span class="video-caption">"daytime, sunny, downtown, red buildings, cars......"</span> -->
+      </div>
+      <div class="video-container">
+        <video autoplay muted loop>
+          <source src="static/videos/multi_frame_2.mp4" type="video/mp4">
+        </video>
+        <!-- <span class="video-caption">"daytime, rainy, suburban, low buildings, wet surface......“</span> -->
+      </div>
+      
+  </section>
+
+  <!-- Videos should be placed here. -->
+
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <div style="position: relative;">
+        <button id="copyButton" style="position: absolute; top: 0; right: 0;">Copy</button>
+        <pre><code id="bibtexCode">@article{anonymous2024drivearena,
+    title={A Controllable Generative Simulation Platform for Autonomous Driving}, 
+    author={Anonymous},
+    year={2024},
+}
+      </code></pre>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    var copyButton = document.getElementById("copyButton");
+
+    copyButton.addEventListener("click", function () {
+      var codeElement = document.getElementById("bibtexCode");
+      var textToCopy = codeElement.textContent;
+
+      var textarea = document.createElement("textarea");
+      textarea.value = textToCopy;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+
+      copyButton.textContent = "✓ Copied!";
+
+      setTimeout(function () {
+        copyButton.textContent = "Copy";
+      }, 2000); // Reset the button text after 2 seconds (adjust as needed)
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var syncVideos = document.querySelectorAll('.sync-video'); // Select only videos with the 'sync-video' class
+        var loaded = 0;
+
+        syncVideos.forEach(function(video) {
+            video.addEventListener('canplay', function() {
+                loaded++;
+                if (loaded === syncVideos.length) {
+                    syncVideos.forEach(function(v) {
+                        v.play(); // Play only the synchronized videos
+                    });
+                }
+            });
+        });
+    });
+</script>
+  <!--End BibTex citation -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p style="text-align: center;"><i class="fa-solid fa-heart fa-beat-fade" style="color: #ff8787;"></i>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> <i class="fa-solid fa-heart fa-beat-fade" style="color: #ff8787;"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
