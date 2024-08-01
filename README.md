@@ -71,7 +71,7 @@ The DriveArena is pretrained on nuScenes dataset. All kinds of vision-based driv
 
 Our implementation is based on:
 * [LimSim++](https://github.com/PJLab-ADG/LimSim/tree/LimSim_plus)
-* [Magicdrive](https://github.com/cure-lab/MagicDrive)
+* [MagicDrive](https://github.com/cure-lab/MagicDrive)
 * [UniAD](https://github.com/OpenDriveLab/UniAD)
 
 Thanks for their Awesome open-source work!
