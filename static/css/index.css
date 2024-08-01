@@ -1,5 +1,5 @@
 body {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Google Sans', sans-serif;
 }
 
 
@@ -46,21 +46,21 @@ body {
 }
 
 .publication-title {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Google Sans', sans-serif;
     font-weight: bold;
     /* background-color: rgba(255, 255, 255, 0.5); */
 }
 
 .title {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Google Sans', sans-serif;
     font-weight: bold;
 
     /* background-color: rgba(255, 255, 255, 0.5); */
 }
 
 .content {
-  font-family: 'Noto Sans', sans-serif;
-
+  font-family: 'Google Sans', sans-serif;
+  line-height: 1.5;
 }
 
 .publication-authors {
@@ -160,6 +160,8 @@ body {
 
 .subtitle {
   text-align: center; /* Keeps the subtitle centered */
+  font-size: 22px;
+  line-height: 1.3;
 }
 
 .video-container {
