@@ -70,7 +70,7 @@ The <b>DriveArena</b> is pretrained on nuScenes dataset. All kinds of vision-bas
     - [ ]  UniAD
     - [ ]  VAD
     - [ ]  LeapAD
-- [ ]  Video AutoRegression Dreamer
+- [ ]  Video Autoregression Dreamer
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
