@@ -6,25 +6,27 @@
   <img src="docs/github-logo.png" alt="Logo" width="550px">
   <br>
   <a href="https://pjlab-adg.github.io/DriveArena/">
-    <img src="https://img.shields.io/badge/Project-Page-green" alt="Project Page" style="height:25px;">
+    <img src="https://img.shields.io/badge/Project-Page-green" alt="Project Page" style="height:20px;">
   </a>
-  <a href="your-link-to-arxiv-paper">
-    <img src="https://img.shields.io/badge/arXiv-Paper-red" alt="arXiv Paper" style="height:25px;">
+  <a href="">
+    <img src="https://img.shields.io/badge/arXiv-Paper-red" alt="arXiv Paper" style="height:20px;">
   </a>
-  <br>
+  <hr>
   <img src="docs/boston_thomas_park.gif" style="width: 800px; display: block; margin: 0;" />
   <img src="docs/singapore.gif" style="width: 800px; display: block; margin: 0;" />
   <img src="docs/boston.gif" style="width: 800px; display: block; margin: 0;" />
   <br>
 
   <p align="left">
-    This is the official project repository of the paper <b> DRIVEARENA: A Controllable Generative Simulation Platform for Autonomous Driving </b> and is mainly used for releasing schedules, updating instructions, sharing model weights, and handling issues. 
+    This is the official project repository of the paper <b> DriveArena: A Controllable Generative Simulation Platform for Autonomous Driving </b> and is mainly used for releasing schedules, updating instructions, sharing model weights, and handling issues. 
   </p>
 </div>
 
 ------
 ### 💡 Notice
-DriveArena is currently under active development. If you want to get informed about our newest updates, please fill out this <a href="https://forms.gle/AYtQdiZEvCTr2T56A">Google form</a>.
+DriveArena is currently under active development and will be open sourced soon. 
+
+**If you want to get informed once the code released, please fill out this <a href="https://forms.gle/AYtQdiZEvCTr2T56A">Google form</a>.**
 
 ### :new: Updates
 `[2024-07-30]:` We've released the project page of DriveArena!  
