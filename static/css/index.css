@@ -177,15 +177,17 @@ body {
 
 .video-container {
   position: relative;
-  width: 70%;
+  width: 100%;
   height: auto;  /* Height should be set to 0 if using padding-top for aspect ratio */
   overflow: hidden;
+  align-items: center;
 }
 
 .video-container video {
-  width: 100%;
+  width: 70%;
   height: auto;
   display: block;
+  margin: 0 auto;
 }
 
 .video-caption {
@@ -207,6 +209,8 @@ body {
   font-size: 28px;
   font-weight: bold;
   pointer-events: none; /* Allows clicks to pass through to the video */
+  width: 70%;
+  margin: 0 auto;
 }
 
 .fullscreen-bg {
