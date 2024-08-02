@@ -60,7 +60,7 @@ The <b>DriveArena</b> is pretrained on nuScenes dataset. All kinds of vision-bas
 
 ## 🏁 Leaderboard of Driving Agents
 
-We provide a leaderboard to present the driving performance evaluation of driving agents with our simulation plattform. For the explantation of each evaluation metric, please check out our [paper]( ).
+We provide a leaderboard to present the driving performance evaluation of driving agents with our simulation platform. For the explanation of each evaluation metric, please check out our [paper]( ).
 
 ### 1. Open-loop Evaluation Leaderboard
 
