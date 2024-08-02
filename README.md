@@ -8,7 +8,7 @@
   <a href="https://pjlab-adg.github.io/DriveArena/">
     <img src="https://img.shields.io/badge/Project-Page-green" alt="Project Page" style="height:20px;">
   </a>
-  <a href="">
+  <a href="https://arxiv.org/abs/2408.00415">
     <img src="https://img.shields.io/badge/arXiv-Paper-red" alt="arXiv Paper" style="height:20px;">
   </a>
   <hr>
@@ -30,11 +30,12 @@
 
 ------
 ### 💡 Notice
-DriveArena is currently under active development and will be open-sourced soon. 
+DriveArena V1.0 is currently under active development and will be open-sourced soon. 
 
 **If you want to get informed once the code is released, please fill out this <a href="https://forms.gle/AYtQdiZEvCTr2T56A">Google form</a>.**
 
 ### :new: Updates
+`[2024-08-02]:` The paper is  can be accessed at [arxiv](https://arxiv.org/abs/2408.00415).
 `[2024-07-30]:` We've released the [project page](https://pjlab-adg.github.io/DriveArena/) of DriveArena!  
 
 ------
@@ -94,7 +95,12 @@ Distributed under the [Apache 2.0 license](./LICENSE).
 If you find our paper and codes useful, please kindly cite us via:
 
 ```bibtex
-
+@article{yang2024drivearena,
+    title={DriveArena: A Closed-loop Generative Simulation Platform for Autonomous Driving}, 
+    author={Xuemeng Yang and Licheng Wen and Yukai Ma and Jianbiao Mei and Xin Li and Tiantian Wei and Wenjie Lei and Daocheng Fu and Pinlong Cai and Min Dou and Botian Shi and Liang He and Yong Liu and Yu Qiao},
+    journal={arXiv preprint arXiv:2408.00415},
+    year={2024}
+}
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
