@@ -35,7 +35,7 @@ DriveArena is currently under active development and will be open-sourced soon.
 **If you want to get informed once the code is released, please fill out this <a href="https://forms.gle/AYtQdiZEvCTr2T56A">Google form</a>.**
 
 ### :new: Updates
-`[2024-07-30]:` We've released the [project page](https://pjlab-adg.github.io/DriveArena/) of DriveArena!  
+`[2024-07-31]:` We've released the [project page](https://pjlab-adg.github.io/DriveArena/) of DriveArena!  
 
 ------
 
@@ -54,6 +54,96 @@ DriveArena is currently under active development and will be open-sourced soon.
 </div>
 
 The <b>DriveArena</b> is pretrained on nuScenes dataset. All kinds of vision-based driving agents, such as UniAD and VAD, can be combined with <b>DriveArena</b> to evaluate their actual driving performance in closed-loop realistic simulation environments.
+
+## 🏁 Leaderboard of Driving Agents
+
+We provide a leaderboard to present the driving performance evaluation of driving agents with our simulation plattform. For the explantation of each evaluation metric, please check out our [paper]( ).
+
+### 1. Open-loop Evaluation Leaderboard
+
+<table>
+    <tr style="background-color: #C7C7C7; color: white;">
+        <th>Driving Agent</th>
+        <th>Simulation Environment</th>
+        <th>NC</th>
+        <th>DAC</th>
+        <th>EP</th>
+        <th>TTC</th>
+        <th>C</th>
+        <th>PDMS</th>
+    </tr>
+    <tr>
+        <td>Human</td>
+        <td>Nuscenes GT</td>
+        <td>1.000±0.00</td>
+        <td>1.000±0.00</td>
+        <td>1.000±0.00</td>
+        <td>0.979±0.12</td>
+        <td>0.752±0.17</td>
+        <td>0.950±0.06</td>
+    </tr>
+    <tr>
+        <td>UniAD</td>
+        <td>nuScenes original</td>
+        <td>0.993±0.03</td>
+        <td>0.995±0.01</td>
+        <td>0.914±0.05</td>
+        <td>0.947±0.14</td>
+        <td>0.848±0.21</td>
+        <td>0.910±0.09</td>
+    </tr>
+    <tr>
+        <td>UniAD</td>
+        <td>DriveArena</td>
+        <td>0.792±0.11</td>
+        <td>0.942±0.04</td>
+        <td>0.738±0.11</td>
+        <td>0.771±0.12</td>
+        <td>0.749±0.16</td>
+        <td>0.636±0.08</td>
+    </tr>
+</table>
+
+### 2. Closed-loop Evaluation Leaderboard with DriveArena
+
+<table>
+    <tr style="background-color: #C7C7C7; color: white;">
+        <th>Driving Agent</th>
+        <th>Route</th>
+        <th>PDMS</th>
+        <th>RC</th>
+        <th>ADS</th>
+    </tr>
+    <tr>
+        <td>UniAD</td>
+        <td>sing_route_1</td>
+        <td>0.7615</td>
+        <td>0.1684</td>
+        <td>0.1684</td>
+    </tr>
+    <tr>
+        <td>UniAD</td>
+        <td>sing_route_2</td>
+        <td>0.7215</td>
+        <td>0.169</td>
+        <td>0.0875</td>
+    </tr>
+    <tr>
+        <td>UniAD</td>
+        <td>boston_route_1</td>
+        <td>0.4952</td>
+        <td>0.091</td>
+        <td>0.0450</td>
+    </tr>
+    <tr>
+        <td>UniAD</td>
+        <td>boston_route_2</td>
+        <td>0.6888</td>
+        <td>0.121</td>
+        <td>0.0835</td>
+    </tr>
+</table>
+
 
 <!-- ROADMAP -->
 ## 📌 Roadmap
