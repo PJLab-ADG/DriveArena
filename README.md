@@ -35,7 +35,8 @@ DriveArena V1.0 is currently under active development and will be open-sourced s
 **If you want to get informed once the code is released, please fill out this <a href="https://forms.gle/AYtQdiZEvCTr2T56A">Google form</a>.**
 
 ### :new: Updates
-`[2024-08-02]:` The paper is  can be accessed at [arxiv](https://arxiv.org/abs/2408.00415).
+`[2024-08-02]:` The paper can be accessed at [arxiv](https://arxiv.org/abs/2408.00415).
+
 `[2024-07-30]:` We've released the [project page](https://pjlab-adg.github.io/DriveArena/) of DriveArena!  
 
 ------
