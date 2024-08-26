@@ -35,8 +35,8 @@ def main(args):
     input_dir = os.path.join(args.output_dir, 'imgs')
     
     file_types = [
-        ('diffusion_', '.jpg'),
         ('bev_', '.png'),
+        ('diffusion_', '.jpg'),
         ('agent_', '.jpg')
     ]
     
