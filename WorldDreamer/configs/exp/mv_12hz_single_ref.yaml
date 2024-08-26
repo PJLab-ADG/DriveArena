@@ -1,0 +1,11 @@
+defaults:
+  - /dataset/Nuscenes_single_ref
+  - /model/SDv1.5_mv_single_ref
+  - _self_
+
+task_id: 224x400_mv_single_ref
+runner:
+  validation_batch_size: 1
+  validation_index: [0, 100, 200, 300, 400, 500, 600, 700, 899, 1828, 3090]
+  enable_xformers_memory_efficient_attention: true
+  save_model_per_epoch: 1

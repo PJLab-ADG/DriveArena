@@ -1,0 +1,28 @@
+# Server Configuration
+servers:
+  diffusion: "http://127.0.0.1:11000/"
+  driver: "http://127.0.0.1:11001/"
+
+# Simulation Configuration
+simulation:
+  ego_id: '283'
+  step_length: 0.1
+  gui_display: true
+  max_sim_time: 100.0
+
+# Map Configuration
+map:
+  name: 'boston-seaport'
+  sumo_cfg_file: "networkFiles/{map_name}/osm.sumocfg"
+  sumo_net_file: "networkFiles/{map_name}/osm.net.xml"
+  sumo_rou_file: "networkFiles/{map_name}/osm.rou.xml"
+
+# Data Configuration
+data:
+  template_path: "data/data_template.pth"
+  nu_scenes_root: "networkFiles/{map_name}/"
+
+# Image Configuration
+image:
+  size: 200
+  target_size: [560, 315]
