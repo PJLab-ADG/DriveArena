@@ -1,13 +1,11 @@
 dataset_type_nuscenes: NuScenesDataset
 dataset_root_nuscenes: /cpfs01/shared/public/ADLab/datasets/nuscenes
-dataset_process_root_nuscenes: data/nuscenes_mmdet3d-12Hz_description/
-dataset_cache_file_tag_nuscenes: 8x200x200_12Hz_interp
-dataset_cache_dirname_nuscenes: nuscenes_map_aux_12Hz_interp
+dataset_process_root_nuscenes: data/nuscenes_mmdet3d-t-keyframes/
+dataset_cache_file_tag_nuscenes: null
+dataset_cache_dirname_nuscenes: null
 dataset_cache_file_nuscenes:
-  # - null  # for train_pipeline
-  # - null  # for test_pipeline
-  - ${..dataset_process_root_nuscenes}../${..dataset_cache_dirname_nuscenes}/train_${..dataset_cache_file_tag_nuscenes}.h5
-  - ${..dataset_process_root_nuscenes}../${..dataset_cache_dirname_nuscenes}/val_${..dataset_cache_file_tag_nuscenes}.h5
+  - null  # for train_pipeline
+  - null  # for test_pipeline
 
 template: A driving scene image at {location}. {description}.
 collect_meta_keys:  # send to DataContainer
@@ -140,13 +138,13 @@ train_pipeline_nuscenes:
     type: ObjectNameFilter  # this removes -1, do not really filter by names
     classes: ${...object_classes}
   -
-    type: LoadBEVSegmentation
+    type: LoadBEVSegmentationS
     dataset_root: ${...dataset_root_nuscenes}
     xbound: ${...map_bound.x}
     ybound: ${...map_bound.y}
     classes: ${...map_classes}
-    object_classes: ${...object_classes}
-    aux_data: ${...aux_data}
+    # object_classes: ${...object_classes}
+    # aux_data: ${...aux_data}
     cache_file: ${...dataset_cache_file_nuscenes.0}
   - 
     type: RandomFlip3DwithViews
@@ -178,7 +176,6 @@ train_pipeline_nuscenes:
       - gt_bboxes_3d
       - gt_labels_3d
       - gt_masks_bev
-      - gt_aux_bev
     meta_keys: ${...collect_meta_keys}
     meta_lis_keys: ${...collect_meta_lis_keys}
 
@@ -209,13 +206,13 @@ test_pipeline_nuscenes:
     type: ObjectNameFilter
     classes: ${...object_classes}
   -
-    type: LoadBEVSegmentation
+    type: LoadBEVSegmentationS
     dataset_root: ${...dataset_root_nuscenes}
     xbound: ${...map_bound.x}
     ybound: ${...map_bound.y}
     classes: ${...map_classes}
-    object_classes: ${...object_classes}
-    aux_data: ${...aux_data}
+    # object_classes: ${...object_classes}
+    # aux_data: ${...aux_data}
     cache_file: ${...dataset_cache_file_nuscenes.1}
   # -
   #   type: PointsRangeFilter
@@ -239,7 +236,6 @@ test_pipeline_nuscenes:
       - gt_bboxes_3d
       - gt_labels_3d
       - gt_masks_bev
-      - gt_aux_bev
     meta_keys: ${...collect_meta_keys}
     meta_lis_keys: ${...collect_meta_lis_keys}
 
