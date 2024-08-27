@@ -478,9 +478,9 @@ class ScoreCalculator:
                     total in totals.items()}
 
         # write to csv
-        with open('pdms_data.csv', 'a', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(averages.values())
+        # with open('pdms_data.csv', 'a', newline='') as csvfile:
+        #     writer = csv.writer(csvfile)
+        #     writer.writerow(averages.values())
 
         print(averages)
         mean_score = averages['pdms']
@@ -551,10 +551,10 @@ def main(data):
 if __name__ == "__main__":
     # Check if a file name is provided as a command-line argument
     if len(sys.argv) > 1:
-        file_name = sys.argv[1]
+        file_name = sys.argv[1]+"/drive_arena.pkl"
     else:
         # Default file name if no argument is provided
-        file_name = "./results/08-23-150733/"+"drive_arena.pkl"
+        file_name = "./results/mm-dd-hhmmss/"+"drive_arena.pkl"
         # file_name = "gen_pdms_data.pkl"
     
     # Print the file name being used

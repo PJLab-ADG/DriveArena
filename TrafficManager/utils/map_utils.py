@@ -32,7 +32,7 @@ from nuscenes.map_expansion.arcline_path_utils import discretize_lane, ArcLinePa
 from nuscenes.map_expansion.bitmap import BitMap
 from nuscenes.eval.common.utils import quaternion_yaw, Quaternion
 from mmdet3d.core.bbox import LiDARInstance3DBoxes
-from traffic_manager.utils.map_api import NuScenesMap, NuScenesMapExplorer
+from TrafficManager.utils.map_api import NuScenesMap, NuScenesMapExplorer
 # Recommended style to use as the plots will show grids.
 plt.style.use('seaborn-whitegrid')
 
