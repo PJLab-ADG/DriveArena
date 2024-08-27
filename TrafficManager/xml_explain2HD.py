@@ -1,3 +1,4 @@
+import argparse
 import xml.etree.ElementTree as ET
 import json
 import math
@@ -16,12 +17,12 @@ nusc_map = {
     "node": [],
     "drivable_area": [],
     "ped_crossing": [],
-    "walkway":[],
-    "stop_line":[],
-    "carpark_area":[],
-    "road_divider":[],
-    "lane_divider":[],
-    "traffic_light":[],
+    "walkway": [],
+    "stop_line": [],
+    "carpark_area": [],
+    "road_divider": [],
+    "lane_divider": [],
+    "traffic_light": [],
     "canvas_edge": [
         12084.51,
         5318.44
@@ -54,6 +55,7 @@ class Edge:
         lane_divider: List[[node_token]]
         road_divider: [node_token]
     """
+
     def __init__(self, id: str, left_bound: list, right_bound: list, lane_divider: List[list], road_divider: list = []):
         self.id = id
         self.left_bound = left_bound
@@ -67,6 +69,7 @@ class Edge:
     def __repr__(self) -> str:
         return self.id
 
+
 class NormalLine:
     """ 根据lane的中心线计算左右边界，用于绘制polygon
         id: lane id
@@ -77,12 +80,13 @@ class NormalLine:
         left_bound: list[list[float]]， [[x1, y1], [x2, y2], ...]
         right_bound: list[list[float]]
     """
+
     def __init__(self, lane: ET.Element, lane_width: float = 3.2):
-        self.lane_width = abs(float(lane.attrib["width"])) if "width" in lane.attrib else lane_width
+        self.lane_width = abs(
+            float(lane.attrib["width"])) if "width" in lane.attrib else lane_width
         self.id = lane.attrib["id"]
         self.index = int(self.id.split("_")[-1])
 
-        
         # get center line
         shape = lane.attrib["shape"].split(" ")
         self.center_x = []
@@ -90,20 +94,19 @@ class NormalLine:
         for i in range(len(shape)):
             self.center_x.append(float(shape[i].split(",")[0]))
             self.center_y.append(float(shape[i].split(",")[1]))
-        
 
         # interpolate shape points for better represent shape
         self.center_x = np.interp(
-                np.linspace(0, len(self.center_x)-1, 50),
-                np.arange(0, len(self.center_x)),
-                self.center_x
-            )
+            np.linspace(0, len(self.center_x)-1, 50),
+            np.arange(0, len(self.center_x)),
+            self.center_x
+        )
         self.center_y = np.interp(
-                np.linspace(0, len(self.center_y)-1, 50),
-                np.arange(0, len(self.center_y)),
-                self.center_y
-            )
-        
+            np.linspace(0, len(self.center_y)-1, 50),
+            np.arange(0, len(self.center_y)),
+            self.center_y
+        )
+
         self.course_spline = Spline2D(self.center_x, self.center_y)
         self.getPlotElem()
 
@@ -118,8 +121,8 @@ class NormalLine:
         self.right_bound = [
             self.course_spline.frenet_to_cartesian1D(si, -self.lane_width / 2) for si in s
         ]
-    
-    def get_bound_lane(self, bias: float)->list:
+
+    def get_bound_lane(self, bias: float) -> list:
         """已废弃，使用getPlotElem代替
 
         Args:
@@ -131,23 +134,29 @@ class NormalLine:
         position_list = []
         # 1. points translation
         for i in range(len(self.center_x)-1):
-            theta = math.atan2(self.center_y[i+1]-self.center_y[i], self.center_x[i+1]-self.center_x[i])
+            theta = math.atan2(
+                self.center_y[i+1]-self.center_y[i], self.center_x[i+1]-self.center_x[i])
             delta_y = round(bias*math.cos(math.pi-theta), 3)
             delta_x = round(bias*math.sin(math.pi-theta), 3)
             if i == 0:
-                position_list.append([self.center_x[i]+delta_x, self.center_y[i]+delta_y])
-                position_list.append([self.center_x[i+1]+delta_x, self.center_y[i+1]+delta_y])
+                position_list.append(
+                    [self.center_x[i]+delta_x, self.center_y[i]+delta_y])
+                position_list.append(
+                    [self.center_x[i+1]+delta_x, self.center_y[i+1]+delta_y])
             else:
                 # 对于每一段，计算与上一段的交点，从而形成连贯的边界
-                current_lane_p1 = [self.center_x[i]+delta_x, self.center_y[i]+delta_y]
-                current_lane_p2 = [self.center_x[i+1]+delta_x, self.center_y[i+1]+delta_y]
+                current_lane_p1 = [self.center_x[i] +
+                                   delta_x, self.center_y[i]+delta_y]
+                current_lane_p2 = [self.center_x[i+1] +
+                                   delta_x, self.center_y[i+1]+delta_y]
                 last_lane_p2 = position_list.pop()
-                intersection = self.calculate_intersection(position_list[-1], last_lane_p2, current_lane_p1, current_lane_p2)
+                intersection = self.calculate_intersection(
+                    position_list[-1], last_lane_p2, current_lane_p1, current_lane_p2)
                 position_list.extend([intersection, current_lane_p2])
-        
+
         return position_list
 
-    def calculate_intersection(self, lane1_p1:list, lane1_p2:list, lane2_p1:list, lane2_p2:list):
+    def calculate_intersection(self, lane1_p1: list, lane1_p2: list, lane2_p1: list, lane2_p2: list):
         """计算两条线段的交点
 
         Args:
@@ -160,18 +169,22 @@ class NormalLine:
             list: [x, y]
         """
         try:
-            t1 = round((lane2_p1[0]-lane1_p1[0])*(lane2_p2[1]-lane2_p1[1])-(lane2_p1[1]-lane1_p1[1])*(lane2_p2[0]-lane2_p1[0]), 3)
-            t1 /= round((lane1_p2[0]-lane1_p1[0])*(lane2_p2[1]-lane2_p1[1])-(lane1_p2[1]-lane1_p1[1])*(lane2_p2[0]-lane2_p1[0]), 3)
+            t1 = round((lane2_p1[0]-lane1_p1[0])*(lane2_p2[1]-lane2_p1[1]) -
+                       (lane2_p1[1]-lane1_p1[1])*(lane2_p2[0]-lane2_p1[0]), 3)
+            t1 /= round((lane1_p2[0]-lane1_p1[0])*(lane2_p2[1]-lane2_p1[1]) -
+                        (lane1_p2[1]-lane1_p1[1])*(lane2_p2[0]-lane2_p1[0]), 3)
             x = lane1_p1[0]+t1*(lane1_p2[0]-lane1_p1[0])
             y = lane1_p1[1]+t1*(lane1_p2[1]-lane1_p1[1])
         except:
             x = lane1_p2[0]
             y = lane1_p2[1]
         return [x, y]
-            
+
+
 LEFT = 1
 RIGHT = -1
-    
+
+
 class XML2JSON:
     """
         pipeline: 
@@ -184,6 +197,7 @@ class XML2JSON:
 
 
     """
+
     def __init__(self, xml_file: str):
         """初始化
 
@@ -192,12 +206,12 @@ class XML2JSON:
             rule (_type_, optional): 该地区是靠左还是靠右行驶. Defaults to RIGHT.
         """
         self.edges: Dict[str, Edge] = {}
-        self.junctionLanes: Dict[str, bool] = collections.defaultdict(lambda: False)
+        self.junctionLanes: Dict[str,
+                                 bool] = collections.defaultdict(lambda: False)
         self.stop_lines: List[NormalLine] = []
         self.walkways: List[NormalLine] = []
         self.crossings: List[NormalLine] = []
 
-        
         self.root = ET.parse(xml_file).getroot()
         self.min_x = 10e9
         self.min_y = 10e9
@@ -209,7 +223,7 @@ class XML2JSON:
         else:
             self.rule = RIGHT
 
-    def add_polygon(self, position_list: List[list])->str:
+    def add_polygon(self, position_list: List[list]) -> str:
         """在json中添加polygon
 
         Args:
@@ -228,11 +242,11 @@ class XML2JSON:
                 "y": point[1]
             })
             node_token_list.append(node_token)
-    
+
         # create polygon
         polygon_token = str(uuid.uuid4())
         nusc_map["polygon"].append({
-            "token":polygon_token,
+            "token": polygon_token,
             "exterior_node_tokens": node_token_list[::],
             "holes": list()
         })
@@ -244,7 +258,7 @@ class XML2JSON:
         self.min_x, self.min_y = np.min(np.array(position_list), axis=0)
 
         return polygon_token
-    
+
     def draw_road_segment_in_junction_area(self, position_list: List[list]):
         """绘制drivable_area，包括intersection和drivable_edge
 
@@ -252,7 +266,7 @@ class XML2JSON:
             poisition_list (List[list]): ploygon的点集
         """
         polygon_token = self.add_polygon(position_list)
-        
+
         # create drivable_area
         nusc_map["road_segment"].append({
             "token": str(uuid.uuid4()),
@@ -261,7 +275,7 @@ class XML2JSON:
             "drivable_area_token": ""
         })
         return
-    
+
     def draw_road_segment_in_edge(self, polygon_token: str):
         """绘制drivable_area，包括intersection和drivable_edge
 
@@ -276,7 +290,7 @@ class XML2JSON:
             "drivable_area_token": ""
         })
         return
-    
+
     def add_lane(self, polygon_token: str):
         nusc_map["lane"].append({
             "token": str(uuid.uuid4()),
@@ -288,7 +302,7 @@ class XML2JSON:
             "right_lane_divider_segments": []
         })
         return
-    
+
     def draw_line(self, line_list: List[list], line_type: str):
         """绘制line，包括road_divider和lane_divider
 
@@ -306,14 +320,14 @@ class XML2JSON:
                 "y": point[1]
             })
             node_token_list.append(node_token)
-    
+
         # create line
         line_token = str(uuid.uuid4())
         nusc_map["line"].append({
             "token": line_token,
             "node_tokens": node_token_list[::]
         })
-        
+
         # create type_line
         if line_type == "road_divider":
             nusc_map["road_divider"].append({
@@ -333,7 +347,7 @@ class XML2JSON:
         line_list.pop()
         line_list.append([self.min_x, self.min_y])
         self.min_x, self.min_y = np.min(np.array(line_list), axis=0)
-    
+
         return
 
     def draw_line2polygon(self):
@@ -351,7 +365,7 @@ class XML2JSON:
         #         "traffic_light_tokens": [],
         #         "road_block_token": None
         #     })
-        
+
         for walkway in self.walkways:
             bound = walkway.left_bound[::]
             bound.extend(walkway.right_bound[::-1])
@@ -361,7 +375,6 @@ class XML2JSON:
                 "token": walk_token,
                 "polygon_token": ploygon_token,
             })
-                
 
         for crossing in self.crossings:
             bound = crossing.left_bound[::]
@@ -399,20 +412,22 @@ class XML2JSON:
                     if left_point[0] == right_point[0] and left_point[1] == right_point[1]:
                         print("edge {} is not drivable".format(edge_id))
                         continue
-                    shape = str(left_point[0])+","+str(left_point[1])+" "+str(right_point[0])+","+str(right_point[1])
-                    stop_line = ET.Element('lane', attrib={'id': str(uuid.uuid4())+"_0", 'shape': shape, 'width': '0.8'})
+                    shape = str(left_point[0])+","+str(left_point[1]) + \
+                        " "+str(right_point[0])+","+str(right_point[1])
+                    stop_line = ET.Element('lane', attrib={'id': str(
+                        uuid.uuid4())+"_0", 'shape': shape, 'width': '0.8'})
                     self.stop_lines.append(NormalLine(stop_line))
-
 
         shape = junction.attrib["shape"].split(" ")
         position_list = []
         for i in range(len(shape)):
-            position_list.append([float(shape[i].split(",")[0]), float(shape[i].split(",")[1])])
+            position_list.append(
+                [float(shape[i].split(",")[0]), float(shape[i].split(",")[1])])
         alpha_shape = alphashape.alphashape(position_list, 0)
         if alpha_shape.geom_type == "Polygon":
             position_list = alpha_shape.exterior.coords[::]
         else:
-            return 
+            return
         if drivable:
             self.draw_road_segment_in_junction_area(position_list)
         else:
@@ -423,8 +438,7 @@ class XML2JSON:
                 "polygon_token": ploygon_token,
             })
 
-        return 
-
+        return
 
     def draw_edge(self):
         """ 从Edge中合并同一个大的Edge，增加road_divider
@@ -441,17 +455,19 @@ class XML2JSON:
                     incorporation_id.append(compare_edge_id)
                     self.edges[edge_id].road_divider = edge.left_bound[::]
                     self.edges[edge_id].left_bound = compare_edge.right_bound[::-1]
-                    self.edges[edge_id].lane_divider.extend(compare_edge.lane_divider[::])
+                    self.edges[edge_id].lane_divider.extend(
+                        compare_edge.lane_divider[::])
                     break
                 elif compare_edge.right_line.hausdorff_distance(edge.right_line) < 2.0:
                     incorporation_id.append(compare_edge_id)
                     self.edges[edge_id].road_divider = edge.right_bound[::]
                     self.edges[edge_id].right_bound = compare_edge.left_bound[::-1]
-                    self.edges[edge_id].lane_divider.extend(compare_edge.lane_divider[::])
+                    self.edges[edge_id].lane_divider.extend(
+                        compare_edge.lane_divider[::])
                     break
                 else:
                     continue
-        
+
         # 将合并过的另一半edge删除
         for edge_id in incorporation_id:
             self.edges.pop(edge_id)
@@ -468,9 +484,9 @@ class XML2JSON:
                 self.draw_line(lane_divider, "lane_divider")
             if edge.road_divider:
                 self.draw_line(edge.road_divider, "road_divider")
-        
-        return 
-        
+
+        return
+
     def get_edge(self, edge: ET.Element):
         lane_dict = {}
         for lane in edge.iter("lane"):
@@ -485,7 +501,6 @@ class XML2JSON:
                 if "all" not in lane.attrib["disallow"]:
                     drivable = True
 
-
             if not drivable:
                 if "allow" in lane.attrib and "pedestrian" in lane.attrib["allow"]:
                     self.walkways.append(NormalLine(lane))
@@ -493,7 +508,7 @@ class XML2JSON:
 
             current_lane = NormalLine(lane)
             lane_dict[current_lane.index] = current_lane
-        if(lane_dict):
+        if (lane_dict):
             key_list = sorted(lane_dict.keys())
             if self.rule == LEFT:
                 left_bound = lane_dict[key_list[0]].left_bound
@@ -512,7 +527,8 @@ class XML2JSON:
                 road_divider = right_bound[::]
             else:
                 road_divider = left_bound[::]
-            current_edge = Edge(edge.attrib["id"], left_bound, right_bound, lane_divider)
+            current_edge = Edge(
+                edge.attrib["id"], left_bound, right_bound, lane_divider)
             self.edges[edge.attrib["id"]] = current_edge
         return
 
@@ -537,22 +553,22 @@ class XML2JSON:
                         self.junctionLanes.update({lane.attrib["id"]: False})
                     else:
                         self.junctionLanes.update({lane.attrib["id"]: True})
-            
+
             # 处理edge
             else:
                 self.get_edge(edge)
-        
+
         # 处理junction
         for junction in self.root.iter("junction"):
             if junction.attrib["id"][0] != ":" and len(junction.attrib["shape"].split(" ")) > 2 and junction.attrib["incLanes"].strip() != "":
                 self.draw_junction(junction)
-        
+
         # 处理edge
         self.draw_edge()
         # 处理line
         self.draw_line2polygon()
         return
-    
+
     def save_json(self, file_path: str):
         # 处理max_x, max_y, min_x, min_y
         self.min_x = (self.min_x-10)//10*10
@@ -570,10 +586,28 @@ class XML2JSON:
         return
 
 
-if __name__ == "__main__":
-    map_name = "CarlaTown05" #"boston-thomaspark" #"singapore-onenorth"
-    root_dir = "networkFiles/"+map_name+"/"
-    networkFile = 'osm.net.xml'
-    xml2json = XML2JSON(root_dir+networkFile)
+def main():
+    parser = argparse.ArgumentParser(
+        description="Convert OSM network file to JSON")
+    parser.add_argument("--map_name",  type=str, required=True,
+                        help="Name of the map (e.g.,, 'boston-thomaspark', 'singapore-onenorth')")
+    parser.add_argument("--root_dir", default="./TrafficManager/networkFiles/",
+                        help="Root directory for network files")
+    parser.add_argument("--network_file", default="osm.net.xml",
+                        help="Name of the network file")
+
+    args = parser.parse_args()
+
+    root_dir = args.root_dir + "/" + args.map_name + "/"
+    input_file = root_dir + args.network_file
+    output_file = root_dir + args.map_name + '.json'
+
+    xml2json = XML2JSON(input_file)
     xml2json.get_data()
-    xml2json.save_json(root_dir+map_name+'.json')
+    xml2json.save_json(output_file)
+     
+    print(f"Successfully generate {output_file}.")
+
+
+if __name__ == "__main__":
+    main()

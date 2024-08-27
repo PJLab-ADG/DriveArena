@@ -3,13 +3,13 @@ import sys
 import math
 import requests
 import numpy as np
-from traffic_manager.utils.map_utils import VectorizedLocalMap, LiDARInstanceLines, to_tensor
+from TrafficManager.utils.map_utils import VectorizedLocalMap, LiDARInstanceLines, to_tensor
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
 # Add LimSim to sys.path
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "LimSim"))  # noqa
-from traffic_manager.utils.map_utils import VectorizedLocalMap
+from TrafficManager.utils.map_utils import VectorizedLocalMap
 from LimSim.utils.trajectory import Trajectory, State
 
 
