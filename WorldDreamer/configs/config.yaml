@@ -1,6 +1,6 @@
 defaults:
   - model: SDv1.5_mv_single_ref
-  - dataset: Nuscenes_single_ref
+  - dataset: Nuscenes_12hz
   - accelerator: default
   - runner: default
   - _self_
