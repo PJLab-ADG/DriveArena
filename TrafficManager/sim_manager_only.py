@@ -1,33 +1,45 @@
 import base64
-from datetime import datetime
 import io
 import json
+import math
 import os
 import sys
 import time
-import math
-from typing import Dict, List, Optional, Tuple
-import dearpygui.dearpygui as dpg
-from matplotlib import pyplot as plt
-import requests
-import numpy as np
-import torch
-import cv2
-from PIL import Image
+from datetime import datetime
 from io import BytesIO
+from typing import Dict, List, Optional, Tuple
+
+import cv2
+import dearpygui.dearpygui as dpg
+import numpy as np
+import requests
+import torch
 import yaml
+from matplotlib import pyplot as plt
+from PIL import Image
+
 # Add LimSim to sys.path
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "LimSim"))  # noqa
-from TrafficManager.utils.sim_utils import limsim2diffusion, normalize_angle, transform_to_ego_frame, interpolate_traj
+sys.path.append(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "LimSim")
+)  # noqa
+from TrafficManager.LimSim.simInfo.CustomExceptions import (
+    CollisionChecker,
+    OffRoadChecker,
+)
+from TrafficManager.LimSim.simModel.DataQueue import CameraImages
+from TrafficManager.LimSim.simModel.Model import Model
+from TrafficManager.LimSim.simModel.MPGUI import GUI
+from TrafficManager.LimSim.trafficManager.traffic_manager import TrafficManager
+from TrafficManager.LimSim.utils.trajectory import State, Trajectory
 from TrafficManager.utils.map_utils import VectorizedLocalMap
-from LimSim.utils.trajectory import Trajectory, State
-from LimSim.trafficManager.traffic_manager import TrafficManager
-from LimSim.simModel.MPGUI import GUI
-from LimSim.simModel.Model import Model
-from LimSim.simModel.DataQueue import CameraImages
 from TrafficManager.utils.matplot_render import MatplotlibRenderer
-from LimSim.simInfo.CustomExceptions import CollisionChecker, OffRoadChecker
 from TrafficManager.utils.scorer import Scorer
+from TrafficManager.utils.sim_utils import (
+    interpolate_traj,
+    limsim2diffusion,
+    normalize_angle,
+    transform_to_ego_frame,
+)
 
 
 class SimulationManager:
@@ -54,57 +66,80 @@ class SimulationManager:
 
     @staticmethod
     def load_config(config_path: str) -> Dict:
-        with open(config_path, 'r') as config_file:
+        with open(config_path, "r") as config_file:
             return yaml.safe_load(config_file)
 
     def setup_constants(self):
-        self.DIFFUSION_SERVER = self.config['servers']['diffusion']
-        self.DRIVER_SERVER = self.config['servers']['driver']
-        self.STEP_LENGTH = self.config['simulation']['step_length']
-        self.GUI_DISPLAY = self.config['simulation']['gui_display']
-        self.MAX_SIM_TIME = self.config['simulation']['max_sim_time']
-        self.EGO_ID = self.config['simulation']['ego_id']
-        self.MAP_NAME = self.config['map']['name']
-        self.IMAGE_SIZE = self.config['image']['size']
-        self.TARGET_SIZE = tuple(self.config['image']['target_size'])
+        self.DIFFUSION_SERVER = self.config["servers"]["diffusion"]
+        self.DRIVER_SERVER = self.config["servers"]["driver"]
+        self.STEP_LENGTH = self.config["simulation"]["step_length"]
+        self.GUI_DISPLAY = self.config["simulation"]["gui_display"]
+        self.MAX_SIM_TIME = self.config["simulation"]["max_sim_time"]
+        self.EGO_ID = self.config["simulation"]["ego_id"]
+        self.MAP_NAME = self.config["map"]["name"]
+        self.IMAGE_SIZE = self.config["image"]["size"]
+        self.TARGET_SIZE = tuple(self.config["image"]["target_size"])
 
     def setup_paths(self):
         data_root = os.path.dirname(os.path.abspath(__file__))
-        self.SUMO_CFG_FILE = os.path.join(data_root, self.config['map']['sumo_cfg_file'].format(map_name=self.MAP_NAME))
-        self.SUMO_NET_FILE = os.path.join(data_root, self.config['map']['sumo_net_file'].format(map_name=self.MAP_NAME))
-        self.SUMO_ROU_FILE = os.path.join(data_root, self.config['map']['sumo_rou_file'].format(map_name=self.MAP_NAME))
-        self.DATA_TEMPLATE_PATH = os.path.join(data_root, self.config['data']['template_path'])
-        self.NU_SCENES_DATA_ROOT = os.path.join(data_root, self.config['data']['nu_scenes_root'].format(map_name=self.MAP_NAME))
+        self.SUMO_CFG_FILE = os.path.join(
+            data_root,
+            self.config["map"]["sumo_cfg_file"].format(map_name=self.MAP_NAME),
+        )
+        self.SUMO_NET_FILE = os.path.join(
+            data_root,
+            self.config["map"]["sumo_net_file"].format(map_name=self.MAP_NAME),
+        )
+        self.SUMO_ROU_FILE = os.path.join(
+            data_root,
+            self.config["map"]["sumo_rou_file"].format(map_name=self.MAP_NAME),
+        )
+        self.DATA_TEMPLATE_PATH = os.path.join(
+            data_root, self.config["data"]["template_path"]
+        )
+        self.NU_SCENES_DATA_ROOT = os.path.join(
+            data_root,
+            self.config["data"]["nu_scenes_root"].format(map_name=self.MAP_NAME),
+        )
 
     @staticmethod
     def normalize_angle(angle: float) -> float:
         return (angle + math.pi) % (2 * math.pi) - math.pi
 
-
-
-    def get_drivable_mask(self, model:Model) -> np.ndarray:    
+    def get_drivable_mask(self, model: Model) -> np.ndarray:
         img = np.zeros((self.IMAGE_SIZE, self.IMAGE_SIZE), dtype=np.uint8)
         roadgraphRenderData, VRDDict = model.renderQueue.get()
-        egoVRD = VRDDict['egoCar'][0]
+        egoVRD = VRDDict["egoCar"][0]
         ex, ey, ego_yaw = egoVRD.x, egoVRD.y, egoVRD.yaw
 
         OffRoadChecker().draw_roadgraph(img, roadgraphRenderData, ex, ey, ego_yaw)
         return img.astype(bool)
 
-
-    def initialize_simulation(self):        
+    def initialize_simulation(self):
         # 初始化模型、规划器、地图等
         self.model = Model(
-            egoID=self.EGO_ID, netFile=self.SUMO_NET_FILE, rouFile=self.SUMO_ROU_FILE,
-            cfgFile=self.SUMO_CFG_FILE, dataBase=self.result_path+"limsim.db", SUMOGUI=False,
+            egoID=self.EGO_ID,
+            netFile=self.SUMO_NET_FILE,
+            rouFile=self.SUMO_ROU_FILE,
+            cfgFile=self.SUMO_CFG_FILE,
+            dataBase=self.result_path + "limsim.db",
+            SUMOGUI=False,
             CARLACosim=False,
         )
         self.model.start()
-        self.planner = TrafficManager(self.model, config_file_path='./TrafficManager/LimSim/trafficManager/config.yaml')
+        self.planner = TrafficManager(
+            self.model,
+            config_file_path="./TrafficManager/LimSim/trafficManager/config.yaml",
+        )
 
         self.data_template = torch.load(self.DATA_TEMPLATE_PATH)
-        self.vectorized_map = VectorizedLocalMap(dataroot=self.NU_SCENES_DATA_ROOT, map_name=self.MAP_NAME, patch_size=[100, 100], fixed_ptsnum_per_line=-1)
-        
+        self.vectorized_map = VectorizedLocalMap(
+            dataroot=self.NU_SCENES_DATA_ROOT,
+            map_name=self.MAP_NAME,
+            patch_size=[100, 100],
+            fixed_ptsnum_per_line=-1,
+        )
+
         self.gui = GUI(self.model)
         if self.GUI_DISPLAY:
             self.gui.start()
@@ -113,9 +148,13 @@ class SimulationManager:
         self.checkers = [OffRoadChecker(), CollisionChecker()]
 
     def process_frame(self):
-        #Single frame processing logic
+        # Single frame processing logic
         if self.scorer is None:
-            self.scorer = Scorer(self.model, map_name=self.MAP_NAME, save_file_path=self.result_path+"drive_arena.pkl")
+            self.scorer = Scorer(
+                self.model,
+                map_name=self.MAP_NAME,
+                save_file_path=self.result_path + "drive_arena.pkl",
+            )
         try:
             for checker in self.checkers:
                 checker.check(self.model)
@@ -130,21 +169,44 @@ class SimulationManager:
                 print("Simulation time end.")
                 return False
 
-            limsim_trajectories = self.planner.plan(self.model.timeStep * 0.1, self.roadgraph, self.vehicles)
+            limsim_trajectories = self.planner.plan(
+                self.model.timeStep * 0.1, self.roadgraph, self.vehicles
+            )
             if not limsim_trajectories[self.EGO_ID].states:
                 return True
 
             traj_len = min(len(limsim_trajectories[self.EGO_ID].states) - 1, 25)
-            local_x, local_y, local_yaw = transform_to_ego_frame(limsim_trajectories[self.EGO_ID].states[0], limsim_trajectories[self.EGO_ID].states[traj_len])
-            self.agent_command = 2 if local_x <= 5.0 else (1 if local_y > 4.0 else 0 if local_y < -4.0 else 2)
-            print("Agent command:", traj_len, self.agent_command, local_x, local_y, local_yaw)
+            local_x, local_y, local_yaw = transform_to_ego_frame(
+                limsim_trajectories[self.EGO_ID].states[0],
+                limsim_trajectories[self.EGO_ID].states[traj_len],
+            )
+            self.agent_command = (
+                2
+                if local_x <= 5.0
+                else (1 if local_y > 4.0 else 0 if local_y < -4.0 else 2)
+            )
+            print(
+                "Agent command:",
+                traj_len,
+                self.agent_command,
+                local_x,
+                local_y,
+                local_yaw,
+            )
 
             diffusion_data = limsim2diffusion(
-                self.vehicles, self.data_template, self.vectorized_map, self.MAP_NAME, self.agent_command, self.last_pose, drivable_mask,
-                self.accel, self.rotation_rate, self.vel,
+                self.vehicles,
+                self.data_template,
+                self.vectorized_map,
+                self.MAP_NAME,
+                self.agent_command,
+                self.last_pose,
+                drivable_mask,
+                self.accel,
+                self.rotation_rate,
+                self.vel,
             )
-            self.last_pose = diffusion_data['metas']['ego_pos']
-            
+            self.last_pose = diffusion_data["metas"]["ego_pos"]
 
             self.scorer.record_frame(drivable_mask, is_planning_frame=False)
         else:
@@ -159,7 +221,7 @@ class SimulationManager:
             while not self.model.tpEnd:
                 self.model.moveStep()
                 self.roadgraph, self.vehicles = self.model.exportSce()
-                if self.vehicles is not None and 'egoCar' in self.vehicles:
+                if self.vehicles is not None and "egoCar" in self.vehicles:
                     if not self.process_frame():
                         break
                 self.model.updateVeh()
@@ -177,8 +239,9 @@ class SimulationManager:
 
 
 def main():
-    sim_manager = SimulationManager('config.yaml')
+    sim_manager = SimulationManager("config.yaml")
     sim_manager.run_simulation()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
