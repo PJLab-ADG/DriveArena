@@ -30,7 +30,7 @@ class MatplotlibRenderer:
         else:
             left_bound_tf = self.get_transformed_points(lrd.left_bound, ex, ey, ego_yaw)
             x, y = zip(*left_bound_tf)
-            self.ax.plot(x, y, color='black', linewidth=2, alpha=0.4)
+            self.ax.plot(x, y, color='grey', linewidth=2, alpha=0.4, linestyle='--')
 
     def drawEdge(self, erd, rgrd, ex, ey, ego_yaw):
         right_bound_tf = None
