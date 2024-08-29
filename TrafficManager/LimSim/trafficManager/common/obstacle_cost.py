@@ -62,14 +62,14 @@ def check_collsion_new(
         https://juejin.cn/post/6974320430538883108
     """
 
-    # x,y一半的长度
+    # Half the length of x,y
     ego_shape = np.array([ego_length / 2, ego_width / 2])
     obs_shape = np.array([obs_length / 2, obs_width / 2])
 
     rotate_ego = rotate_yaw(-ego_yaw)
     rotate_obs = rotate_yaw(-obs_yaw)
 
-    iRotate_ego = np.linalg.inv(rotate_ego)  # A的逆矩阵，后续有用
+    iRotate_ego = np.linalg.inv(rotate_ego)  # The inverse matrix of A, useful later
 
     obs_corner = (
         np.array(

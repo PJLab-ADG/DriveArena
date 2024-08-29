@@ -8,14 +8,13 @@ class MatplotlibRenderer:
     def __init__(self):
         self.fig, self.ax = plt.subplots(figsize=(12, 12))
         self.ax.set_aspect('equal')
-        self.view_range = 50  # 视图范围，单位为米
+        self.view_range = 50  # View range in metres
 
     def get_transformed_points(self, points, ex, ey, ego_yaw):
-        # 先平移，再旋转
         transformed = []
         for p in points:
             dx, dy = p[0] - ex, p[1] - ey
-            # 旋转角度为 -ego_yaw + pi/2，使得车头朝向与 y 轴正方向对齐
+            # Rotate by -ego_yaw + pi/2 to align the car heading with the positive y-axis direction
             rx = dx * cos(-ego_yaw + pi/2) - dy * sin(-ego_yaw + pi/2)
             ry = dx * sin(-ego_yaw + pi/2) + dy * cos(-ego_yaw + pi/2)
             transformed.append((rx, ry))
@@ -76,13 +75,13 @@ class MatplotlibRenderer:
             self.drawJunctionLane(jlrd, ex, ey, ego_yaw)
 
     def plotVehicle(self, ex: float, ey: float, ego_yaw: float, vtag: str, vrd):
-        # 计算相对位置和朝向
+        # Calculate relative position and orientation
         dx, dy = vrd.x - ex, vrd.y - ey
         rx = dx * cos(-ego_yaw + pi/2) - dy * sin(-ego_yaw + pi/2)
         ry = dx * sin(-ego_yaw + pi/2) + dy * cos(-ego_yaw + pi/2)
         
         if not self.is_in_range(rx, ry):
-            return  # 如果车辆不在视图范围内，不绘制
+            return
         
         relative_yaw = vrd.yaw - ego_yaw + pi/2
 
@@ -137,26 +136,18 @@ class MatplotlibRenderer:
         self.drawRoadgraph(roadgraphRenderData, ex, ey, ego_yaw)
         self.drawVehicles(VRDDict, ex, ey, ego_yaw)
         
-        # 设置坐标轴范围为以ego为中心的100x100正方形
         self.ax.set_xlim(-self.view_range, self.view_range)
         self.ax.set_ylim(-self.view_range, self.view_range)
         
-        # 设置坐标轴标签
         # self.ax.set_xlabel("X (meters)")
         # self.ax.set_ylabel("Y (meters)")
         # self.ax.set_title("Ego-Centered View")
         
-        # 添加网格线
         self.ax.grid(True, linestyle='--', alpha=0.5)
         
-        # # 添加ego车辆位置和方向指示
-        # self.ax.plot(0, 0, 'ro', markersize=10)  # ego车辆位置
-        # self.ax.arrow(0, 0, 0, 5, head_width=2, head_length=2, fc='r', ec='r')  # ego车辆方向
+        # self.ax.plot(0, 0, 'ro', markersize=10)  # ego position
+        # self.ax.arrow(0, 0, 0, 5, head_width=2, head_length=2, fc='r', ec='r')  # ego heading
 
         plt.tight_layout()
         plt.savefig(filename, dpi=300)
         # plt.show()
-
-# 使用示例
-# renderer = MatplotlibRenderer()
-# renderer.render(roadgraphRenderData, VRDDict)

@@ -509,7 +509,7 @@ def main(data):
     def multi_threaded_process(data, max_workers=None):
         all_averages = []
 
-        # 使用线程锁来确保线程安全的追加操作
+        # Using thread locks for thread-safe append operations
         lock = threading.Lock()
 
         def append_result(future):
@@ -525,23 +525,21 @@ def main(data):
 
         return all_averages
 
-    # 使用方法
     all_averages = multi_threaded_process(data)
 
-    # 收集所有循环的值
     collected_values = defaultdict(list)
     for averages in all_averages:
         for key, value in averages.items():
             collected_values[key].append(value)
 
-    # 计算每个指标的平均值和标准差
+    # Calculation of mean and standard deviation for each indicator
     results = {}
     for key, values in collected_values.items():
         avg = np.mean(values)
         std = np.std(values)
         results[key] = f"{avg:.4f}±{std:.4f}"
 
-    # 输出结果
+    # Output Results
     print("=============================Results=============================")
     for key, value in results.items():
         print(f"'{key}': {value}")
