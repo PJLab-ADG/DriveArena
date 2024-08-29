@@ -118,7 +118,7 @@ class SimulationManager:
 
 
     def initialize_simulation(self):        
-        # 初始化模型、规划器、地图等
+        # Initialising models, planners, maps etc
         self.model = Model(
             egoID=self.EGO_ID, netFile=self.SUMO_NET_FILE, rouFile=self.SUMO_ROU_FILE,
             cfgFile=self.SUMO_CFG_FILE, dataBase=self.result_path+"limsim.db", SUMOGUI=False,

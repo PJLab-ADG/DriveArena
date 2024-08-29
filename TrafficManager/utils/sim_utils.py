@@ -49,25 +49,25 @@ def limsim2diffusion(
     label_list = []
 
     def transform(pos, origin):
-        # pos是要变换的坐标和朝向，origin是新的原点的坐标和朝向
-        # 返回变换后的坐标和朝向
+        # pos is the coordinate and orientation to be transformed, origin is the coordinate and orientation of the new origin
+        # Returns the transformed coordinate and orientation
         x, y, yaw = pos
         x0, y0, yaw0 = origin
-        # 计算相对于新原点的位移和角度
+        # Calculate the displacement and angle relative to the new origin
         dx = x - x0
         dy = y - y0
         dtheta = yaw - yaw0
-        # 计算新坐标系下的坐标和朝向
+        # Calculate the coordinates and orientation in the new coordinate system
         x_new = dx * np.cos(yaw0) + dy * np.sin(yaw0)
         y_new = -dx * np.sin(yaw0) + dy * np.cos(yaw0)
         yaw_new = dtheta
         return x_new, y_new, yaw_new
 
     def plot_vehicle(pos, color):
-        # pos是车辆的中心坐标和朝向，color是车辆的颜色
-        # 绘制车辆的矩形
+        # pos is the center coordinate and orientation of the vehicle, color is the color of the vehicle
+        # Draw the rectangle of the vehicle
         x, y, yaw = pos
-        # 计算车辆的四个顶点的坐标
+        # Calculate the coordinates of the four vertices of the vehicle
         x1 = x + VEH_LENGTH / 2 * np.cos(yaw) - VEH_WIDTH / 2 * np.sin(yaw)
         y1 = y + VEH_LENGTH / 2 * np.sin(yaw) + VEH_WIDTH / 2 * np.cos(yaw)
         x2 = x + VEH_LENGTH / 2 * np.cos(yaw) + VEH_WIDTH / 2 * np.sin(yaw)
@@ -76,7 +76,7 @@ def limsim2diffusion(
         y3 = y - VEH_LENGTH / 2 * np.sin(yaw) - VEH_WIDTH / 2 * np.cos(yaw)
         x4 = x - VEH_LENGTH / 2 * np.cos(yaw) - VEH_WIDTH / 2 * np.sin(yaw)
         y4 = y - VEH_LENGTH / 2 * np.sin(yaw) + VEH_WIDTH / 2 * np.cos(yaw)
-        # 绘制矩形
+        # Draw the rectangle
         plt.fill([x1, x2, x3, x4], [y1, y2, y3, y4], color=color)
 
     # for sur_veh in vehicles['carInAoI']:
@@ -93,7 +93,7 @@ def limsim2diffusion(
     # plt.xlabel('x')
     # plt.ylabel('y')
     # plt.title('Transformed vehicles')
-    # # 显示图像
+    # # Show img
     # plt.show()
 
     for sur_veh in vehicles["carInAoI"]:
@@ -133,7 +133,7 @@ def limsim2diffusion(
     # plt.xlabel('x')
     # plt.ylabel('y')
     # plt.title('Transformed vehicles')
-    # # 显示图像
+    # #  Show imgs
     # plt.show()
 
     send_data = {}

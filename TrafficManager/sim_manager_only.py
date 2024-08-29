@@ -116,7 +116,7 @@ class SimulationManager:
         return img.astype(bool)
 
     def initialize_simulation(self):
-        # 初始化模型、规划器、地图等
+        # Initialising models, planners, maps etc
         self.model = Model(
             egoID=self.EGO_ID,
             netFile=self.SUMO_NET_FILE,
@@ -229,7 +229,7 @@ class SimulationManager:
             self.cleanup()
 
     def cleanup(self):
-        # 清理资源，保存得分等
+        # Cleaning up resources, saving scores, etc.
         print("Simulation ends")
         if self.scorer:
             self.scorer.save()
