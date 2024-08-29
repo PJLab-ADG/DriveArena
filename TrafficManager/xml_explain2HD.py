@@ -220,8 +220,10 @@ class XML2JSON:
 
         if self.root.attrib.get('lefthand') == 'true':
             self.rule = LEFT
+            print("current map is lefthand")
         else:
             self.rule = RIGHT
+            print("current map is righthand")
 
     def add_polygon(self, position_list: List[list]) -> str:
         """在json中添加polygon

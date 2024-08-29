@@ -49,11 +49,12 @@ class SimulationManager:
         self.accel: List[float] = [0, 0, 9.80]
         self.rotation_rate: List[float] = [0, 0, 0]
         self.vel: List[float] = [0, 0, 0]
-        self.agent_command: int = 2
+        self.agent_command: int = 2 # Defined by UniAD  0: Right 1:Left 2:Forward 
         self.result_path = f"./results/{datetime.now().strftime('%m-%d-%H%M%S')}/"
         self.img_save_path = f"{self.result_path}imgs/"
         os.makedirs(self.result_path, exist_ok=True)
         os.makedirs(self.img_save_path, exist_ok=True)
+
 
     @staticmethod
     def load_config(config_path: str) -> Dict:
@@ -93,7 +94,7 @@ class SimulationManager:
         }
 
         try:
-            print(f"Sending data to diffusion server...{diffusion_data['metas']['ego_pos']}")
+            print(f"Sending data to WorldDreamer server...")
             response = requests.post(self.DIFFUSION_SERVER + "dreamer-api/", json=serialized_data)
             if response.status_code == 200 and 'image' in response.headers['Content-Type']:
                 image = Image.open(BytesIO(response.content))
@@ -126,6 +127,7 @@ class SimulationManager:
         self.model.start()
         self.planner = TrafficManager(self.model, config_file_path='./TrafficManager/LimSim/trafficManager/config.yaml')
 
+        print(f"Testing connection to WorldDreamer & Driver servers...")
         requests.get(self.DIFFUSION_SERVER + "dreamer-clean/")
         requests.get(self.DRIVER_SERVER + "driver-clean/")
 
@@ -165,7 +167,7 @@ class SimulationManager:
             traj_len = min(len(limsim_trajectories[self.EGO_ID].states) - 1, 25)
             local_x, local_y, local_yaw = transform_to_ego_frame(limsim_trajectories[self.EGO_ID].states[0], limsim_trajectories[self.EGO_ID].states[traj_len])
             self.agent_command = 2 if local_x <= 5.0 else (1 if local_y > 4.0 else 0 if local_y < -4.0 else 2)
-            print("Agent command:", traj_len, self.agent_command, local_x, local_y, local_yaw)
+            print("Agent command:", self.agent_command)
 
             diffusion_data = limsim2diffusion(
                 self.vehicles, self.data_template, self.vectorized_map, self.MAP_NAME, self.agent_command, self.last_pose, drivable_mask,
@@ -190,14 +192,14 @@ class SimulationManager:
 
             response = requests.get(self.DRIVER_SERVER + "driver-get/")
             while response.status_code != 200 or response.text == "false":
-                print("The Driver Agent not processing done, try again in 1s")
+                # print("The Driver Agent not processing done, try again in 1s")
                 time.sleep(0.5)
                 response = requests.get(self.DRIVER_SERVER + "driver-get/")
-                print("Driver Agent", response.status_code)
+                # print("Driver Agent", response.status_code)
 
             driver_output = json.loads(response.text)
             path_points = driver_output["bbox_results"][0]["planning_traj"][0]
-            print("Path:", path_points)
+            print("Driver Agent's Path:", path_points)
 
             #add driver predict BEV 
             pred_bev_base64 = driver_output["bev_pred_img"]

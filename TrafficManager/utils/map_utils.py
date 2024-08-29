@@ -67,30 +67,27 @@ def to_tensor(data):
         raise TypeError(f'type {type(data)} cannot be converted to tensor.')
 
 
-def visualize_bev_hdmap(gt_bboxes_3d, gt_labels_3d, canvas_size, bound=[-50.0, 50.0], vis_format='polyline_pts'):
-    canvas = np.zeros((3, *canvas_size, 3), dtype=np.uint8)
-    gt_lines_instance = gt_bboxes_3d.instance_list
+def visualize_bev_hdmap(gt_lines_instance, gt_labels_3d, canvas_size, num_classes=3, bound=[-50.0, 50.0], drivable_mask=None):
+    canvas = np.zeros((num_classes, *canvas_size, 3), dtype=np.uint8)
     for gt_line_instance, gt_label_3d in zip(gt_lines_instance, gt_labels_3d):
-        pts = np.array(list(gt_line_instance.coords))
+        pts = np.array(gt_line_instance)
         for p in pts:
-            pp = ((p - bound[0]) / (bound[1] - bound[0])
-                  * canvas_size[0]).astype(int)
-            cv2.circle(canvas[int(gt_label_3d)], tuple(pp), 1, (1, 0, 0), -1)
-            # import pdb; pdb.set_trace()
+            pp = ((p - bound[0]) / (bound[1] - bound[0]) * canvas_size[0]).astype(int)
+            cv2.circle(canvas[int(gt_label_3d)], tuple(pp), 1, (1,0,0), -1)
 
         for i in range(len(pts)-1):
-            pp1 = ((pts[i] - bound[0]) / (bound[1] - bound[0])
-                   * canvas_size[0]).astype(int)
-            pp2 = ((pts[i+1] - bound[0]) / (bound[1] - bound[0])
-                   * canvas_size[0]).astype(int)
-            cv2.line(canvas[int(gt_label_3d)], tuple(
-                pp1), tuple(pp2), (1, 0, 0), 1)
+            pp1 = ((pts[i] - bound[0]) / (bound[1] - bound[0]) * canvas_size[0]).astype(int)
+            pp2 = ((pts[i+1] - bound[0]) / (bound[1] - bound[0]) * canvas_size[0]).astype(int)
+            cv2.line(canvas[int(gt_label_3d)], tuple(pp1), tuple(pp2), (1,0,0), 1)
+    canvas = canvas[..., 0]    # [3, 200, 200]
 
-    canvas = canvas[..., 0]
-    canvas = np.transpose(canvas, (2, 1, 0))
-    # canvas = canvas[::-1, :, :]
-
-    # cv2.imwrite('./GT_polyline_pts_MAP.png', canvas)
+    if drivable_mask is not None:
+        drivable_mask = drivable_mask[None, ...]
+        drivable_mask = np.transpose(drivable_mask, (0, 2, 1))
+        canvas = np.concatenate([canvas, drivable_mask], 0)
+    canvas = np.transpose(canvas, (2, 1, 0))    # H, W, C
+    
+    cv2.imwrite('./GT_polyline_pts_MAP.png', canvas[:,:,:3]*255)    
     return canvas
 
 

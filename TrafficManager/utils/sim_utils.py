@@ -15,6 +15,7 @@ from TrafficManager.utils.map_utils import (
     LiDARInstanceLines,
     VectorizedLocalMap,
     to_tensor,
+    visualize_bev_hdmap,
 )
 
 
