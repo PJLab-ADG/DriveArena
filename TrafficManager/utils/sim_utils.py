@@ -139,12 +139,10 @@ def limsim2diffusion(
     send_data = {}
     # ------------ meta ------------ #
     send_data["metas"] = data_template["metas"]
-    send_data["metas"][
-        "location"
-    ] = gen_location  #'singapore-onenorth' #'singapore-hollandvillage' #  'boston-seaport' # 'singapore-hollandvillage' for night #map_name #'boston-seaport' #map_name
-    send_data["metas"][
-        "description"
-    ] = gen_prompts  #'daytime, cloudy, downtown, gray buildings, white cars' #'daytime, cloudy, nature, green trees, black cars' # 'night, clear, suburban, streetlights' # 'daytime, rainy, suburban, low buildings, wet surface'  # 'daytime, sunny, downtown, red buildings, trees, black cars' #'night, clear, downtown, streetlights'#'daytime, cloudy, suburban, red buildings, black cars' #'night, clear, suburban, streetlights' # 'daytime, rainy, downtown, red buildings, black cars' #'rain, buildings, parked bicycles, many vehicles'
+    send_data["metas"]["location"] = gen_location
+    send_data["metas"]["description"] = gen_prompts
+    print(
+        f"location: {send_data['metas']['location']}\ndescription: {send_data['metas']['description']}")
     send_data["metas"]["ego_pos"] = torch.Tensor(
         [
             [np.cos(ego_yaw), -np.sin(ego_yaw), 0, ego_x],
@@ -211,7 +209,8 @@ def normalize_angle(angle: float) -> float:
 def transform_to_ego_frame(curr_state: State, target_state: State):
     ego_yaw = curr_state.yaw
     R = np.array(
-        [[np.cos(-ego_yaw), -np.sin(-ego_yaw)], [np.sin(-ego_yaw), np.cos(-ego_yaw)]]
+        [[np.cos(-ego_yaw), -np.sin(-ego_yaw)],
+         [np.sin(-ego_yaw), np.cos(-ego_yaw)]]
     )
     translated = np.array(
         [target_state.x - curr_state.x, target_state.y - curr_state.y]
@@ -242,7 +241,8 @@ def interpolate_traj(ego_vehicle, path_points, Ti_path=0.5) -> Trajectory:
         for px, py in path_points
     ]
 
-    states = [State(t=0, x=ego_x, y=ego_y, yaw=ego_yaw, vel=ego_vel, acc=ego_acc)]
+    states = [State(t=0, x=ego_x, y=ego_y, yaw=ego_yaw,
+                    vel=ego_vel, acc=ego_acc)]
     for i in range(1, len(global_points)):
         x1, y1 = global_points[i - 1]
         x2, y2 = global_points[i]
@@ -260,7 +260,8 @@ def interpolate_traj(ego_vehicle, path_points, Ti_path=0.5) -> Trajectory:
         else:
             acc = states[-1].acc
 
-        states.append(State(t=i * Ti_path, x=x2, y=y2, yaw=yaw, vel=vel, acc=acc))
+        states.append(State(t=i * Ti_path, x=x2, y=y2,
+                      yaw=yaw, vel=vel, acc=acc))
 
     trajectory = Trajectory()
     for i in range(1, len(states)):
@@ -275,8 +276,10 @@ def interpolate_traj(ego_vehicle, path_points, Ti_path=0.5) -> Trajectory:
                     y=prev_state.y + ratio * (curr_state.y - prev_state.y),
                     yaw=prev_state.yaw
                     + ratio * normalize_angle(curr_state.yaw - prev_state.yaw),
-                    vel=prev_state.vel + ratio * (curr_state.vel - prev_state.vel),
-                    acc=prev_state.acc + ratio * (curr_state.acc - prev_state.acc),
+                    vel=prev_state.vel + ratio *
+                    (curr_state.vel - prev_state.vel),
+                    acc=prev_state.acc + ratio *
+                    (curr_state.acc - prev_state.acc),
                 )
             )
             t += Ti_traj

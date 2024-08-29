@@ -13,6 +13,7 @@ simulation:
 # Map Configuration
 map:
   name: 'boston-seaport'
+  gen_description: 'daytime, cloudy, downtown, red buildings, white cars'
   sumo_cfg_file: "networkFiles/{map_name}/osm.sumocfg"
   sumo_net_file: "networkFiles/{map_name}/osm.net.xml"
   sumo_rou_file: "networkFiles/{map_name}/osm.rou.xml"
