@@ -1,7 +1,5 @@
 # @package _global_
 defaults:
-  # - override /model: StableDiffusion-v2.1
- 
   - /runner/default
   - _self_  # make sure override
 

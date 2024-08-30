@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <div align="center">
   <!-- <a href=""> -->
-  <img src="docs/github-logo.png" alt="Logo" width="550px">
+  <img src="assets/github-logo.png" alt="Logo" width="550px">
   <br>
   <a href="https://pjlab-adg.github.io/DriveArena/">
     <img src="https://img.shields.io/badge/Project-Page-green" alt="Project Page" style="height:20px;">
@@ -12,9 +12,9 @@
     <img src="https://img.shields.io/badge/arXiv-Paper-red" alt="arXiv Paper" style="height:20px;">
   </a>
   <hr>
-  <img src="docs/boston_thomas_park.gif" style="width: 800px; display: block; margin: 0;" />
-  <img src="docs/singapore.gif" style="width: 800px; display: block; margin: 0;" />
-  <img src="docs/boston.gif" style="width: 800px; display: block; margin: 0;" />
+  <img src="assets/boston_thomas_park.gif" style="width: 800px; display: block; margin: 0;" />
+  <img src="assets/singapore.gif" style="width: 800px; display: block; margin: 0;" />
+  <img src="assets/boston.gif" style="width: 800px; display: block; margin: 0;" />
   <br>
 
   <p align="left">
@@ -53,10 +53,13 @@ DriveArena V1.0 is currently under active development and will be open-sourced s
 * Follow a modular architecture, allowing the easy replacement of each module.
 
 <div align="center">
-  <img width=600px src="docs/pipeline_2.png">
+  <img width=600px src="assets/pipeline_2.png">
 </div>
 
 The <b>DriveArena</b> is pretrained on nuScenes dataset. All kinds of vision-based driving agents, such as UniAD and VAD, can be combined with <b>DriveArena</b> to evaluate their actual driving performance in closed-loop realistic simulation environments.
+
+## 🤩 Run DriveArena Demo
+**To run the closed-loop / open-loop simulation, please refer to the [documentation](docs/RUN_SIMULATION.md).**
 
 ## 🏁 Leaderboard of Driving Agents
 

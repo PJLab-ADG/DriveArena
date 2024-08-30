@@ -23,21 +23,21 @@ warnings.filterwarnings("ignore", category=ShapelyDeprecationWarning)
 sys.path.append(".")  # noqa
 from projects.dreamer.runner.utils import concat_6_views, img_concat_h, img_concat_v
 from projects.dreamer.utils.test_utils import prepare_all, run_one_batch
+from data.demo_data.img_style import style_dict
 
 target_map_size = 400
 
-
 def output_func(x): return concat_6_views(x, oneline=True)
-
-transform1 = transforms.Compose([transforms.ToTensor(),
-                                 transforms.Normalize(
-                                     mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
-                                 ])
 
 def make_video_with_filenames(filenames, outname, fps=2):
     clips = [ImageClip(m).set_duration(1 / fps) for m in filenames]
     concat_clip = concatenate_videoclips(clips, method="compose")
     concat_clip.write_videofile(outname, fps=fps)
+
+transform1 = transforms.Compose([transforms.ToTensor(),
+                                 transforms.Normalize(
+                                     mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
+                                 ])
 
 
 @hydra.main(version_base=None, config_path="../configs", config_name="test_config")
@@ -65,7 +65,6 @@ def main(cfg: DictConfig):
 
     logging.info(f"Your validation index: {cfg.runner.validation_index}")
 
-
     #### setup everything ####
     pipe, val_dataloader, weight_dtype = prepare_all(cfg)
     OmegaConf.save(config=cfg, f=os.path.join(cfg.log_root, "run_config.yaml"))
@@ -88,20 +87,23 @@ def main(cfg: DictConfig):
 
         ori_img_paths = []
         gen_img_paths = {}
-        if val_input['meta_data']['metas'][0].data['is_first_frame']:
+        if cfg.runner.validation_index == 'demo' and batch_index == 0:
+            val_input["ref_images"][0, ...] = style_dict('boston', cfg.dataset.dataset_root_nuscenes)
+        elif val_input['meta_data']['metas'][0].data.get('is_first_frame', False):
             print(curr_index)
             pass
         elif gen_ref is None:
             pass
         else:
             val_input["ref_images"][0, ...] = gen_ref
+
+        # You can change the description by the folowing code.
+        # val_input['captions'] = ['A driving scene image at boston-seaport. daytime, rainy, downtown, straight road, white buildings, construction zone.']
         return_tuples = run_one_batch(cfg, pipe, val_input, weight_dtype,
                                       transparent_bg=cfg.transparent_bg,
                                       map_size=target_map_size)
 
-        for map_img, ori_imgs, ori_imgs_wb, gen_imgs_list, gen_imgs_wb_list in zip(
-            *return_tuples
-        ):
+        for map_img, ori_imgs, ori_imgs_wb, gen_imgs_list, gen_imgs_wb_list in zip(*return_tuples):
             # save map
             map_img.save(
                 os.path.join(
@@ -139,8 +141,8 @@ def main(cfg: DictConfig):
             # process ref img
             gen_imgs = gen_imgs_list[0]
             ref_image_list = []
-            for cami in range(6):
-                img_i = gen_imgs[cami]
+            for cam_i in range(6):
+                img_i = gen_imgs[cam_i]
                 img_i = np.array(img_i)
                 img_i = transform1(img_i)
                 ref_image_list.append(img_i)
@@ -173,20 +175,6 @@ def main(cfg: DictConfig):
             batch_img_index += 1
         # update bar
         progress_bar.update(cfg.runner.validation_times)
-
-        # make_video_with_filenames(
-        # ori_img_paths,
-        # os.path.join(cfg.log_root, f"{curr_index}_{batch_img_index}_ori.mp4"),
-        # fps=cfg.fps,
-        # )
-        # for k, v in gen_img_paths.items():
-        #     make_video_with_filenames(
-        #         v,
-        #         os.path.join(
-        #             cfg.log_root, f"{curr_index}_{batch_img_index}_gen{k}.mp4"
-        #         ),
-        #         fps=cfg.fps,
-        #     )
 
 
 if __name__ == "__main__":

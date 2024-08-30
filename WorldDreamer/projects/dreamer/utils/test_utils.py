@@ -16,7 +16,7 @@ from mmdet3d.datasets import build_dataset
 from omegaconf import DictConfig, OmegaConf
 from PIL import Image
 
-from dataset import FileSetWrapper, ListSetWrapper, collate_fn_singleframe
+from dataset import ApiSetWrapper, ListSetWrapper, collate_fn_singleframe
 from projects.dreamer.utils.common import load_module, move_to
 from projects.dreamer.pipeline.pipeline_controlnet_single_ref import (
     StableDiffusionSingleRefControlNetPipeline,
@@ -179,7 +179,7 @@ def prepare_all(cfg, device="cuda", need_loader=True):
 
     #### datasets ####
     if cfg.runner.validation_index == "demo":
-        val_dataset = FileSetWrapper("data/google_map_data/limsim_data.pth")
+        val_dataset = ApiSetWrapper("data/demo_data/demo_data.pth")
     else:
         val_dataset = build_dataset(
             OmegaConf.to_container(cfg.dataset.data.val, resolve=True)
@@ -345,7 +345,11 @@ def run_one_batch(
     # map
     map_imgs = []
     for bev_map in val_input["bev_hdmap"]:
-        map_img_np = visualize_map(cfg, bev_map, target_size=map_size)
+        vis_map = torch.zeros(len(cfg.dataset.map_classes), *bev_map.shape[1:])
+        # Change order for visualization
+        for i, j in enumerate([6,1,5,0]):
+            vis_map[j] = bev_map[i]
+        map_img_np = visualize_map(cfg, vis_map, target_size=map_size)
         map_imgs.append(Image.fromarray(map_img_np))
     # ori
     if val_input["pixel_values"] is not None:

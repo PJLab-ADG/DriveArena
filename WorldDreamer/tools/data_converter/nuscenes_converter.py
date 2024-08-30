@@ -259,12 +259,12 @@ def _sample_data_transform(
 
     # obtain 6 image's information per frame
     cam_dict = {}
-    for cami in range(len(camera_types)):
-        cam = camera_types[cami]
+    for cam_i in range(len(camera_types)):
+        cam = camera_types[cam_i]
         if cam_tokens is None:
             cam_token = sample["data"][cam]
         else:
-            cam_token = cam_tokens[cami]
+            cam_token = cam_tokens[cam_i]
         cam_dict[cam] = cam_token
     for cam, cam_token in cam_dict.items():
         cam_path, _, camera_intrinsics = nusc.get_sample_data(cam_token)

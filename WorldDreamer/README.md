@@ -22,3 +22,8 @@ Please refer to [INSTALL.md](docs/INSTALL.md) for the installation.
 Please refer to [GETTING_STARTED.md](docs/GETTING_STARTED.md) to learn more usage about this project.
 
 ## Model Zoo
+
+| Model       | Iteration   | Description |
+| ----------- | ----------- |---------------|
+| [SDv1.5_mv_single_ref_nus](https://huggingface.co/jokester-yxm/DriveArena/tree/main/SDv1.5_mv_single_ref_nus) | 200k | single-frame auto-regressive, trained on nuScenes |
+| [SDv1.5_mv_single_ref_nus_nup]() (comming soon) | 200k | single-frame auto-regressive, trained on nuScenes + nuPlan | 
