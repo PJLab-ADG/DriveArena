@@ -9,6 +9,7 @@ simulation:
   step_length: 0.1
   gui_display: true
   max_sim_time: 100.0
+  use_agent_path: false # false for open-loop, true for closed-loop
 
 # Map Configuration
 map:
