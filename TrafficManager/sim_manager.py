@@ -62,6 +62,7 @@ class SimulationManager:
     def setup_constants(self):
         self.DIFFUSION_SERVER = self.config['servers']['diffusion']
         self.DRIVER_SERVER = self.config['servers']['driver']
+        self.USE_AGENT_PATH =  self.config['simulation']['use_agent_path']
         self.STEP_LENGTH = self.config['simulation']['step_length']
         self.GUI_DISPLAY = self.config['simulation']['gui_display']
         self.MAX_SIM_TIME = self.config['simulation']['max_sim_time']
@@ -259,9 +260,10 @@ class SimulationManager:
             self.scorer.record_frame(drivable_mask, is_planning_frame=True,
                                      planned_traj=ego_traj, ref_traj=limsim_trajectories[self.EGO_ID])
 
-            USE_DRIVER_ACTION = False
             limsim_trajectories = {}
-            if USE_DRIVER_ACTION and self.timestamp > 8.0:
+            if self.USE_AGENT_PATH and self.timestamp > 1.0:
+                ## Because first two frames, drive agents may not ready
+                print(f"Use agent path to drive.")
                 limsim_trajectories[self.EGO_ID] = ego_traj
             self.model.setTrajectories(limsim_trajectories)
         else:
