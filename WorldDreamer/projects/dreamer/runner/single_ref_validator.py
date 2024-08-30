@@ -109,9 +109,6 @@ class SingleRefBaseValidator:
             ref_images = val_input["ref_images"].to(weight_dtype)
             layout_canvas = val_input["layout_canvas"].to(weight_dtype)
             
-            # camera_param_raw = move_to(move_to(
-                # val_input["camera_param_raw"], weight_dtype), device)
-
             # let different prompts have the same random seed
             if self.cfg.seed is None:
                 generator = None
@@ -167,8 +164,12 @@ class SingleRefBaseValidator:
             ref_img_wb = concat_6_views(
                 draw_box_on_imgs(self.cfg, 0, val_input, ref_imgs))
             
-            map_img_np = visualize_map(
-                self.cfg, val_input["bev_map_with_aux"][0])
+            bev_map = val_input["bev_hdmap"][0]
+            vis_map = torch.zeros(len(self.cfg.dataset.map_classes), *bev_map.shape[1:])
+            # Change order for visualization
+            for i, j in enumerate([6,1,5,0]):
+                vis_map[j] = bev_map[i]
+            map_img_np = visualize_map(self.cfg, vis_map, target_size=400)
             image_logs.append(
                 {
                     "map_img_np": map_img_np,  # condition

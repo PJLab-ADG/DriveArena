@@ -52,7 +52,7 @@ def visualize_bev_hdmap(gt_lines_instance, gt_labels_3d, canvas_size, num_classe
             pp1 = ((pts[i] - bound[0]) / (bound[1] - bound[0]) * canvas_size[0]).astype(int)
             pp2 = ((pts[i+1] - bound[0]) / (bound[1] - bound[0]) * canvas_size[0]).astype(int)
             cv2.line(canvas[int(gt_label_3d)], tuple(pp1), tuple(pp2), (1,0,0), 1)
-    canvas = canvas[..., 0]    # [3, 200, 200]
+    canvas = canvas[..., 0]
     
     if drivable_mask is not None:
         drivable_mask = drivable_mask[None, ...]

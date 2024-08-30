@@ -7,7 +7,7 @@ dataset_cache_file_nuscenes:
   - null  # for train_pipeline
   - null  # for test_pipeline
 
-template: A driving scene image at {location}. {description}.
+template: A driving scene image at {location}. {description}
 collect_meta_keys:  # send to DataContainer
   - camera_intrinsics
   - lidar2ego
@@ -108,7 +108,7 @@ input_modality:
   use_lidar: false
   use_camera: true
   use_radar: false
-  use_map: false
+  use_map: true
   use_external: false
 
 train_pipeline_nuscenes:
@@ -143,21 +143,11 @@ train_pipeline_nuscenes:
     xbound: ${...map_bound.x}
     ybound: ${...map_bound.y}
     classes: ${...map_classes}
-    # object_classes: ${...object_classes}
-    # aux_data: ${...aux_data}
     cache_file: ${...dataset_cache_file_nuscenes.0}
   - 
     type: RandomFlip3DwithViews
     flip_ratio: ${...augment3d.flip_ratio}
     direction: ${...augment3d.flip_direction}
-  # -
-  #   type: RandomFlip3D  # random flip the whole lidar space
-  # -
-  #   type: PointsRangeFilter
-  #   point_cloud_range: ${point_cloud_range}
-  # -
-  #   type: ObjectRangeFilter
-  #   point_cloud_range: ${point_cloud_range}
   - 
     type: ReorderMultiViewImages
     order: ${...view_order_nuscenes}
@@ -211,12 +201,7 @@ test_pipeline_nuscenes:
     xbound: ${...map_bound.x}
     ybound: ${...map_bound.y}
     classes: ${...map_classes}
-    # object_classes: ${...object_classes}
-    # aux_data: ${...aux_data}
     cache_file: ${...dataset_cache_file_nuscenes.1}
-  # -
-  #   type: PointsRangeFilter
-  #   point_cloud_range: ${point_cloud_range}
   - 
     type: ReorderMultiViewImages
     order: ${...view_order_nuscenes}
@@ -240,8 +225,8 @@ test_pipeline_nuscenes:
     meta_lis_keys: ${...collect_meta_lis_keys}
 
 data:
-  # samples_per_gpu: 4  # we do not set these here.
-  # workers_per_gpu: 4
+  samples_per_gpu: 4
+  workers_per_gpu: 4
   train:  # here we drop the wrapper of CBGSDataset
     nuscenes:
       type: ${....dataset_type_nuscenes}

@@ -1,14 +1,18 @@
 import numpy as np
 import torch
+import copy
 from mmcv.parallel.data_container import DataContainer
 from mmdet3d.core.bbox.structures import LiDARInstance3DBoxes, Box3DMode
 from .map_utils import visualize_bev_hdmap, project_map_to_image, project_box_to_image
 
 
 class ApiSetWrapper(torch.utils.data.DataLoader):
-    def __init__(self, param) -> None:
-        self.dataset = [param]
-        self.data_template = torch.load('data/google_map_data/data_template.pth')
+    def __init__(self, data) -> None:
+        if isinstance(data, str):
+            self.dataset = torch.load(data)
+        else:
+            self.dataset = [data]
+        self.data_template = torch.load('data/demo_data/data_template.pth')
         self.object_classes = ['car', 'truck', 'construction_vehicle', 'bus', 'trailer', 'barrier', 'motorcycle', 'bicycle', 'pedestrian', 'traffic_cone']
     
     def __getitem__(self, idx):
@@ -26,8 +30,8 @@ class ApiSetWrapper(torch.utils.data.DataLoader):
         # from data
         mmdet3d_format['img'] = DataContainer(torch.zeros(6,3,1,1))
         mmdet3d_format['gt_labels_3d'] = DataContainer(torch.tensor(data['gt_labels_3d']))
-        data['metas']['ego_pos'] = torch.tensor(data['metas']['ego_pos'])
-        mmdet3d_format['metas'] = DataContainer(data['metas'])
+        mmdet3d_format['metas'] = DataContainer(copy.deepcopy(data['metas']))
+        mmdet3d_format['metas'].data['ego_pos'] = torch.tensor(mmdet3d_format['metas'].data['ego_pos'])
         mmdet3d_format['relative_pose'] = DataContainer(torch.tensor(data['relative_pose']), cpu_only=False)
 
         # special class
@@ -44,7 +48,7 @@ class ApiSetWrapper(torch.utils.data.DataLoader):
         gt_vecs_label = data['gt_vecs_label']
         gt_lines_instance = data['gt_lines_instance']
         drivable_mask = torch.Tensor(data['drivable_mask'])
-        bev_map = visualize_bev_hdmap(gt_lines_instance, gt_vecs_label, [200, 200], vis_format='polyline_pts', drivable_mask=drivable_mask)
+        bev_map = visualize_bev_hdmap(gt_lines_instance, gt_vecs_label, [200, 200], drivable_mask=drivable_mask)
         bev_map = bev_map.transpose(2, 0, 1)
         mmdet3d_format['bev_hdmap'] = DataContainer(torch.tensor(bev_map), cpu_only=False)
         mmdet3d_format['gt_masks_bev'] = torch.tensor(bev_map)
@@ -98,7 +102,7 @@ class FileSetWrapper(torch.utils.data.DataLoader):
     def __init__(self, file_name) -> None:
         print(file_name)
         self.dataset = torch.load(file_name)
-        self.data_template = torch.load('data/google_map_data/data_template.pth')
+        self.data_template = torch.load('data/demo_data/data_template.pth')
 
     def __getitem__(self, idx):
         data = self.dataset[idx]
