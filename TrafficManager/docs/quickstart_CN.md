@@ -53,10 +53,10 @@
         python ./TrafficManager/score_calculator.py ./results/mm-dd-hhmmss/ # modify to real path
         ```
    - 制作视频。
-        结果文件夹中的imgs子文件夹包含每帧WorldDreamer结果、GT Bev和Agent预测BEV的图像。使用以下脚本将它们制作成视频:
+        结果文件夹中的`imgs/`子文件夹包含每帧WorldDreamer结果、GT BEV和Agent预测BEV的图像。使用以下脚本将它们制作成视频:
 
         ```bash
-         python ./TrafficManager/generate_video.py --output_dir   ./results/mm-dd-hhmmss/ # modify to real path
+        python ./TrafficManager/generate_video.py --output_dir   ./results/mm-dd-hhmmss/ # modify to real path
         ```
 
         即可在`mm-dd-hhmmss`文件夹下生成名为`output_video.mp4`的文件。

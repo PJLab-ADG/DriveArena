@@ -42,7 +42,9 @@ DriveArena V1.0 is currently under active development and will be open-sourced s
 
 ------
 
-<!-- ABOUT THE PROJECT -->
+## 🤩 Run DriveArena Demo
+**To run the closed-loop / open-loop simulation, please refer to the [documentation](docs/RUN_SIMULATION.md).**
+
 ## :fire: Highlights
 
 <b> DriveArena </b> is a simulation platform that can
@@ -58,8 +60,6 @@ DriveArena V1.0 is currently under active development and will be open-sourced s
 
 The <b>DriveArena</b> is pretrained on nuScenes dataset. All kinds of vision-based driving agents, such as UniAD and VAD, can be combined with <b>DriveArena</b> to evaluate their actual driving performance in closed-loop realistic simulation environments.
 
-## 🤩 Run DriveArena Demo
-**To run the closed-loop / open-loop simulation, please refer to the [documentation](docs/RUN_SIMULATION.md).**
 
 ## 🏁 Leaderboard of Driving Agents
 
