@@ -1,6 +1,6 @@
 #  🤩 Run DriveArena Demo!
 
-The communication between TrafficManager, WorldDreamer and DrivingAgent is based on fastapi. **WorldDreamer** and **DrivingAgent** can be run on the **remote server**, while **TrafficManager** needs to be run on **a local machine with a screen**.
+The communication between TrafficManager, WorldDreamer and DrivingAgent is based on **FastAPI**. **WorldDreamer** and **DrivingAgent** can be run on the **remote server**, while **TrafficManager** needs to be run on **a local machine with a screen**.
 
 ## Launch WorldDreamer Service
 Please follow the [README.md](../WorldDreamer/README.md) to prepare the environment and download the weights.
