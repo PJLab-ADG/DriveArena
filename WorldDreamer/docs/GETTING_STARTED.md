@@ -1,10 +1,15 @@
-# Getting Started
+# WorldDreamer - Getting Started
 
 The following codes are all run in the `WorldDreamer` folder unless otherwise specified.
 
+## Overview
+- [Dataset Preparation](#dataset-preparation)
+- [Training & Testing](#training--testing)
+- [Model Zoo](#model-zoo)
+
 ## Dataset Preparation
 
-Currently we provide the dataloader of nuScenes dataset.
+Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset) and [nuPlan dataset](#nuPlan-dataset).
 
 ### nuScenes Dataset
 
@@ -55,6 +60,12 @@ python -m tools.create_data nuscenes \
         --max-sweeps -1 \
         --version interp_12Hz_trainval
         ```
+
+- To obtain detailed scene descriptions that include elements like time, weather, street style, road structure, and appearance, we provide code to refine the image captions using GPT-4V. Before using, please modify the path to the `.pkl` file and other information such as the `ChatGPT API key`.
+    ```
+    python tools/description.py
+    ```
+
 - (Optional but recommended) We recommend generating cache files in h5 format of the bev map to speed up the data loading process.
     ```
     # generate map cache for val
@@ -64,7 +75,6 @@ python -m tools.create_data nuscenes \
     python tools/prepare_map_aux.py +process=train +subfix=12Hz_interp
     ```
     After generating the cache files, move them to `./data/nuscenes_map_aux_12Hz_interp`
-- Modify descriptions.
 
 - The final data structure should look like this:
     ```
@@ -84,8 +94,61 @@ python -m tools.create_data nuscenes \
 
 ### nuPlan Dataset
 
+- To ensure a likely even distribution of the training data, we selected 64 logs from the NuPlan dataset. This selection includes 21 logs recorded in Las Vegas, 21 logs recorded in Pittsburgh, 11 logs recorded in Boston, and 11 logs recorded in Singapore. The names of the selected logs are listed under the `dreamer_train` and `dreamer_val` categories in [nuplan.yaml](../tools/data_converter/nuplan.yaml). Please download the official [nuPlan dataset](https://www.nuscenes.org/nuplan#download) and organized the files as follows:
+
+```
+${DATASET_ROOT}/nuplan-v1.1/
+├── sensor_blobs
+        ├── ...
+        └── ...
+└── splits
+        └── trainval
+            ├── ...
+            └── ...
+```
+
+- The nuplan-devkit need to be installed from source. 
+```bash
+cd third_party/nuplan-devkit
+pip install -r requirements.txt
+pip install -e .
+```
+
+- To prepare for training/validation, generate the `ann_file` by running the following command.
+```bash 
+python tools/create_data.py nuplan --root-path /path/to/nuplan/dataset/ --version dreamer-trainval --out-dir data/nuplan --split-yaml tools/data_converter/nuplan.yaml
+```
+
+- Refine the scene descriptions with the following command.
+
+``` bash
+python tools/description.py
+```
+
+- (Optional but recommended) We recommend generating cache files in `.h5` format of the bev map to speed up the data loading process.
+    ``` bash
+    # generate map cache for val
+    python tools/prepare_map_aux_nuplan.py +process=val +subfix=nuplan_map_aux
+
+    # generate map cache for train
+    python tools/prepare_map_aux_nuplan.py +process=train +subfix=nuplan_map_aux
+    ```
+    After generating the cache files, move them to `./data/nuplan`
 
 
+- The final data structure should look like this:
+    ```
+    ${ROOT}/data/
+    ├── ...
+    └── nuplan
+            ├── ...
+            ├── nuplan_infos_train.pkl
+            ├── nuplan_infos_val.pkl
+            ├── nuplan_infos_train_with_note.pkl
+            ├── nuplan_infos_val_with_note.pkl
+            ├── train_200x200_12Hz_interp.h5
+            └── val_200x200_12Hz_interp.h5
+    ```
 ## Pretrained Weights
 We used the pre-trained weights of 
 [stable-diffusion-v1-5](https://huggingface.co/runwayml/stable-diffusion-v1-5) ([backup_link](https://huggingface.co/pt-sk/stable-diffusion-1.5)) and
@@ -112,20 +175,20 @@ ${ROOT}/dreamer_pretrained/
 ### Train 
 
 Train the single-frame autoregressive version:
-```
+```bash
 scripts/dist_train.sh 8 runner=8gpus
 ```
 ### Test
 Test with the pre-trained weight:
-```
+```bash
 python tools/test.py resume_from_checkpoint=./dreamer_pretrained/SDv1.5_mv_single_ref_nus/weight_S200000
 ```
 Test with your own weight:
-```
+```bash
 python tools/test.py resume_from_checkpoint=path/to/your/weight
 ```
 Test on the demo data, which is crop from the OpenStreetMap:
-```
+```bash
 python tools/test.py runner.validation_index=demo resume_from_checkpoint=path/to/your/weight
 ```
 ## Todo
