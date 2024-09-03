@@ -43,7 +43,7 @@ DriveArena V1.0 is currently under active development and will be open-sourced s
 ------
 
 ## 🤩 Run DriveArena Demo
-**To run the closed-loop / open-loop simulation, please refer to the [documentation](docs/RUN_SIMULATION.md).**
+**To run the closed-loop / open-loop simulation, please refer to the [[Documentation](docs/RUN_SIMULATION.md)|[中文说明](docs/RUN_SIMULATION_CN.md)].**
 
 ## :fire: Highlights
 
