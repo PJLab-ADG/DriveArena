@@ -6,8 +6,8 @@ A Controllable Autoregressive Generative Network
 
 ## Overview
 - [Changelog](#changelog)
-- [Installation](docs/INSTALL.md)
-- [Getting Started](docs/GETTING_STARTED.md)
+- [Installation](docs/INSTALL.md) | [环境安装](docs/INSTALL_CN.md)
+- [Getting Started](docs/GETTING_STARTED.md) | [使用说明](docs/GETTING_STARTED_CN.md)
 - [Model Zoo](#model-zoo)
 
 
@@ -16,10 +16,10 @@ A Controllable Autoregressive Generative Network
 
 
 ## Installation
-Please refer to [INSTALL.md](docs/INSTALL.md) for the installation.
+Please refer to [[INSTALL.md](docs/INSTALL.md) | [环境安装](docs/INSTALL_CN.md)] for the installation.
 
 ## Getting Started
-Please refer to [GETTING_STARTED.md](docs/GETTING_STARTED.md) to learn more usage about this project.
+Please refer to [[GETTING_STARTED.md](docs/GETTING_STARTED.md) | [使用说明](docs/GETTING_STARTED_CN.md)] to learn more usage about this project.
 
 ## Model Zoo
 
