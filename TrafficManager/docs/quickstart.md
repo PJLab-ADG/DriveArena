@@ -39,7 +39,7 @@ Please keep this terminal window open.
 
 **4. Configuration Settings**
 
-Confirm that the IP and port settings are correct in the [config.yaml]('config.yaml') file:
+Confirm that the IP and port settings are correct in the [config.yaml](../../config.yaml) file:
 ```yaml
 servers:
     diffusion: "http://127.0.0.1:11000/"
