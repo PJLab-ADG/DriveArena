@@ -4,12 +4,12 @@ The following codes are all run in the `WorldDreamer` folder unless otherwise sp
 
 ## Overview
 - [Dataset Preparation](#dataset-preparation)
+- [Pretrained Weights](#pretrained-weights)
 - [Training & Testing](#training--testing)
-- [Model Zoo](#model-zoo)
 
 ## Dataset Preparation
 
-Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset) and [nuPlan dataset](#nuPlan-dataset).
+Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset) and [nuPlan dataset](#nuplan-dataset).
 
 ### nuScenes Dataset
 
@@ -66,7 +66,7 @@ python -m tools.create_data nuscenes \
     python tools/description.py
     ```
 
-- (Optional but recommended) We recommend generating cache files in h5 format of the bev map to speed up the data loading process.
+- (Optional but recommended) We recommend generating cache files in `.h5` format of the BEV map to speed up the data loading process.
     ```
     # generate map cache for val
     python tools/prepare_map_aux.py +process=val +subfix=12Hz_interp
@@ -161,7 +161,7 @@ ${ROOT}/pretrained/
         ├── stable-diffusion-v1-5/
         └── CLIP-ViT-B-32-laion2B-s34B-b79K/
 ```
-**Pre-trained weights** of our dreamer can be downloaded [here](https://huggingface.co/jokester-yxm/DriveArena/tree/main). More information about the ckeckpoints, please refer to [Model Zoo](../README.md/#model-zoo).
+**Pre-trained weights** of our WorldDreamer can be downloaded [here](https://huggingface.co/jokester-yxm/DriveArena/tree/main). More information about the ckeckpoints, please refer to [Model Zoo](../README.md/#model-zoo).
 
 You can organize them into this form:
 ```

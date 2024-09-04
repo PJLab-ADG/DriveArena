@@ -1,4 +1,4 @@
-# 🤩 运行 DriveArena 演示！
+# 🤩 运行 DriveArena 模拟！
 
 TrafficManager、WorldDreamer 和 DrivingAgent 之间的通信基于 **FastAPI。WorldDreamer** 和 **DrivingAgent** 可以在**远程服务器**上运行，而 **TrafficManager** 需要在**带有显示器的本地机器**上运行。
 
