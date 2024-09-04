@@ -1,27 +1,29 @@
-
 <a id="readme-top"></a>
+
 <!-- PROJECT LOGO -->
 <div align="center">
-  <!-- <a href=""> -->
-  <img src="assets/github-logo.png" alt="Logo" width="550px">
-  <br>
-  <a href="https://pjlab-adg.github.io/DriveArena/">
-    <img src="https://img.shields.io/badge/Project-Page-green" alt="Project Page" style="height:20px;">
-  </a>
-  <a href="https://arxiv.org/abs/2408.00415">
-    <img src="https://img.shields.io/badge/arXiv-Paper-red" alt="arXiv Paper" style="height:20px;">
-  </a>
+  <img src="assets/github-logo.png" alt="Logo" width="550">
+  
+  <p>
+    <a href="https://pjlab-adg.github.io/DriveArena/">
+      <img src="https://img.shields.io/badge/Project-Page-green" alt="Project Page" height="20">
+    </a>
+    <a href="https://arxiv.org/abs/2408.00415">
+      <img src="https://img.shields.io/badge/arXiv-Paper-red" alt="arXiv Paper" height="20">
+    </a>
+  </p>
+    [<a href="docs/RUN_SIMULATION.md">Documentation</a> | <a href="docs/RUN_SIMULATION_CN.md">中文说明</a>]
   <hr>
-  <img src="assets/boston_thomas_park.gif" style="width: 800px; display: block; margin: 0;" />
-  <img src="assets/singapore.gif" style="width: 800px; display: block; margin: 0;" />
-  <img src="assets/boston.gif" style="width: 800px; display: block; margin: 0;" />
+  <img src="assets/boston_thomas_park.gif" width="800" style="display: block; margin: 0 auto;">
+  <img src="assets/singapore.gif" width="800" style="display: block; margin: 0 auto;">
+  <img src="assets/boston.gif" width="800" style="display: block; margin: 0 auto;">
+
   <br>
 
   <p align="left">
-    This is the official project repository of the paper <b> DriveArena: A Controllable Generative Simulation Platform for Autonomous Driving </b> and is mainly used for releasing schedules, updating instructions, sharing model weights, and handling issues. 
+    This is the official project repository of the paper <b>DriveArena: A Controllable Generative Simulation Platform for Autonomous Driving</b> and is mainly used for releasing schedules, updating instructions, sharing model weights, and handling issues. 
   </p>
 </div>
-
 <!--
 > Xuemeng Yang<sup>1\*</sup>, Licheng Wen<sup>1\*</sup>, Yukai Ma<sup>2,1,\*</sup>, Jianbiao Mei<sup>2,1,\*</sup>, Xin Li<sup>3,5,\*</sup>, Tiantian Wei<sup>1,4,\*</sup>, Wenjie Lei<sup>2</sup>, Daocheng Fu<sup>1</sup>, Pinlong Cai<sup>1</sup>, Min Dou<sup>1</sup>, Botian Shi<sup>1,†</sup>, Liang He<sup>5</sup>, Yong Liu<sup>2,†</sup>, Yu Qiao<sup>1</sup> <br>
 > <sup>1</sup> Shanghai Artificial Intelligence Laboratory <sup>2</sup> Zhejiang University <sup>3</sup> Shanghai Jiao Tong University <sup>4</sup> Technical University of Munich <sup>5</sup> East China Normal University <br>
