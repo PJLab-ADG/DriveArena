@@ -12,7 +12,7 @@ A Controllable Autoregressive Generative Network
 
 
 ## Changelog
-[2014-09-15] `WorldDreamer` v1.0 is released. We now support single-frame autoregressive generator on `nuScenes` and `nuPlan` datasets.
+[2024-09-15] `WorldDreamer` v1.0 is released. We now support single-frame autoregressive generator on `nuScenes` and `nuPlan` datasets.
 
 
 ## Installation
