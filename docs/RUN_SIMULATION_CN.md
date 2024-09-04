@@ -8,7 +8,7 @@ TrafficManager、WorldDreamer 和 DrivingAgent 之间的通信基于 **FastAPI�
 
 然后你可以运行以下代码：
 ```shell
-cd WorldDreamer && python tools/dreamer_fast_api.py
+cd WorldDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
 ```
 
 ## 启动 DrivingAgent 服务
@@ -16,7 +16,7 @@ cd WorldDreamer && python tools/dreamer_fast_api.py
 请按照 [README.md](../DrivingAgents/UniAD/README.md) 准备环境并下载权重。
 
 ```shell
-cd DrivingAgents/UniAD && python demo/fast_api_uniad.py --resume=path/to/your/weight
+cd DrivingAgents/UniAD && python demo/fast_api_uniad.py
 ```
 
 ## 启动 TrafficManager 并开始模拟

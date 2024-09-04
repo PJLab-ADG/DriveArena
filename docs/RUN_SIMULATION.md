@@ -7,14 +7,14 @@ Please follow the [README.md](../WorldDreamer/README.md) to prepare the environm
 
 Then you can run the following code.
 ```shell
-cd WorldDreamer && python tools/dreamer_fast_api.py
+cd WorldDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
 ```
 
 ## Launch DrivingAgent Service
 Please follow the [README.md](../DrivingAgents/UniAD/README.md) to prepare the environment and download the weights.
 
 ```shell
-cd DrivingAgents/UniAD && python demo/fast_api_uniad.py --resume=path/to/your/weight
+cd DrivingAgents/UniAD && python demo/fast_api_uniad.py
 ```
 
 ## Launch TrafficManager and Start Simulation
