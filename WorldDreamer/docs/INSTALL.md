@@ -31,7 +31,7 @@ Install the source code for other third-party packages, with `cd ${FOLDER}; pip 
 ```
 # Install third-party packages
 third_party/
-├── bevfusion -> based on db75150
+├── bevfusion -> minorly change on db75150
 ├── diffusers -> based on v0.17.1 (afcca3916)
 └── xformers -> minorly change 0.0.19 to install with pytorch1.10.2
 ```
