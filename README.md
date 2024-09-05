@@ -6,17 +6,21 @@
   
   <p>
     <a href="https://pjlab-adg.github.io/DriveArena/">
-      <img src="https://img.shields.io/badge/Project-Page-green" alt="Project Page" height="20">
+      <img src="https://img.shields.io/badge/Project-Page-green?style=for-the-badge" alt="Project Page" height="20">
     </a>
     <a href="https://arxiv.org/abs/2408.00415">
-      <img src="https://img.shields.io/badge/arXiv-Paper-red" alt="arXiv Paper" height="20">
+      <img src="https://img.shields.io/badge/arXiv-Paper-red?style=for-the-badge" alt="arXiv Paper" height="20">
+    </a>
+    <a href="https://groups.google.com/g/drivearena">
+      <img src="https://img.shields.io/badge/Google-Group-D14836?style=for-the-badge&logo=google&logoColor=white" alt="Google Group" height="20">
     </a>
   </p>
-    [<a href="docs/RUN_SIMULATION.md">Documentation</a> | <a href="docs/RUN_SIMULATION_CN.md">中文说明</a>]
+    <b>[<a href="docs/RUN_SIMULATION.md">Documentation</a> | <a href="docs/RUN_SIMULATION_CN.md">中文说明</a>]</b>
   <hr>
   <img src="assets/boston_thomas_park.gif" width="800" style="display: block; margin: 0 auto;">
   <img src="assets/singapore.gif" width="800" style="display: block; margin: 0 auto;">
   <img src="assets/boston.gif" width="800" style="display: block; margin: 0 auto;">
+	
 
   <br>
 
@@ -30,18 +34,19 @@
 > <sup>\*</sup> Equal Contribution <sup>†</sup> Corresponding Authors
 -->
 
-------
+---
 
+### 🆕 Updates
 
-### :new: Updates
+- **`2024-09-05:` 🎉🎉We are thrilled to announce the release of DriveArena V1.0! 🎉🎉**
 
-`[2024-09-05]:` **We are happy to announce the release of DriveArena V1.0 🎊🎊**
+  Join our [Google group](https://groups.google.com/g/drivearena) for the latest news and discussions.
 
-`[2024-08-02]:` The paper can be accessed at [arxiv](https://arxiv.org/abs/2408.00415).
+- **`2024-08-02:`** The paper is now available on [arXiv](https://arxiv.org/abs/2408.00415).
 
-`[2024-07-30]:` We've released the [project page](https://pjlab-adg.github.io/DriveArena/) of DriveArena!  
+- **`2024-07-30:`** We've launched the [official project page](https://pjlab-adg.github.io/DriveArena/) for DriveArena!
 
-------
+---
 
 
 ## Table of Contents:
