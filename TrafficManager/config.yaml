@@ -1,7 +1,7 @@
 # Server Configuration
 servers:
-  diffusion: "http://127.0.0.1:11000/"
-  driver: "http://127.0.0.1:11001/"
+  diffusion: "http://127.0.0.1:11002/"
+  driver: "http://127.0.0.1:11003/"
 
 # Simulation Configuration
 simulation:
