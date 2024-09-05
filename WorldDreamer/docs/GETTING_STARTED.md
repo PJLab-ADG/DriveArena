@@ -168,7 +168,7 @@ You can organize them into this form:
 ${ROOT}/dreamer_pretrained/
         ├── SDv1.5_mv_single_ref_nus
                 ├── hydra
-                └── weight_S200000
+                └── weight-S200000
         └── other weights ...
 ```
 ## Training & Testing
@@ -181,7 +181,7 @@ scripts/dist_train.sh 8 runner=8gpus
 ### Test
 Test with the pre-trained weight:
 ```bash
-python tools/test.py resume_from_checkpoint=./dreamer_pretrained/SDv1.5_mv_single_ref_nus/weight_S200000
+python tools/test.py resume_from_checkpoint=./dreamer_pretrained/SDv1.5_mv_single_ref_nus/weight-S200000
 ```
 Test with your own weight:
 ```bash
