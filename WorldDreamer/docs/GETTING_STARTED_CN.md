@@ -166,7 +166,7 @@ ${ROOT}/pretrained/
 ${ROOT}/dreamer_pretrained/
         ├── SDv1.5_mv_single_ref_nus
                 ├── hydra
-                └── weight_S200000
+                └── weight-S200000
         └── other weights ...
 ```
 
@@ -183,7 +183,7 @@ scripts/dist_train.sh 8 runner=8gpus
 
 使用预训练权重进行测试：
 ```bash
-python tools/test.py resume_from_checkpoint=./dreamer_pretrained/SDv1.5_mv_single_ref_nus/weight_S200000
+python tools/test.py resume_from_checkpoint=./dreamer_pretrained/SDv1.5_mv_single_ref_nus/weight-S200000
 ```
 使用自己的权重进行测试：
 ```bash
