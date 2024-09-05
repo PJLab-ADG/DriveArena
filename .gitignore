@@ -9,6 +9,8 @@ data
 data/*
 pretrained
 pretrained/*
+dreamer_pretrained
+dreamer_pretrained/*
 
 # vscode
 .vscode/*

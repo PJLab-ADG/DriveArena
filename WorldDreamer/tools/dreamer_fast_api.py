@@ -110,7 +110,7 @@ async def process(request: Request, background_tasks: BackgroundTasks):
     combined_image.save(img_byte_array, format="PNG")  
     img_byte_array.seek(0)
     # add into image_queue
-    image_queue.put({'param': param, 'img': img_byte_array})
+    image_queue.put({'param': param, 'img': gen_imgs_list[0]})
     background_tasks.add_task(send2agent)
 
     return StreamingResponse(io.BytesIO(img_byte_array.read()), media_type="image/png")  
@@ -121,7 +121,14 @@ async def send2agent():
     print("current timestamp:", timestamp)
     if image_queue.qsize() >= 1:
         cur_data = image_queue.get() 
-        img_byte_array = cur_data['img']
+        gen_imgs = cur_data['img']
+        combined_image = Image.new("RGB", (gen_imgs[0].width, sum(img.height for img in gen_imgs)))  
+        y_offset = 0  
+        for img in gen_imgs:  
+            combined_image.paste(img, (0, y_offset))  
+            y_offset += img.height
+        img_byte_array = io.BytesIO()  
+        combined_image.save(img_byte_array, format="PNG")  
         img_byte_array = img_byte_array.getvalue()
         image_base64 = base64.b64encode(img_byte_array).decode('utf-8')
         ego_pose = cur_data['param']['metas']['ego_pos']
