@@ -7,7 +7,8 @@ The following codes are all run in the `WorldDreamer` folder unless otherwise sp
 - [Pretrained Weights](#pretrained-weights)
 - [Training & Testing](#training--testing)
 
-## Dataset Preparation
+## Dataset Preparation 
+(You can skip this step if you only want to use the simulation.)
 
 Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset) and [nuPlan dataset](#nuplan-dataset).
 
