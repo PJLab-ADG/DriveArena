@@ -31,12 +31,11 @@
 -->
 
 ------
-### 💡 Notice
-DriveArena V1.0 is currently under active development and will be open-sourced soon. 
 
-**If you want to get informed once the code is released, please fill out this <a href="https://forms.gle/AYtQdiZEvCTr2T56A">Google form</a>.**
 
 ### :new: Updates
+
+`[2024-09-05]:` **We are happy to announce the release of DriveArena V1.0 🎊🎊**
 
 `[2024-08-02]:` The paper can be accessed at [arxiv](https://arxiv.org/abs/2408.00415).
 
@@ -44,8 +43,31 @@ DriveArena V1.0 is currently under active development and will be open-sourced s
 
 ------
 
-## 🤩 Run DriveArena Demo
+
+## Table of Contents:
+- [Table of Contents:](#table-of-contents)
+- [🤩 Running DriveArena](#-running-drivearena)
+- [:fire: Highlights](#fire-highlights)
+- [🏁 Leaderboard of Driving Agents](#-leaderboard-of-driving-agents)
+  - [1. Open-loop Evaluation Leaderboard](#1-open-loop-evaluation-leaderboard)
+  - [2. Closed-loop Evaluation Leaderboard](#2-closed-loop-evaluation-leaderboard)
+- [📌 Roadmap](#-roadmap)
+- [Acknowledgments](#acknowledgments)
+- [📝 License](#-license)
+- [🔖 Citation](#-citation)
+
+
+
+
+## 🤩 Running DriveArena
 **To run the closed-loop / open-loop simulation, please refer to the [[Documentation](docs/RUN_SIMULATION.md)|[中文说明](docs/RUN_SIMULATION_CN.md)].**
+
+Just for three steps, and you will be able to launch DriveArena as the window below:
+
+
+<div align="center">
+  <img width=800px src="assets/simulation.png">
+</div>
 
 ## :fire: Highlights
 
@@ -112,7 +134,7 @@ We provide a leaderboard to present the driving performance evaluation of drivin
     </tr>
 </table>
 
-### 2. Closed-loop Evaluation Leaderboard with DriveArena
+### 2. Closed-loop Evaluation Leaderboard
 
 <table>
     <tr style="background-color: #C7C7C7; color: white;">
@@ -157,15 +179,16 @@ We provide a leaderboard to present the driving performance evaluation of drivin
 ## 📌 Roadmap
 
 - [x]  Demo Website Release
-- [ ]  V1.0 Release
-    - [ ]  Traffic Manager Code
-    - [ ]  World Dreamer
-        - [ ]  Inference Code
-        - [ ]  Training Code
-        - [ ]  Pretrained Weights
+- [x]  V1.0 Release
+    - [x]  Traffic Manager Code
+    - [x]  World Dreamer
+        - [x]  Inference Code
+        - [x]  Training Code
+        - [x]  Pretrained Weights
     - [ ]  Evaluation Code
+- [ ] Development Turtorial
 - [ ]  Driving Agent Support
-    - [ ]  UniAD
+    - [x]  UniAD
     - [ ]  VAD
     - [ ]  LeapAD
 - [ ]  Video Autoregression Dreamer
@@ -175,19 +198,19 @@ We provide a leaderboard to present the driving performance evaluation of drivin
 
 We utilized the following repos during development:
 
-* [LimSim++](https://github.com/PJLab-ADG/LimSim/tree/LimSim_plus)
+* [LimSim (Ours!)](https://github.com/PJLab-ADG/LimSim/tree/LimSim_plus)
 * [MagicDrive](https://github.com/cure-lab/MagicDrive)
 * [UniAD](https://github.com/OpenDriveLab/UniAD)
 
 Thanks for their Awesome open-sourced work!
 
 <!-- LICENSE -->
-## License
+## 📝 License
 
 Distributed under the [Apache 2.0 license](./LICENSE).
 
 <!-- CONTACT -->
-## Citation
+## 🔖 Citation
 
 If you find our paper and codes useful, please kindly cite us via:
 
