@@ -57,6 +57,7 @@
   - [1. Open-loop Evaluation Leaderboard](#1-open-loop-evaluation-leaderboard)
   - [2. Closed-loop Evaluation Leaderboard](#2-closed-loop-evaluation-leaderboard)
 - [📌 Roadmap](#-roadmap)
+- [🔍 Coming Soon...](#-coming-soon)
 - [Acknowledgments](#acknowledgments)
 - [📝 License](#-license)
 - [🔖 Citation](#-citation)
@@ -197,6 +198,12 @@ We provide a leaderboard to present the driving performance evaluation of drivin
     - [ ]  VAD
     - [ ]  LeapAD
 - [ ]  Video Autoregression Dreamer
+
+## 🔍 Coming Soon...
+**Video Autoregression Dreamer Capable of Producing Videos Exceeding 220 Frames**
+  <img src="assets/case_country.gif" width="800" style="display: block; margin: 0 auto;">
+  <img src="assets/case_intersection.gif" width="800" style="display: block; margin: 0 auto;">
+
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
