@@ -13,7 +13,7 @@ cd WorldDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
 
 ## 启动 DrivingAgent 服务
 
-请按照 [README.md](../DrivingAgents/UniAD/README.md) 准备环境并下载权重。
+请按照 [README.md](../DrivingAgents/UniAD/README_CN.md) 准备环境并下载权重。
 
 ```shell
 cd DrivingAgents/UniAD && python demo/fast_api_uniad.py
