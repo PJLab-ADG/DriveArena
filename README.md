@@ -191,8 +191,9 @@ We provide a leaderboard to present the driving performance evaluation of drivin
         - [x]  Inference Code
         - [x]  Training Code
         - [x]  Pretrained Weights
+        - [ ]  Pretrained Model trained on nuScenes + nuPlan
     - [ ]  Evaluation Code
-- [ ] Development Turtorial
+- [ ] Development Tutorial
 - [ ]  Driving Agent Support
     - [x]  UniAD
     - [ ]  VAD
