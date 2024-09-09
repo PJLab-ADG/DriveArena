@@ -23,3 +23,6 @@ open-clip-torch==2.17.1
 shapely<2.0.0
 kornia==0.7.2
 fsspec==2024.6.1
+
+fastapi
+uvicorn
