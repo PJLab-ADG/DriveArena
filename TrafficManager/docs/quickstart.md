@@ -21,8 +21,8 @@ python ./TrafficManager/sim_manager_only.py
 
 If the program runs correctly and the GUI displays properly, proceed to the next step.
 
-**2. Deploy WorldDreamer and Driving Agent Services on the remote Server or Locally**
-Detailed instructions: <span style="color: red;">此处需要link到相关文档</span>
+**2. Deploy [World Dreamer](../../WorldDreamer/docs/GETTING_STARTED.md) and [Driving Agent](../../DrivingAgents/UniAD/README.md) Services on the remote Server or Locally**
+<!-- Detailed instructions: <span style="color: red;">此处需要link到相关文档</span> -->
 
 **3. Port Mapping**
 
