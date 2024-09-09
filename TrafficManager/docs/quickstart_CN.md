@@ -17,8 +17,8 @@ python ./TrafficManager/sim_manager_only.py
 ``` 
 若程序可正常运行，GUI正常显示，则继续下一步。
 
-**2. 在服务器上或者本机上部署 WorldDreamer及 Driving Agent 服务**   
-详细说明： <span style="color: red;">此处需要link到相关文档</span>
+**2. 在服务器上或者本机上部署 [World Dreamer](../../WorldDreamer/docs/GETTING_STARTED_CN.md)及 [Driving Agent](../../DrivingAgents/UniAD/README_CN.md) 服务**   
+<!-- 详细说明： <span style="color: red;">此处需要link到相关文档</span> -->
 
 **3. 进行端口映射**
 如果WorldDreamer和Driving Agent在本地运行或可直接通过公网访问，可跳过此步骤。
