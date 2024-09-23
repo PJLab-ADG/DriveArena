@@ -169,7 +169,7 @@ def project_box_to_image(gt_bboxes_3d, gt_labels_3d, transform, object_classes, 
                         cv2.LINE_AA,
                     )
                 except:
-                    pass
+                    print("The box is not projected onto the canvas correctly, please check the code.")
                 if image is not None:
                     cv2.line(
                             image,
@@ -195,7 +195,7 @@ def project_box_to_image(gt_bboxes_3d, gt_labels_3d, transform, object_classes, 
                         cv2.LINE_AA,
                     )
                 except:
-                    pass
+                    print("The box is not projected onto the canvas correctly, please check the code.")
                 if image is not None:
                     cv2.line(
                             image,
