@@ -1,6 +1,6 @@
 import argparse
 
-from data_converter import nuscenes_converter as nuscenes_converter
+from .data_converter import nuscenes_converter as nuscenes_converter
 
 def nuscenes_data_prep(
     root_path,
