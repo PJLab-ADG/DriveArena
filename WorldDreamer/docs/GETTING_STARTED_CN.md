@@ -88,11 +88,14 @@ python -m tools.create_data nuscenes \
             ├── nuscenes_mmdet3d-12Hz
             |       ├── nuscenes_interp_12Hz_infos_train.pkl
             |       └── nuscenes_interp_12Hz_infos_val.pkl
+            ├── nuscenes_mmdet3d-12Hz_description
+            |       ├── nuscenes_interp_12Hz_updated_description_train.pkl
+            |       └── nuscenes_interp_12Hz_updated_description_val.pkl
             └── nuscenes_map_aux_12Hz_interp  # 来自插值
                     ├── train_200x200_12Hz_interp.h5
                     └── val_200x200_12Hz_interp.h5
         ```
-
+        > 🌻 你可以从 [huggingface](https://huggingface.co/datasets/jokester-yxm/DriveArena_data) 下载到`.pkl`文件。
 ### nuPlan 数据集
 
 - 为确保训练数据的均匀分布，我们从 NuPlan 数据集中选择了 64 个log。此选择包括在拉斯维加斯记录的 21 个日志、在匹兹堡记录的 21 个日志、在波士顿记录的 11 个日志以及在新加坡记录的 11 个日志。这些日志的名称列在 [nuplan.yaml](../tools/data_converter/nuplan.yaml) 中的 `dreamer_train` 和 `dreamer_val` 分类下。请下载官方的 [nuPlan 数据集](https://www.nuscenes.org/nuplan#download) 并将文件组织如下：
