@@ -87,11 +87,14 @@ python -m tools.create_data nuscenes \
     ├── nuscenes_mmdet3d-12Hz
     |       ├── nuscenes_interp_12Hz_infos_train.pkl
     |       └── nuscenes_interp_12Hz_infos_val.pkl
+    ├── nuscenes_mmdet3d-12Hz_description
+    |       ├── nuscenes_interp_12Hz_updated_description_train.pkl
+    |       └── nuscenes_interp_12Hz_updated_description_val.pkl
     └── nuscenes_map_aux_12Hz_interp  # from interp
             ├── train_200x200_12Hz_interp.h5
             └── val_200x200_12Hz_interp.h5
     ```
-
+    > 🌻 You can download the `.pkl` files from [huggingface](https://huggingface.co/datasets/jokester-yxm/DriveArena_data).
 
 ### nuPlan Dataset
 
