@@ -10,7 +10,7 @@ The following codes are all run in the `WorldDreamer` folder unless otherwise sp
 ## Dataset Preparation 
 (You can skip this step if you only want to use the simulation.)
 
-Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset) and [nuPlan dataset](#nuplan-dataset).
+Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset). The dataloader for [nuPlan dataset](#nuplan-dataset) will be released soon.
 
 ### nuScenes Dataset
 
@@ -96,7 +96,7 @@ python -m tools.create_data nuscenes \
     ```
     > 🌻 You can download the `.pkl` files from [huggingface](https://huggingface.co/datasets/jokester-yxm/DriveArena_data).
 
-### nuPlan Dataset
+### nuPlan Dataset (Coming soon...)
 
 - To ensure a likely even distribution of the training data, we selected 64 logs from the NuPlan dataset. This selection includes 21 logs recorded in Las Vegas, 21 logs recorded in Pittsburgh, 11 logs recorded in Boston, and 11 logs recorded in Singapore. The names of the selected logs are listed under the `dreamer_train` and `dreamer_val` categories in [nuplan.yaml](../tools/data_converter/nuplan.yaml). Please download the official [nuPlan dataset](https://www.nuscenes.org/nuplan#download) and organized the files as follows:
 
@@ -196,5 +196,6 @@ Test on the demo data, which is crop from the OpenStreetMap:
 python tools/test.py runner.validation_index=demo resume_from_checkpoint=path/to/your/weight
 ```
 ## Todo
+- [ ] release code for nuPlan
 - [ ] check tensorboard code
 - [x] check map visualization code

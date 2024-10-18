@@ -191,6 +191,7 @@ We provide a leaderboard to present the driving performance evaluation of drivin
         - [x]  Inference Code
         - [x]  Training Code
         - [x]  Pretrained Weights
+        - [ ]  Code for nuPlan
         - [ ]  Pretrained Model trained on nuScenes + nuPlan
     - [ ]  Evaluation Code
 - [ ] Development Tutorial
