@@ -1,0 +1,19 @@
+defaults:
+  - dataset: ../Nuplan
+  - _self_
+
+seed: 42
+
+dataset:
+  dataset_type: NuPlanDataset
+  dataset_process_root: data/nuplan/
+  data:
+    train:
+      nuplan:
+        ann_file: ${....dataset_process_root}nuplan_infos_train_with_note.pkl
+    val:
+      nuplan:
+        ann_file: ${....dataset_process_root}nuplan_infos_val_with_note.pkl
+    test:
+      nuplan:
+        ann_file: ${....dataset_process_root}nuplan_infos_val.pkl

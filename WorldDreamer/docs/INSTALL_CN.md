@@ -12,13 +12,12 @@ conda create -n dreamer python=3.9
 conda activate dreamer
 ```
 
-<!-- 从源码安装 `nuplan-devkit`
+从源码安装 `nuplan-devkit`
 ```bash
 cd WorldDreamer/third_party/nuplan-devkit
 pip install -r requirements.txt
 pip install -e .
-``` -->
-
+```
 安装 `Pytorch==1.10.2` 和 `torchvision==0.11.3`
 ```bash
 pip install torch==1.10.2+cu113 torchvision==0.11.3+cu113 torchaudio==0.10.2+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
@@ -27,7 +26,7 @@ pip install torch==1.10.2+cu113 torchvision==0.11.3+cu113 torchaudio==0.10.2+cu1
 ```
 # 安装第三方包
 third_party/
-├── bevfusion -> 基于 db75150 进行了微小修改
+├── bevfusion -> 基于 db75150
 ├── diffusers -> 基于 v0.17.1 (afcca3916)
 └── xformers -> 对 0.0.19 进行了微小修改，以支持 pytorch1.10.2
 ```
