@@ -1,0 +1,36 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null                                           # Store hydra's config breakdown here for debugging
+  searchpath:                                                   # Only <exp_dir> in these paths are discoverable
+    - pkg://nuplan.planning.script.config.common
+    - pkg://nuplan.planning.script.experiments                  # Put experiments configs in script/experiments/<exp_dir>
+
+defaults:
+  # Hyperparameters need to be specified
+
+  - metric_aggregator:
+      - open_loop_boxes_weighted_average
+      - closed_loop_nonreactive_agents_weighted_average
+      - closed_loop_reactive_agents_weighted_average
+
+  - override hydra/job_logging: none                            # Disable hydra's logging
+  - override hydra/hydra_logging: none                          # Disable hydra's logging
+
+delete_scenario_metric_files: false                        # Set True to delete scenario metric files after file integration
+output_dir: ${oc.env:NUPLAN_EXP_ROOT}/exp                  # Output dir
+metric_folder_name: 'metrics'                              # Metric folder name
+scenario_metric_paths:
+  - ${output_dir}/${metric_folder_name}                               # A list of existing scenario metric paths, e.g., scenario_metric_paths="[simulation_path_1/metrics, simulation_path_2/metrics]"
+date_format: '%Y.%m.%d.%H.%M.%S'                           # Date format
+aggregated_metric_folder_name: 'aggregator_metric'         # Aggregated metric folder name
+enable_metric_summary: true
+
+aggregator_save_path: ${output_dir}/${aggregated_metric_folder_name}
+
+# Optional parameters for evaluation server aggregation
+contestant_id: null
+submission_id: null
+
+challenges:
+  - ''

@@ -46,7 +46,24 @@ COLORS = {
     'pedestrian':           (0, 0, 230),    # Blue
     'traffic_cone':         (47, 79, 79),   # Darkslategrey
 
-    'nothing':              (200, 200, 200)
+    'nothing':              (200, 200, 200),
+
+    # nuplan
+    'generic_drivable_areas': (166, 206, 227),
+    'road_segments': (31, 120, 180),
+    'lanes_polygons': (178, 223, 138),
+    'ped_crossings': (251, 154, 153),
+    'walkways': (227, 26, 28),
+    'carpark_areas': (255, 127, 0),
+    'traffic_lights': (126, 119, 46),
+    'intersections': (112, 54, 66),
+    'lane_group_connectors': (202, 178, 214),
+    'stop_polygons': (128, 0, 128),
+    'speed_bumps': (220, 118, 51),
+    'lane_connectors': (106, 61, 154),
+    'lane_groups_polygons': (133, 146, 158),
+    'boundaries': (131, 145, 146),
+    'crosswalks': (246, 221, 204),
 }
 # fmt: on
 
@@ -63,6 +80,15 @@ STATIC_PRIORITY = [
     "divider",
     "road_divider",
     "lane_divider",
+    # nuplan
+    'intersections',
+    'generic_drivable_areas',
+    'walkways',
+    'carpark_areas',
+    'crosswalks',
+    'lane_group_connectors',
+    'lane_groups_polygons',
+    'road_segments',
 ]
 
 
@@ -168,7 +194,11 @@ def visualize_map(
     map = map.transpose(1, 2, 0)  # channel last
 
     # we assume map has static + dynamic layers, classes can be None
-    static_semantic = classes_to_np(cfg.dataset.map_classes)
+    if 'map_classes' in cfg.dataset:
+        static_semantic = classes_to_np(cfg.dataset.map_classes)
+    else:
+        static_semantic = classes_to_np(cfg.dataset.map_classes_nuscenes)
+
     dynamic_semantic = classes_to_np(cfg.dataset.object_classes)
 
     empty = np.uint8(COLORS["nothing"])[None, None]

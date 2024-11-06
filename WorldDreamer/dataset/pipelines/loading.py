@@ -9,6 +9,12 @@ from mmdet.datasets.builder import PIPELINES
 
 from nuscenes.map_expansion.map_api import NuScenesMap
 from nuscenes.map_expansion.map_api import locations as LOCATIONS
+
+from nuplan.database.maps_db.gpkg_mapsdb import GPKGMapsDB
+from nuplan.common.maps.nuplan_map.nuplan_map import NuPlanMap
+from nuplan.database.maps_db.map_api import NuPlanMapWrapper
+from nuplan.database.maps_db.map_explorer import NuPlanMapExplorer
+from nuplan.database.maps_db.gpkg_mapsdb import MAP_LOCATIONS
 from PIL import Image
 
 from mmdet3d.datasets.pipelines.loading_utils import (
@@ -58,12 +64,8 @@ class LoadBEVSegmentationS:
         )
 
         self.maps = {}
-        if "Nuplan" in dataset_root:
+        if "nuplan" in dataset_root.lower():
             pass
-            # for location in NUPLAN_LOCATIONS:
-            # mapdb = GPKGMapsDB("nuplan-maps-v1.0", f"{dataset_root}/maps")
-            # self.maps[location] = NuPlanMap(mapdb, location)
-            # self.maps[location] =
         else:
             for location in LOCATIONS:
                 self.maps[location] = NuScenesMap(dataset_root, location)
@@ -85,12 +87,22 @@ class LoadBEVSegmentationS:
         )
         data["gt_masks_bev"] = labels
 
+        if not np.any(data["gt_masks_bev"]):
+            print('gt_masks_bev are all 0')
         return data
 
     def _get_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
         lidar2ego = data["lidar2ego"]
         ego2global = data["ego2global"]
-        lidar2global = ego2global @ lidar2ego
+        
+        location = data["location"]
+        if location in MAP_LOCATIONS:
+            rotation_z_neg90 = np.array([[0, 1, 0, 0], [-1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+            lidar2global = ego2global @ lidar2ego
+            lidar2global = rotation_z_neg90 @ lidar2global
+        else:
+            lidar2global = ego2global @ lidar2ego
+
         if "lidar_aug_matrix" in data:  # it is I if no lidar aux or no train
             lidar2point = data["lidar_aug_matrix"]
             point2lidar = np.linalg.inv(lidar2point)
@@ -105,7 +117,6 @@ class LoadBEVSegmentationS:
         patch_angle = yaw / np.pi * 180
 
         mappings = {}
-
         # cut semantics from nuscenesMap
         location = data["location"]
         if location in LOCATIONS:
@@ -116,7 +127,6 @@ class LoadBEVSegmentationS:
                     mappings[name] = ["road_divider", "lane_divider"]
                 else:
                     mappings[name] = [name]
-
             layer_names = []
             for name in mappings:
                 layer_names.extend(mappings[name])
@@ -127,23 +137,37 @@ class LoadBEVSegmentationS:
                 layer_names=layer_names,
                 canvas_size=self.canvas_size,
             )
-        
-            masks = masks.transpose(0, 2, 1)  # TODO why need transpose here?
-            masks = masks.astype(np.bool_)
-
-            num_classes = len(self.classes)
-            labels = np.zeros((num_classes, *self.canvas_size), dtype=np.int64)  # long)
-
-            for k, name in enumerate(self.classes):
-                for layer_name in mappings[name]:
-                    index = layer_names.index(layer_name)
-                    labels[k, masks[index]] = 1
-
-            data["gt_masks_bev"] = labels
         else:
-            num_classes = len(self.classes)
-            labels = np.zeros((num_classes, *self.canvas_size), dtype=np.int64)
-            data["gt_masks_bev"] = labels
+            if location not in self.maps:
+                mapdb = GPKGMapsDB("nuplan-maps-v1.0", f"{self.dataset_root}/maps")
+                map_api = NuPlanMapWrapper(mapdb, map_name=location)
+                map_explorer = NuPlanMapExplorer(map_api=map_api)
+                self.maps[location] = map_explorer
+
+            for name in self.classes:
+                mappings[name] = [name]
+
+            layer_names = []
+            for name in mappings:
+                layer_names.extend(mappings[name])
+            layer_names = list(layer_names)
+            masks = self.maps[location].get_map_mask(
+                patch_box=patch_box,
+                patch_angle=patch_angle,
+                layer_names=self.classes,
+                output_size=self.canvas_size,
+            )
+
+        masks = masks.transpose(0, 2, 1)  # TODO why need transpose here?
+        masks = masks.astype(np.bool_)
+        num_classes = len(self.classes)
+        labels = np.zeros((num_classes, *self.canvas_size), dtype=np.int64)  # long)
+
+        for k, name in enumerate(self.classes):
+            for layer_name in mappings[name]:
+                index = layer_names.index(layer_name)
+                labels[k, masks[index]] = 1
+        data["gt_masks_bev"] = labels
         return data
 
     def __call__(self, data: Dict[str, Any]) -> Dict[str, Any]:
