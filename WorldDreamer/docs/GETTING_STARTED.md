@@ -7,10 +7,11 @@ The following codes are all run in the `WorldDreamer` folder unless otherwise sp
 - [Pretrained Weights](#pretrained-weights)
 - [Training & Testing](#training--testing)
 
-## Dataset Preparation 
-(You can skip this step if you only want to use the simulation.)
+The following codes are all run in the `WorldDreamer` folder unless otherwise specified.
 
-Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset). The dataloader for [nuPlan dataset](#nuplan-dataset) will be released soon.
+## Dataset Preparation
+
+Currently we provide the dataloader of [nuScenes dataset](#nuscenes-dataset) and [nuPlan dataset](#nuplan-dataset).
 
 ### nuScenes Dataset
 
@@ -87,16 +88,13 @@ python -m tools.create_data nuscenes \
     ├── nuscenes_mmdet3d-12Hz
     |       ├── nuscenes_interp_12Hz_infos_train.pkl
     |       └── nuscenes_interp_12Hz_infos_val.pkl
-    ├── nuscenes_mmdet3d-12Hz_description
-    |       ├── nuscenes_interp_12Hz_updated_description_train.pkl
-    |       └── nuscenes_interp_12Hz_updated_description_val.pkl
     └── nuscenes_map_aux_12Hz_interp  # from interp
             ├── train_200x200_12Hz_interp.h5
             └── val_200x200_12Hz_interp.h5
     ```
-    > 🌻 You can download the `.pkl` files from [huggingface](https://huggingface.co/datasets/jokester-yxm/DriveArena_data).
 
-### nuPlan Dataset (Coming soon...)
+
+### nuPlan Dataset
 
 - To ensure a likely even distribution of the training data, we selected 64 logs from the NuPlan dataset. This selection includes 21 logs recorded in Las Vegas, 21 logs recorded in Pittsburgh, 11 logs recorded in Boston, and 11 logs recorded in Singapore. The names of the selected logs are listed under the `dreamer_train` and `dreamer_val` categories in [nuplan.yaml](../tools/data_converter/nuplan.yaml). Please download the official [nuPlan dataset](https://www.nuscenes.org/nuplan#download) and organized the files as follows:
 
@@ -172,20 +170,26 @@ You can organize them into this form:
 ${ROOT}/dreamer_pretrained/
         ├── SDv1.5_mv_single_ref_nus
                 ├── hydra
-                └── weight-S200000
+                └── weight_S200000
         └── other weights ...
 ```
 ## Training & Testing
 ### Train 
+
+- To train on **nuScenes** dataset, please change the `config_name` in [train.py](../tools/train.py#L43) to `config_nus` *(This is set as default)*
+- To train on **nuScenes** and **nuPlan** datasests, please change the `config_name` in [train.py](../tools/train.py#L43) to `config_nup+nus`
 
 Train the single-frame autoregressive version:
 ```bash
 scripts/dist_train.sh 8 runner=8gpus
 ```
 ### Test
+- To test on **nuScenes** dataset, please change the `config_name` in [test.py](../tools/test.py#43) to `test_config_nus` *(This is set as default)*
+- To test on **nuScenes** and **nuPlan** dataset, please change the `config_name` in [test.py](../tools/test.py#43) to `test_config_nup+nus`
+
 Test with the pre-trained weight:
 ```bash
-python tools/test.py resume_from_checkpoint=./dreamer_pretrained/SDv1.5_mv_single_ref_nus/weight-S200000
+python tools/test.py resume_from_checkpoint=./dreamer_pretrained/SDv1.5_mv_single_ref_nus/weight_S200000
 ```
 Test with your own weight:
 ```bash
@@ -196,6 +200,5 @@ Test on the demo data, which is crop from the OpenStreetMap:
 python tools/test.py runner.validation_index=demo resume_from_checkpoint=path/to/your/weight
 ```
 ## Todo
-- [ ] release code for nuPlan
 - [ ] check tensorboard code
 - [x] check map visualization code

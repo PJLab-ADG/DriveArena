@@ -40,7 +40,7 @@ transform1 = transforms.Compose([transforms.ToTensor(),
                                  ])
 
 
-@hydra.main(version_base=None, config_path="../configs", config_name="test_config")
+@hydra.main(version_base=None, config_path="../configs", config_name="test_config_nus")
 def main(cfg: DictConfig):
     if cfg.debug:
         import debugpy
@@ -88,7 +88,7 @@ def main(cfg: DictConfig):
         ori_img_paths = []
         gen_img_paths = {}
         if cfg.runner.validation_index == 'demo' and batch_index == 0:
-            val_input["ref_images"][0, ...] = style_dict('boston', cfg.dataset.dataset_root_nuscenes)
+            val_input["ref_images"][0, ...] = style_dict('boston_rain', cfg.dataset.dataset_root_nuscenes)
         elif val_input['meta_data']['metas'][0].data.get('is_first_frame', False):
             print(curr_index)
             pass
@@ -98,7 +98,7 @@ def main(cfg: DictConfig):
             val_input["ref_images"][0, ...] = gen_ref
 
         # You can change the description by the folowing code.
-        # val_input['captions'] = ['A driving scene image at boston-seaport. daytime, rainy, downtown, straight road, white buildings, construction zone.']
+        val_input['captions'] = ['A driving scene image at boston-seaport. night, clear, downtown, straight road, white buildings, construction zone.']
         return_tuples = run_one_batch(cfg, pipe, val_input, weight_dtype,
                                       transparent_bg=cfg.transparent_bg,
                                       map_size=target_map_size)

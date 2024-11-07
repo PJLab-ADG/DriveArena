@@ -89,7 +89,7 @@ object_classes:
   - pedestrian
   - traffic_cone
 
-map_classes:
+map_classes_nuscenes:
   - drivable_area
   - ped_crossing
   - walkway
@@ -99,7 +99,7 @@ map_classes:
   - lane_divider
   - road_block
 
-lane_classes:
+lane_classes_nuscenes:
   - divider
   - ped_crossing
   - boundary
@@ -142,7 +142,7 @@ train_pipeline_nuscenes:
     dataset_root: ${...dataset_root_nuscenes}
     xbound: ${...map_bound.x}
     ybound: ${...map_bound.y}
-    classes: ${...map_classes}
+    classes: ${...map_classes_nuscenes}
     cache_file: ${...dataset_cache_file_nuscenes.0}
   - 
     type: RandomFlip3DwithViews
@@ -200,7 +200,7 @@ test_pipeline_nuscenes:
     dataset_root: ${...dataset_root_nuscenes}
     xbound: ${...map_bound.x}
     ybound: ${...map_bound.y}
-    classes: ${...map_classes}
+    classes: ${...map_classes_nuscenes}
     cache_file: ${...dataset_cache_file_nuscenes.1}
   - 
     type: ReorderMultiViewImages
@@ -234,7 +234,7 @@ data:
       ann_file: ${....dataset_process_root_nuscenes}nuscenes_interp_12Hz_infos_train.pkl
       pipeline: ${....train_pipeline_nuscenes}
       object_classes: ${....object_classes}
-      map_classes: ${....lane_classes}
+      map_classes: ${....lane_classes_nuscenes}
       modality: ${....input_modality}
       test_mode: false
       # use_valid_flag: true  # this will filter some objects, not sure why
@@ -248,7 +248,7 @@ data:
       ann_file: ${....dataset_process_root_nuscenes}nuscenes_infos_val.pkl
       pipeline: ${....test_pipeline_nuscenes}
       object_classes: ${....object_classes}
-      map_classes: ${....lane_classes}
+      map_classes: ${....lane_classes_nuscenes}
       modality: ${....input_modality}
       test_mode: true
       force_all_boxes: true  # !! even without `use_valid_flag`, objects with no lidar pts will be filtered
@@ -261,7 +261,7 @@ data:
       ann_file: ${....dataset_process_root_nuscenes}nuscenes_infos_val.pkl
       pipeline: ${....test_pipeline_nuscenes}
       object_classes: ${....object_classes}
-      map_classes: ${....lane_classes}
+      map_classes: ${....lane_classes_nuscenes}
       modality: ${....input_modality}
       test_mode: true
       force_all_boxes: true  # !! even without `use_valid_flag`, objects with no lidar pts will be filtered

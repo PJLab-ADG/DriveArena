@@ -16,13 +16,11 @@ def encode_image(image_path):
 def get_openai_description(image_path):
     # Getting the base64 string
     base64_image = encode_image(image_path)
-
-    ### Implement your own OpenAI API key
     api_key = ""
-    if api_key == "":
-        print("You must implement your own OpenAI API key")
-        exit(1)
-    
+    proxies = {
+        "http": "",
+        "https": "",
+    }
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}",
@@ -63,6 +61,7 @@ def get_openai_description(image_path):
                 "https://api.openai.com/v1/chat/completions",
                 headers=headers,
                 json=payload,
+                proxies=proxies,
             )
             response.raise_for_status()  # Raise an exception for bad status codes
             return response.json()["choices"][0]["message"]["content"]

@@ -45,6 +45,19 @@ def draw_box_on_imgs(cfg, idx, val_input, ori_imgs, transparent_bg=False) -> Tup
         in_imgs = [Image.new("RGB", img.size) for img in ori_imgs]
     else:
         in_imgs = ori_imgs
+
+    if "filename" in val_input["meta_data"]["metas"][0].data:
+        filename = val_input["meta_data"]["metas"][0].data["filename"][0]
+    else:
+        # Handle the case where 'filename' is missing
+        print("Filename not found in the data.")
+        filename = ''
+
+    if "nuplan" in filename:
+        nuplan = True
+    else:
+        nuplan = False
+        
     out_imgs = show_box_on_views(
         OmegaConf.to_container(cfg.dataset.object_classes, resolve=True),
         in_imgs,
@@ -52,6 +65,7 @@ def draw_box_on_imgs(cfg, idx, val_input, ori_imgs, transparent_bg=False) -> Tup
         val_input["meta_data"]["gt_labels_3d"][idx].data.numpy(),
         val_input["meta_data"]["lidar2image"][idx].data.numpy(),  # 644
         val_input["meta_data"]["img_aug_matrix"][idx].data.numpy(),  # 644
+        nuplan=nuplan
     )
     if transparent_bg:
         for i in range(len(out_imgs)):
@@ -345,7 +359,12 @@ def run_one_batch(
     # map
     map_imgs = []
     for bev_map in val_input["bev_hdmap"]:
-        vis_map = torch.zeros(len(cfg.dataset.map_classes), *bev_map.shape[1:])
+        if 'map_classes' in cfg.dataset:
+            map_layers = len(cfg.dataset.map_classes)
+        else:
+            map_layers = len(cfg.dataset.map_classes_nuscenes)
+
+        vis_map = torch.zeros(map_layers, *bev_map.shape[1:])
         # Change order for visualization
         for i, j in enumerate([6,1,5,0]):
             vis_map[j] = bev_map[i]

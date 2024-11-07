@@ -1,0 +1,6 @@
+_target_: torch.optim.AdamW
+_convert_: 'all'
+
+lr: 5e-5  # learning rate
+weight_decay: 5e-4  # weight decay coefficient
+betas: [0.9, 0.999]  # coefficients used for computing running averages of gradient and its square
