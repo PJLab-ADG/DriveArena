@@ -1,6 +1,6 @@
 #############################
 # interp
-############################
+#############################
 
 # create ann_info
 python tools/create_data.py nuscenes --root-path /cpfs01/shared/public/ADLab/datasets/nuscenes --out-dir ./data/nuscenes_mmdet3d-12Hz --extra-tag nuscenes_interp_12Hz --max-sweeps -1 --version interp_12Hz_trainval
@@ -17,7 +17,7 @@ python tools/prepare_map_aux.py +process=train +subfix=12Hz_interp
 
 #############################
 # advanced
-############################
+#############################
 
 # create ann_info
 python tools/create_data.py nuscenes --root-path ../data/nuscenes --out-dir ../data/nuscenes_mmdet3d-12Hz --extra-tag nuscenes_advanced_12Hz --max-sweeps -1 --version advanced_12Hz_trainval
@@ -31,3 +31,4 @@ python tools/prepare_map_aux.py +process=val +subfix=12Hz_advanced
 python tools/prepare_map_aux.py +process=train +subfix=12Hz_advanced
 
 # then move cache files to `../data/nuscenes_map_aux_12Hz_adv`
+

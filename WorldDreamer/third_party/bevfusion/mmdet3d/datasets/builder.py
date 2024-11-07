@@ -48,7 +48,7 @@ def build_dataset(cfg, default_args=None):
         dataset_keys = ["nuscenes", "nuplan"]
         dataset = ConcatDataset(
             [build_dataset(cfg[c], default_args) for c in dataset_keys]
-        )  # , separate_eval=False)
+        ) 
     elif "nuscenes" in cfg and isinstance(cfg, dict):
         dataset = build_from_cfg(cfg["nuscenes"], DATASETS, default_args)
     elif "nuplan" in cfg and isinstance(cfg, dict):

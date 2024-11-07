@@ -347,8 +347,6 @@ class NuPlanDataset(Custom3DDataset):
                 ).reshape(4, 4)
                 scaled_camera_intrinsics = scale @ camera_intrinsics
                 data["camera_intrinsics"].append(scaled_camera_intrinsics)
-                #     camera_intrinsics
-                # )  # scaled_camera_intrinsics)
 
                 # lidar to image transform
                 lidar2image = scaled_camera_intrinsics @ lidar2camera_rt.T

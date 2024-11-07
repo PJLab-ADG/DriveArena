@@ -1,5 +1,6 @@
 defaults:
-  - /dataset/Nuscenes_single_ref
+  - /dataset/Nuscenes_12hz
+  - /dataset/Nuplan_12hz      # remember to comment out this line if you only want to train/test on nuScenes
   - /model/SDv1.5_mv_single_ref
   - _self_
 
@@ -8,4 +9,4 @@ runner:
   validation_batch_size: 1
   validation_index: [0, 100, 200, 300, 400, 500, 600, 700, 899, 1828, 3090]
   enable_xformers_memory_efficient_attention: true
-  save_model_per_epoch: 1
+  save_model_per_epoch: 5
