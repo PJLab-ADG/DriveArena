@@ -209,7 +209,9 @@ We provide a leaderboard to present the driving performance evaluation of drivin
 ## 🔍 Video Autoregression Dreamer (Coming Soon)
 **Video Autoregression Dreamer Capable of Producing Videos Exceeding 220 Frames**
   <img src="assets/case_country.gif" width="800" style="display: block; margin: 0 auto;">
+  
 **UniAD Performance**
+
   <img src="assets/video-uniad.gif" width="500" style="display: block; margin: 0 auto;">
   
 
