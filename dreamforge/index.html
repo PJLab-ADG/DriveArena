@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>DreamForge: Motion-Aware Autoregressive Video Generation for Multi-View Driving Scenes</title>
+  <link rel="icon" type="image/x-icon" href="static/images/leap.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://kit.fontawesome.com/dcd6d05807.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.0/marked.min.js"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .title.is-1.publication-title {
+      margin: 0;
+      position: relative;
+      display: inline-block;
+    }
+    .title-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .title-original, .title-hover {
+      transition: opacity 1.2s ease;
+      text-align: center;
+    }
+    .title-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .title.is-1.publication-title:hover .title-original {
+      opacity: 0;
+    }
+    .title.is-1.publication-title:hover .title-hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <div class="title-container">
+              <h1 class="title is-2 publication-title">
+                <span class="title-original">
+                  DreamForge: Motion-Aware Autoregressive Video Generation for <br> Multiview Driving Scenes
+                </span>
+              </h1>
+            </div>
+            <br>
+            <div class="is-size-4 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=OUtPkg0AAAAJ" target="_blank">Jianbiao Mei</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=xGuZsikAAAAJ" target="_blank">Xuemeng Yang</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://wenlc.cn/" target="_blank">Licheng Wen</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="" target="_blank">Tao Hu</a><sup>2,3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=Ydsf5ZEAAAAJ" target="_blank">Yu Yang</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://april.zju.edu.cn/team/yukai-ma/" target="_blank">Yukai Ma</a><sup>1,2</sup>,
+              </span>
+              
+              <br>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/tiantian-wei-90328b262/" target="_blank">Tiantian Wei</a><sup>2,4</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=w9fTWKQAAAAJ" target="_blank">Min Dou</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=K0PpvLkAAAAJ" target="_blank">Botian Shi</a><sup>2,<i class="fa-regular fa-envelope fa-shake"></i></sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://april.zju.edu.cn/team/dr-yong-liu/" target="_blank">Yong Liu</a><sup>1,<i class="fa-regular fa-envelope fa-shake"></i></sup>,
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <br> 
+              <span class="author-block"><sup>1</sup>Zhejiang University</span>&ensp;
+              <span class="author-block"><sup>2</sup>Shanghai Artificial Intelligence Laboratory</span>&ensp;
+              <span class="author-block"><sup>3</sup>University of Science and Technology of China</span>&ensp;
+              <br>
+              <span class="author-block"><sup>4</sup>Technical University of Munich</span>&ensp;
+              <span class="eql-cntrb"><br><sup><i class="fa-regular fa-envelope fa-shake"></i></sup>Corresponding authors</span>
+              <!-- <span class="eql-cntrb"><small></small></span> -->
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv PDF link -->
+                <!-- <span class="link-block">
+                  <a href=" " target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span> -->
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="https://github.com/PJLab-ADG/DriveArena" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const title = document.querySelector('.publication-title');
+      const originalText = document.querySelector('.title-original');
+      const hoverText = document.querySelector('.title-hover');
+
+      title.addEventListener('mouseenter', function () {
+        originalText.style.animation = 'fadeOut 0.5s forwards';
+        hoverText.style.animation = 'fadeIn 0.5s forwards';
+      });
+
+      title.addEventListener('mouseleave', function () {
+        originalText.style.animation = 'fadeIn 0.5s forwards';
+        hoverText.style.animation = 'fadeOut 0.5s forwards';
+      });
+    });
+  </script>
+
+  <!-- Image carousel -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <center>
+              <video width="100%" controls>
+                <source src="static/videos/demo0.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Use UniAD to perform planning on the keyframes (2 Hz) for the <b>generated video</b>.
+            </h2>
+          </div>
+          <div class="item">
+            <center>
+              <video width="100%" controls>
+                <source src="static/videos/demo1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Use UniAD to perform planning on the keyframes (2 Hz) for the <b>generated video</b>.
+            </h2>
+          </div>
+          <div class="item">
+            <center>
+              <video width="100%" controls>
+                <source src="static/videos/demo2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Use UniAD to perform planning on the keyframes (2 Hz) for the <b>generated video</b>.
+            </h2>
+          </div>
+          <div class="item">
+            <center>
+              <video width="100%" controls>
+                <source src="static/videos/demo3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Use UniAD to perform planning on the keyframes (2 Hz) for the <b>generated video</b>.
+            </h2>
+          </div>
+          <div class="item">
+            <center>
+              <video width="100%" controls>
+                <source src="static/videos/demo4.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Use UniAD to perform planning on the keyframes (2 Hz) for the <b>generated video</b>.
+            </h2>
+          </div>
+          <div class="item">
+            <center>
+              <video width="100%" controls>
+                <source src="static/videos/demo5.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Use UniAD to perform planning on the keyframes (2 Hz) for the <b>generated video</b>.
+            </h2>
+          </div>
+
+          <!-- More video items go here -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End image carousel -->
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              <b>
+              <span style="font-size: 20px; line-height: 1.4; font-family: google sans">
+                Recent advances in diffusion models have improved controllable streetscape generation and supported downstream perception and planning tasks. However, challenges remain in accurately modeling driving scenes and generating long videos. To alleviate these issues, we propose <span style="color: #ff7e5f;">DreamForge</span>, an advanced diffusion-based autoregressive video generation model tailored for 3D-controllable long-term generation. To enhance the lane and foreground generation, we introduce perspective guidance and integrate object-wise position encoding to incorporate local 3D correlation and improve foreground object modeling. We also propose motion-aware temporal attention to capture motion cues and appearance changes in videos. By leveraging motion frames and an autoregressive generation paradigm, we can autoregressively generate long videos (over 200 frames) using a 7-frame model, achieving superior quality compared to the baseline in 16-frame video evaluations. Finally, we integrate our method with the realistic simulation platform DriveArena to provide more reliable open-loop and closed-loop evaluations for vision-based driving agents.
+              </span>
+              </b>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- End paper abstract -->
+
+
+
+  <section class="section" id="Architecture">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered has-text-centered">
+
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Architecture</h2>
+          <div class="hero-body">
+            <center>
+              <embed type="image/png" src="static/images/brief_pipeline.png" width="90%" />
+            </center>
+            <h2 class="subtitle has-text-justified" style="padding-top: 1rem;">
+              <span style="font-size: 15px; line-height: 1.4; font-family: google sans">
+                (a) Overall framework. During the denoising process, DreamForge leverages various conditions to enhance the modeling of driving scenes. Additionally, we introduce perspective guidance and incorporate object-wise position encoding (OPE) to improve street and foreground generation. We also implement motion-aware attention (MTA) to enhance temporal coherence, supporting long-term video generation through autoregression. "P" denotes the perspective projection. (b) The overall procedure of OPE. We only encode frustum sampling points in the 3D bounding boxes into the object position embedding. (c) The detailed architecture of MTA, which learns motion cues from motion frames, ego poses, and bidirectional feature differences.
+              </span>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- Image carousel -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+
+        <div class="columns is-centered">
+          <h2 class="title">Long Multiview Video Generation</h2>
+        </div>
+
+        <h4 class="title is-4">Various driving scenes</h4>
+        <div class="video-container">
+          <span class="video-caption">1. A case at the country (12 Hz, 19s).</span>
+          <video autoplay muted loop>
+            <source src="static/videos/case_country.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-container">
+          <span class="video-caption">2. A case at the intersection (12 Hz, 19s).</span>
+          <video autoplay muted loop>
+            <source src="static/videos/case_intersection.mp4" type="video/mp4">
+          </video>
+        </div>
+        <br>
+
+        <h4 class="title is-4">Various weather conditions</h4>
+        <div class="video-container">
+          <span class="video-caption">1. <b>Sunny</b>&mdash;"A driving scene image at boston-seaport. sunny, daytime, suburban, straight road."</span>
+          <video autoplay muted loop>
+            <source src="static/videos/sunny.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-container">
+          <span class="video-caption">2. <b>Rainy</b>"&mdash;A driving scene image at boston-seaport. rainy, cloudy, suburban, wet road."</span>
+          <video autoplay muted loop>
+            <source src="static/videos/rainy.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-container">
+          <span class="video-caption">3. <b>Nightime</b>"&mdash;A driving scene image at singapre-hollandvillage. night, clear, suburban, streetlights."</span>
+          <video autoplay muted loop>
+            <source src="static/videos/night.mp4" type="video/mp4">
+          </video>
+        </div>
+        <br>
+
+        <h4 class="title is-4">Intergration with Traffic Manager</h4>
+        <div class="video-container">
+          <span class="video-caption">1. "A driving scene image at singapore. daytime, sunny, downtown."</span>
+          <video autoplay muted loop>
+            <source src="static/videos/demo_bev_1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-container">
+          <span class="video-caption">2. "A driving scene image at singapore. daytime, sunny, downtown."</span>
+          <video autoplay muted loop>
+            <source src="static/videos/demo_bev_2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <br>
+            
+
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <!-- Your image here -->
+            <center>
+              <img src="static/images/case_3.png" alt="MY ALT TEXT" width="80%" />
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Visualizations of the simulation within DriveArena.
+            </h2>
+          </div>
+
+          <div class="item">
+            <!-- Your image here -->
+            <center>
+              <img src="static/images/comparison.png" alt="MY ALT TEXT" width="80%" />
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Visual comparison. Our DreamForge outperforms the baseline in foreground object generation.
+            </h2>
+          </div>
+          <div class="item">
+            <!-- Your image here -->
+            <center>
+              <img src="static/images/case_1.png" alt="MY ALT TEXT" width="75%" />
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Our DreamForge can adapt to the road layouts and 3D bounding boxes generated by DriveArena.
+            </h2>
+          </div>
+
+          <div class="item">
+            <!-- Your image here -->
+            <center>
+              <img src="static/images/case_2.png" alt="MY ALT TEXT" width="80%" />
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Our DreamForge can adapt to the road layouts and 3D bounding boxes generated by DriveArena.
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End image carousel -->
+
+  <script>
+    var copyButton = document.getElementById("copyButton");
+
+    copyButton.addEventListener("click", function () {
+      var codeElement = document.getElementById("bibtexCode");
+      var textToCopy = codeElement.textContent;
+
+      var textarea = document.createElement("textarea");
+      textarea.value = textToCopy;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+
+      copyButton.textContent = "✓ Copied!";
+
+      setTimeout(function () {
+        copyButton.textContent = "Copy";
+      }, 2000); // Reset the button text after 2 seconds (adjust as needed)
+    });
+  </script>
+  <!--End BibTex citation -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p style="text-align: center;"><i class="fa-solid fa-heart fa-beat-fade" style="color: #ff8787;"></i>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> <i class="fa-solid fa-heart fa-beat-fade" style="color: #ff8787;"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
