@@ -37,6 +37,7 @@
 ---
 
 ### 🆕 Updates
+- **`2024-11-26:`** We have presented **Video Autoregression Dreamer** on [arXiv](https://arxiv.org/abs/2409.04003).
 
 - **`2024-11-07:`** **WorldDreamer V1.1** and the **pretrained weight trained on nuScenes and nuPlan** is released! We now support training and inference on **`nuScenes`** and **`nuPlan`** datasets.
 
