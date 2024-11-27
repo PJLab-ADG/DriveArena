@@ -37,6 +37,9 @@
 ---
 
 ### 🆕 Updates
+- **`2024-11-26:`** We have presented **Video Autoregression Dreamer** on [arXiv](https://arxiv.org/abs/2409.04003).
+
+- **`2024-11-07:`** **WorldDreamer V1.1** and the **pretrained weight trained on nuScenes and nuPlan** is released! We now support training and inference on **`nuScenes`** and **`nuPlan`** datasets.
 
 - **`2024-09-05:` 🎉🎉We are thrilled to announce the release of DriveArena V1.0! 🎉🎉**
 
@@ -191,12 +194,15 @@ We provide a leaderboard to present the driving performance evaluation of drivin
         - [x]  Inference Code
         - [x]  Training Code
         - [x]  Pretrained Weights
-        - [ ]  Code for nuPlan
-        - [ ]  Pretrained Model trained on nuScenes + nuPlan
-    - [ ]  Evaluation Code
+    - [x]  Driving Agent Support
+      - [x]  UniAD
+- [x]  V1.1 Release
+    - [x] WorldDreamer
+        - [x]  Code for nuPlan
+        - [x]  Pretrained Model trained on nuScenes + nuPlan
+- [ ]  Evaluation Code
 - [ ] Development Tutorial
 - [ ]  Driving Agent Support
-    - [x]  UniAD
     - [ ]  VAD
     - [ ]  LeapAD
 - [ ]  Video Autoregression Dreamer
@@ -204,7 +210,11 @@ We provide a leaderboard to present the driving performance evaluation of drivin
 ## 🔍 Video Autoregression Dreamer (Coming Soon)
 **Video Autoregression Dreamer Capable of Producing Videos Exceeding 220 Frames**
   <img src="assets/case_country.gif" width="800" style="display: block; margin: 0 auto;">
-  <img src="assets/case_intersection.gif" width="800" style="display: block; margin: 0 auto;">
+  
+**UniAD Performance**
+
+  <img src="assets/video-uniad.gif" width="500" style="display: block; margin: 0 auto;">
+  
 
 
 <!-- ACKNOWLEDGMENTS -->

@@ -12,7 +12,8 @@ A Controllable Autoregressive Generative Network
 
 
 ## Changelog
-[2024-09-15] `WorldDreamer` v1.0 is released. We now support single-frame autoregressive generator on `nuScenes` and `nuPlan` datasets.
+[2024-11-07] `WorldDreamer` v1.1 is released. We now also support the `nuPlan` dataset. The weight trained on `nuScenes` and `nuPlan` datasets is also released.
+[2024-09-15] `WorldDreamer` v1.0 is released. We now support single-frame autoregressive generator on `nuScenes` dataset.
 
 
 ## Installation
@@ -26,4 +27,4 @@ Please refer to [[GETTING_STARTED.md](docs/GETTING_STARTED.md) | [使用说明](
 | Model       | Iteration   | Description |
 | ----------- | ----------- |---------------|
 | [SDv1.5_mv_single_ref_nus](https://huggingface.co/jokester-yxm/DriveArena/tree/main/SDv1.5_mv_single_ref_nus) | 200k | single-frame auto-regressive, trained on nuScenes |
-| [SDv1.5_mv_single_ref_nus_nup]() (comming soon) | 200k | single-frame auto-regressive, trained on nuScenes + nuPlan | 
+| [SDv1.5_mv_single_ref_nus_nup](https://huggingface.co/jokester-yxm/DriveArena/tree/main/SDv1.5_mv_single_ref_nus_nup) | 200k | single-frame auto-regressive, trained on nuScenes + nuPlan | 
