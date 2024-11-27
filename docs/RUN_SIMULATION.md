@@ -13,10 +13,19 @@ cd WorldDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
 ```
 
 ## Step 2: Launch DrivingAgent Service
+
+### UniAD
 Please follow the [README.md](../DrivingAgents/UniAD/README.md) to prepare the environment and download the weights.
 
 ```shell
 cd DrivingAgents/UniAD && python demo/fast_api_uniad.py
+```
+
+### VAD
+Please follow the [README.md](../DrivingAgents/VAD/README.md) to prepare the environment and download the weights.
+
+```shell
+cd DrivingAgents/VAD && python demo/fast_api_vad.py
 ```
 
 ## Step 3: Launch TrafficManager and Start Simulation
