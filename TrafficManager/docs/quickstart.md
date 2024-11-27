@@ -49,7 +49,12 @@ servers:
 **5. Run the Program**
 ```bash
 # under DriveArena root folder
+
+# UniAD
 python ./TrafficManager/sim_manager.py
+
+# VAD
+python ./TrafficManager/sim_manage_vad.py
 ``` 
 The program should display the following interface:
 
@@ -74,3 +79,4 @@ The result files from each run are saved in subfolders within the `DriveArena/re
 
     A file named output_video.mp4 will be generated in the mm-dd-hhmmss folder.
 
+    
