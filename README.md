@@ -37,6 +37,8 @@
 ---
 
 ### 🆕 Updates
+- **`2024-11-27:`** **DriveArena V1.2** is released. We now support evaluating driving performance of VAD.
+
 - **`2024-11-26:`** We have presented **Video Autoregression Dreamer** on [arXiv](https://arxiv.org/abs/2409.04003).
 
 - **`2024-11-07:`** **WorldDreamer V1.1** and the **pretrained weight trained on nuScenes and nuPlan** is released! We now support training and inference on **`nuScenes`** and **`nuPlan`** datasets.
@@ -200,10 +202,12 @@ We provide a leaderboard to present the driving performance evaluation of drivin
     - [x] WorldDreamer
         - [x]  Code for nuPlan
         - [x]  Pretrained Model trained on nuScenes + nuPlan
+- [x]  V1.2 Release
+    - [x] Driving Agent Support
+      - [x] VAD
 - [ ]  Evaluation Code
 - [ ] Development Tutorial
 - [ ]  Driving Agent Support
-    - [ ]  VAD
     - [ ]  LeapAD
 - [ ]  Video Autoregression Dreamer
 

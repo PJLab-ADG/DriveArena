@@ -49,7 +49,12 @@ servers:
 **5. Run the Program**
 ```bash
 # under DriveArena root folder
+
+# UniAD
 python ./TrafficManager/sim_manager.py
+
+# VAD
+python ./TrafficManager/sim_manage_vad.py
 ``` 
 The program should display the following interface:
 
