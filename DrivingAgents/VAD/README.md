@@ -12,7 +12,7 @@
 
 
 ## Changelog
-[2024-11-12] We simplified the [VAD](https://github.com/hustvl/VAD) input by removing the gt tag input and using fastapi to receive input from [World Dreamer](../../WorldDreamer/) and pass the output to [TrafficManager](../../TrafficManager/).
+[2024-11-12] We simplified the [VAD](https://github.com/hustvl/VAD) input by removing the gt tag input and using fastapi to receive input from [WorldDreamer](../../WorldDreamer/) and pass the output to [TrafficManager](../../TrafficManager/).
 
 ## Installation
 
