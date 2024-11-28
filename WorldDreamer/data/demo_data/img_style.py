@@ -34,14 +34,6 @@ def style_dict(style, dataset_root):
             'samples/CAM_BACK/n008-2018-08-30-10-33-52-0400__CAM_BACK__1535639644187558.jpg',
             'samples/CAM_BACK_LEFT/n008-2018-08-30-10-33-52-0400__CAM_BACK_LEFT__1535639644197405.jpg',
         ],
-        'singapore_rain':[
-            'samples/CAM_FRONT_LEFT/n015-2018-10-08-15-52-24+0800__CAM_FRONT_LEFT__1538985480254844.jpg',
-            'samples/CAM_FRONT/n015-2018-10-08-15-52-24+0800__CAM_FRONT__1538985480262460.jpg',
-            'samples/CAM_FRONT_RIGHT/n015-2018-10-08-15-52-24+0800__CAM_FRONT_RIGHT__1538985480270339.jpg',
-            'samples/CAM_BACK_RIGHT/n015-2018-10-08-15-52-24+0800__CAM_BACK_RIGHT__1538985480277893.jpg',
-            'samples/CAM_BACK/n015-2018-10-08-15-52-24+0800__CAM_BACK__1538985480287525.jpg',
-            'samples/CAM_BACK_LEFT/n015-2018-10-08-15-52-24+0800__CAM_BACK_LEFT__1538985480297423.jpg',
-        ],
         'hollandvillage_night':[
             'samples/CAM_FRONT_LEFT/n015-2018-11-21-19-21-35+0800__CAM_FRONT_LEFT__1542799563354844.jpg',
             'samples/CAM_FRONT/n015-2018-11-21-19-21-35+0800__CAM_FRONT__1542799563362460.jpg',
