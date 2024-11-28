@@ -89,6 +89,7 @@ def main(cfg: DictConfig):
         gen_img_paths = {}
         if cfg.runner.validation_index == 'demo' and batch_index == 0:
             val_input["ref_images"][0, ...] = style_dict('boston_rain', cfg.dataset.dataset_root_nuscenes)
+            val_input['relative_pose'][0] = torch.eye(4)
         elif val_input['meta_data']['metas'][0].data.get('is_first_frame', False):
             print(curr_index)
             pass
