@@ -41,7 +41,12 @@ servers:
 **5. 运行程序**
 ```bash
 # under DriveArena root folder
+
+# UniAD
 python ./TrafficManager/sim_manager.py
+
+# VAD
+python ./TrafficManager/sim_manage_vad.py
 ``` 
 程序应当显示如下画面。
 
