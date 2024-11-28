@@ -78,6 +78,14 @@ git checkout v0.17.1
 pip install -v -e .
 ```
 
+**h. 从源代码安装 CAMixerSR。**
+```shell
+cd UniAD
+git clone https://github.com/icandle/CAMixerSR.git
+# 1. Comment out the  "_arch_modules = [importlib.import_module(f'archs.{file_name}') for file_name in arch_filenames]" in "CAMixerSR/codes/basicsr/archs/__init__.py" 
+# 2. Comment out the  "_model_modules = [importlib.import_module(f'models.{file_name}') for file_name in model_filenames]" in "CAMixerSR/codes/basicsr/models/__init__.py" 
+```
+
 ## 入门指南
 
 ### 预训练权重

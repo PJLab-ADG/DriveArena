@@ -229,6 +229,7 @@ We utilized the following repos during development:
 * [LimSim (Ours!)](https://github.com/PJLab-ADG/LimSim/tree/LimSim_plus)
 * [MagicDrive](https://github.com/cure-lab/MagicDrive)
 * [UniAD](https://github.com/OpenDriveLab/UniAD)
+* [VAD](https://github.com/hustvl/VAD)
 
 Thanks for their Awesome open-sourced work!
 
