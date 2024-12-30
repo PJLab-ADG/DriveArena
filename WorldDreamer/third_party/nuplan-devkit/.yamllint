@@ -1,9 +1,0 @@
-extends: relaxed
-
-ignore: |
-  .tox/
-  /bazel-bin/
-  /bazel-out/
-
-rules:
-  line-length: disable

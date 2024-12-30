@@ -1,2 +1,0 @@
-_target_: nuplan.planning.utils.multithreading.worker_sequential.Sequential
-_convert_: 'all'

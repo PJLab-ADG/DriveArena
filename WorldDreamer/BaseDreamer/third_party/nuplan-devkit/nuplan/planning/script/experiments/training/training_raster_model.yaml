@@ -1,0 +1,17 @@
+# @package _global_
+job_name: raster_model
+py_func: train
+objective_aggregate_mode: mean
+
+defaults:
+  - override /data_augmentation:
+  - override /objective:
+      - imitation_objective
+  - override /splitter: nuplan
+  - override /model: raster_model
+  - override /scenario_filter: training_scenarios
+  - override /training_metric:
+      - avg_displacement_error
+      - avg_heading_error
+      - final_displacement_error
+      - final_heading_error

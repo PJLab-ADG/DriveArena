@@ -1,0 +1,26 @@
+tensorboard==2.11.2  # pytorch need this. do not use tensorboardX
+accelerate==0.20.3  # from whl
+transformers==4.27.4  # for diffusers
+# datasets
+mmcv-full==1.4.5
+hydra-core==1.3.0
+einops==0.3.2
+h5py>=3.8.0  # we may need version >=3.5.0. tried with 3.8.0. install from wheel
+
+# from bevfusion
+Pillow==8.4.0
+torchpack==0.3.1
+nuscenes-devkit
+# mpi4py==3.0.3
+# numpy==1.26.4
+numba==0.58.1  # for numpy==1.26.4
+llvmlite==0.41.0
+mmdet==2.20.0  # cannot run on 8 GPUs with 2.28.2
+opencv-python==4.6.0.66  # visualization requires >=4.5.5.64
+matplotlib==3.5.2
+moviepy==1.0.3
+metadrive-simulator
+open-clip-torch==2.17.1
+shapely<2.0.0
+kornia==0.7.2
+fsspec==2024.6.1
