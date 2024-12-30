@@ -213,6 +213,7 @@ We provide a leaderboard to present the driving performance evaluation of drivin
 
 ## 🔍 Video Autoregression Dreamer
 Please refer to `video branch` for more details.
+
 **Video Autoregression Dreamer Capable of Producing Videos Exceeding 220 Frames**
   <img src="assets/case_country.gif" width="800" style="display: block; margin: 0 auto;">
   
