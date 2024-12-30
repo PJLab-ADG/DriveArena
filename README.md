@@ -62,7 +62,7 @@
   - [1. Open-loop Evaluation Leaderboard](#1-open-loop-evaluation-leaderboard)
   - [2. Closed-loop Evaluation Leaderboard](#2-closed-loop-evaluation-leaderboard)
 - [📌 Roadmap](#-roadmap)
-- [🔍 Video Autoregression Dreamer (Coming Soon)](#-video-autoregression-dreamer-coming-soon)
+- [🔍 Video Autoregression Dreamer](#-video-autoregression-dreamer)
 - [Acknowledgments](#acknowledgments)
 - [📝 License](#-license)
 - [🔖 Citation](#-citation)
@@ -205,13 +205,14 @@ We provide a leaderboard to present the driving performance evaluation of drivin
 - [x]  V1.2 Release
     - [x] Driving Agent Support
       - [x] VAD
+- [x]  Video Autoregression Dreamer
 - [ ]  Evaluation Code
 - [ ] Development Tutorial
 - [ ]  Driving Agent Support
     - [ ]  LeapAD
-- [ ]  Video Autoregression Dreamer
 
-## 🔍 Video Autoregression Dreamer (Coming Soon)
+## 🔍 Video Autoregression Dreamer
+Please refer to `video branch` for more details.
 **Video Autoregression Dreamer Capable of Producing Videos Exceeding 220 Frames**
   <img src="assets/case_country.gif" width="800" style="display: block; margin: 0 auto;">
   
