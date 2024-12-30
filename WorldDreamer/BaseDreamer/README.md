@@ -1,4 +1,4 @@
-# World Dreamer
+# World Dreamer/BaseDreamer
 
 A Controllable Autoregressive Generative Network
 
@@ -12,8 +12,9 @@ A Controllable Autoregressive Generative Network
 
 
 ## Changelog
-[2024-11-07] `WorldDreamer` v1.1 is released. We now also support the `nuPlan` dataset. The weight trained on `nuScenes` and `nuPlan` datasets is also released.
-[2024-09-15] `WorldDreamer` v1.0 is released. We now support single-frame autoregressive generator on `nuScenes` dataset.
+[2024-11-07] `World Dreamer/BaseDreamer` v1.1 is released. We now also support the `nuPlan` dataset. The weight trained on `nuScenes` and `nuPlan` datasets is also released.
+
+[2024-09-15] `World Dreamer/BaseDreamer` v1.0 is released. We now support single-frame autoregressive generator on `nuScenes` dataset.
 
 
 ## Installation

@@ -1,4 +1,4 @@
-# DreamForge
+# World Dreamer/DreamForge
 [Motion-Aware Autoregressive Video Generation for Multi-View Driving Scenes](https://arxiv.org/abs/2409.04003)
 
 **Note**: Some sections of the code are currently being prepared and updated. Please stay tuned.
