@@ -1,0 +1,3 @@
+[submodule "WorldDreamer/DreamForge"]
+	path = WorldDreamer/DreamForge
+	url = https://github.com/Jieqianyu/DreamForge
