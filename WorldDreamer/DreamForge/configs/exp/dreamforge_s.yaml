@@ -1,0 +1,56 @@
+# @package _global_
+defaults:
+  - /dataset/Nuscenes_map_cache_box
+  # - /runner/8gpus
+  - model: ../../model/SDv1.5mv_rawbox
+  - _self_  # make sure override
+
+# based on rawbox1.4
+task_id: 0.2.0
+log_root_prefix: ./work_dirs/dreamforge-s-log
+runner:
+  validation_show_box: true
+  validation_before_run: true
+  enable_xformers_memory_efficient_attention: true  # always need this.
+  save_model_per_epoch: 10
+
+dataset:
+  dataset_type: NuScenesMapDataset
+  dataset_root: ./data/nuscenes
+  dataset_cache_file_tag: 8x200x200_12Hz_interp
+  dataset_cache_dirname: nuscenes_map_aux_12Hz_interp
+  dataset_process_root: ./data/nuscenes_mmdet3d-12Hz_description/
+  data:
+    train:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_updated_description_train.pickle
+      start_on_keyframe: true
+      temporal: false
+    val:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_updated_description_val.pickle
+      start_on_keyframe: true
+      temporal: false
+    test:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_updated_description_val.pickle
+      start_on_keyframe: true
+      temporal: false
+
+model:
+  bbox_mode: 'all-xyz'
+  bbox_view_shared: false
+  controlnet:
+    bbox_embedder_param:
+      minmax_normalize: false
+
+  unet_module: dreamforge.networks.unet_2d_condition_multiview_s.UNet2DConditionModelMultiviewScene
+  unet:
+    scene_channels: 320
+    attn1_q_trainable: true
+
+  scene_embedder_cls: dreamforge.networks.scene_position_embedder.ScenePositionEmbedding
+  scene_embedder_dir: scene_embedder
+  scene_embedder:
+    embed_dims: 320
+    LID: false
+
+
+  
