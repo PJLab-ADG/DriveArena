@@ -37,7 +37,7 @@
 ---
 
 ### 🆕 Updates
-- **`2024-12-30:`** We now intergrate **DreamForge** for video autoregression generation. Please refer to the `video` branch for more details.
+- **`2024-12-30:`** We now integrate **DreamForge** for video autoregression generation. Please refer to the `video` branch for more details.
 
 - **`2024-11-27:`** **DriveArena V1.2** is released. We now support evaluating driving performance of VAD.
 
