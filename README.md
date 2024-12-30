@@ -37,9 +37,11 @@
 ---
 
 ### 🆕 Updates
+- **`2024-12-30:`** We now intergrate **DreamForge** for video autoregression generation. Please refer to the `video` branch for more details.
+
 - **`2024-11-27:`** **DriveArena V1.2** is released. We now support evaluating driving performance of VAD.
 
-- **`2024-11-26:`** We have presented **Video Autoregression Dreamer** on [arXiv](https://arxiv.org/abs/2409.04003).
+- **`2024-11-26:`** We have presented **Video Autoregression Dreamer** named **DreamForge** on [arXiv](https://arxiv.org/abs/2409.04003).
 
 - **`2024-11-07:`** **WorldDreamer V1.1** and the **pretrained weight trained on nuScenes and nuPlan** is released! We now support training and inference on **`nuScenes`** and **`nuPlan`** datasets.
 
@@ -212,7 +214,6 @@ We provide a leaderboard to present the driving performance evaluation of drivin
     - [ ]  LeapAD
 
 ## 🔍 Video Autoregression Dreamer
-Please refer to `video branch` for more details.
 
 **Video Autoregression Dreamer Capable of Producing Videos Exceeding 220 Frames**
   <img src="assets/case_country.gif" width="800" style="display: block; margin: 0 auto;">
@@ -220,6 +221,9 @@ Please refer to `video branch` for more details.
 **UniAD Performance**
 
   <img src="assets/video-uniad.gif" width="500" style="display: block; margin: 0 auto;">
+
+
+Please refer to [dreamforge](https://pjlab-adg.github.io/DriveArena/dreamforge/index.html) for more details and visualization cases.
   
 
 
