@@ -18,6 +18,8 @@ from TrafficManager.utils.map_utils import (
     visualize_bev_hdmap,
 )
 
+from TrafficManager.utils.common_utils import project_box_to_image
+
 
 def limsim2diffusion(
     vehicles,
@@ -32,6 +34,7 @@ def limsim2diffusion(
     vel=[5, 0, 0],
     gen_location="singapore-onenorth",
     gen_prompts="daytime, cloudy, downtown, gray buildings, white cars",
+    return_info=False
 ):
     VEH_LENGTH = 4.7
     VEH_WIDTH = 1.6
@@ -95,7 +98,7 @@ def limsim2diffusion(
     # plt.title('Transformed vehicles')
     # # Show img
     # plt.show()
-
+    veh_infos = []
     for sur_veh in vehicles["carInAoI"]:
         sur_x, sur_y, sur_yaw = (
             sur_veh["xQ"][-1],
@@ -125,6 +128,25 @@ def limsim2diffusion(
 
         # plot_vehicle((tran_x, tran_y, tran_yaw), color='blue')
         label_list.append(0)  # 0 for vehicle
+
+        if return_info:
+            lidar2image = torch.bmm(data_template['camera_intrinsics'], data_template['lidar2camera'])
+            box_coords = []
+            for i in range(len(lidar2image)):
+                box_coords.append(project_box_to_image(bbox_list[-1], lidar2image[i]))
+            
+            veh_infos.append(
+                {
+                    "VehID": sur_veh['id'], "Box": box_coords, "RelPos": (tran_x, tran_y, tran_yaw), "Speed": sur_veh['speedQ'][-1], "Accel": sur_veh['accelQ'][-1], "LaneID": sur_veh['laneIDQ'][-1]
+                }
+            )
+
+    if return_info:
+        frame_infos = {
+            'cam_order': ['CAM_FRONT_LEFT', 'CAM_FRONT', 'CAM_FRONT_RIGHT', 'CAM_BACK_RIGHT', 'CAM_BACK', 'CAM_BACK_LEFT'],
+            'ego': {"VehID": ego_vehicle['id'], "Speed": ego_vehicle['speedQ'][-1], "Accel": ego_vehicle['accelQ'][-1], "LaneID": ego_vehicle['laneIDQ'][-1]},
+            'veh': veh_infos
+        }
 
     # tran_x, tran_y, tran_yaw = transform((ego_x, ego_y, ego_yaw), (ego_x, ego_y, ego_yaw))
     # tran_x, tran_y, tran_yaw = transform((tran_x, tran_y, tran_yaw), (0, 0, -np.pi/2))
@@ -198,7 +220,10 @@ def limsim2diffusion(
     # ---------------Agent command-----------------#
     send_data["agent_command"] = agent_command
 
-    return send_data
+    if return_info:
+        return send_data, frame_infos
+    else:
+        return send_data
 
 
 def normalize_angle(angle: float) -> float:

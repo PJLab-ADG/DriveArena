@@ -251,10 +251,12 @@ class Model:
         veh.xAppend(x)
         veh.yAppend(y)
         veh.speedQ.append(traci.vehicle.getSpeed(vid))
-        if max_decel == traci.vehicle.getDecel(vid):
-            accel = traci.vehicle.getAccel(vid)
-        else:
-            accel = -traci.vehicle.getDecel(vid)
+        # if max_decel == traci.vehicle.getDecel(vid):
+        #     accel = traci.vehicle.getAccel(vid)
+        # else:
+        #     accel = -traci.vehicle.getDecel(vid)
+
+        accel = traci.vehicle.getAcceleration(vid)
         veh.accelQ.append(accel)
         laneID = traci.vehicle.getLaneID(vid)
         veh.routeIdxAppend(laneID)

@@ -1,5 +1,0 @@
-model:
-  encoders:
-    camera: null
-
-gt_paste_stop_epoch: 15

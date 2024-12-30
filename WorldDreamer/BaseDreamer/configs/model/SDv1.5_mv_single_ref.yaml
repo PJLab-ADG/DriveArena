@@ -1,0 +1,68 @@
+name: SDv1.5_mv_single_ref
+pretrained_model_name_or_path: ./pretrained/stable-diffusion-v1-5/
+bbox_mode: 'all-xyz'
+bbox_view_shared: false
+crossview_attn_type: basic
+train_with_same_noise: false
+train_with_same_t: true
+
+runner_module: projects.dreamer.runner.multiview_runner_single_ref.MultiviewSingleRefRunner
+
+pipe_module: projects.dreamer.pipeline.pipeline_controlnet_single_ref.StableDiffusionSingleRefControlNetPipeline
+
+unet_module: projects.dreamer.networks.unet_2d_condition_multiview.UNet2DConditionModelMultiview
+use_fp32_for_unet_trainable: true
+unet_dir: unet
+unet:
+  trainable_state: only_new  # only_new or all
+  neighboring_view_pair: ${dataset.neighboring_view_pair}
+  neighboring_attn_type: add
+  zero_module_type: zero_linear
+  crossview_attn_type: ${..crossview_attn_type}
+  img_size: ${dataset.image_size}
+    
+model_module: projects.dreamer.networks.unet_addon_single_ref.SingleRefControlNetModel
+controlnet_dir: controlnet
+controlnet:
+  # 7 param to embed: 3 for intrinsics + 4 for extrinsics
+  # in_dim 3, num_freqs 4 -> 27 dim embedding
+  camera_in_dim: 189
+  camera_out_dim: 768
+  rel_pose_in_dim: 144
+  map_size: [4, 200, 200]
+  conditioning_embedding_out_channels: [16, 32, 96, 256]
+
+  # for uncond camera param, learnable
+  uncond_cam_in_dim: [3, 7]
+  use_uncond_map: null  # negative1, random or learnable
+  drop_cond_ratio: 0.25
+  drop_cam_num: 6
+  drop_cam_with_box: false
+
+  cam_embedder_param:
+    input_dims: 3
+    num_freqs: 4  # nerf use 4 for view embedding
+    include_input: True
+    log_sampling: True
+
+  rel_pose_embedder_param:
+    input_dims: 4
+    num_freqs: 4
+    include_input: True
+    log_sampling: True
+
+  bbox_embedder_cls: projects.dreamer.networks.bbox_embedder.ContinuousBBoxWithTextEmbedding
+  bbox_embedder_param:
+    n_classes: 10
+    class_token_dim: 768
+    trainable_class_token: false
+    use_text_encoder_init: true
+    embedder_num_freq: 4
+    proj_dims: [768, 512, 512, 768]
+    mode: ${...bbox_mode}
+    minmax_normalize: false
+
+image_proj_model_dir: image_proj
+image_proj_model:
+  input_dim: 768
+  output_dim: 768

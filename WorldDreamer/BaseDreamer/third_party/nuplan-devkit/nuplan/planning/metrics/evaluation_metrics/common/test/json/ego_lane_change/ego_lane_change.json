@@ -1,0 +1,138 @@
+{
+    "camera": {
+        "bearing": 0.5345000000000002,
+        "lookat": [
+            664754.9883774936,
+            3999467.8951032147,
+            -2.0085689660475055
+        ],
+        "pitch": 1.6,
+        "scale": 821598.6255879829
+    },
+    "ego": {
+        "acceleration": [
+            0.0,
+            0.0
+        ],
+        "pose": [
+            664754.9883774936,
+            3999467.8951032147,
+            -2.0085689660475055
+        ],
+        "velocity": [
+            1.0,
+            0.0
+        ],
+        "time_us": 1000000
+    },
+    "ego_future_states": [
+        {
+            "acceleration": [
+                0.0,
+                0.0
+            ],
+            "pose": [
+                664752.159883774936,
+                3999460.58951032147,
+                -1.9050689660475055
+            ],
+            "velocity": [
+                1.0,
+                0.0
+            ],
+            "time_us": 2000000
+        },
+        {
+            "acceleration": [
+                0.0,
+                0.0
+            ],
+            "pose": [
+                664750.085883774936,
+                3999454.2951032147,
+                -1.907044289663976
+            ],
+            "velocity": [
+                1.0,
+                0.0
+            ],
+            "time_us": 3000000
+        },
+        {
+            "acceleration": [
+                0.0,
+                0.0
+            ],
+            "pose": [
+                664748.5883774936,
+                3999448.02951032147,
+                -2.0894044289663976
+            ],
+            "velocity": [
+                1.0,
+                0.0
+            ],
+            "time_us": 4000000
+        }
+    ],
+    "expected": {
+        "statistics": [
+            [
+                "COUNT",
+                1
+            ],
+            [
+                "MAX",
+                2.0
+            ],
+            [
+                "MEAN",
+                2.0
+            ],
+            [
+                "RATIO",
+                0.0
+            ],
+            [
+                "BOOLEAN",
+                true
+            ]
+        ],
+        "time_series": {}
+    },
+    "goal": {
+        "pose": []
+    },
+    "map": {
+        "area": "us-nv-las-vegas-strip"
+    },
+    "meta": {
+        "version": "3.0.0"
+    },
+    "world": {
+        "bicycles": [],
+        "genericobjects": [],
+        "pedestrians": [],
+        "vehicles": []
+    },
+    "world_future_states": [
+        {
+            "bicycles": [],
+            "genericobjects": [],
+            "pedestrians": [],
+            "vehicles": []
+        },
+        {
+            "bicycles": [],
+            "genericobjects": [],
+            "pedestrians": [],
+            "vehicles": []
+        },
+        {
+            "bicycles": [],
+            "genericobjects": [],
+            "pedestrians": [],
+            "vehicles": []
+        }
+    ]
+}

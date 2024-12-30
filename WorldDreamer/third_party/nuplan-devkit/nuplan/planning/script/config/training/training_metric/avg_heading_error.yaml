@@ -1,3 +1,0 @@
-avg_heading_error:
-  _target_: nuplan.planning.training.modeling.metrics.planning_metrics.AverageHeadingError
-  _convert_: 'all'

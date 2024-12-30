@@ -1,3 +1,0 @@
-defaults:
-  - stepwise_augmentation_probability_scheduler
-  - stepwise_augmentation_attribute_scheduler

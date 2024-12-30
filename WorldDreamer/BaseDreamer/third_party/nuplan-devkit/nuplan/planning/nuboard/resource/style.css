@@ -1,0 +1,268 @@
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+.overlay {
+  position: fixed; /* Positioning and size */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128,128,128,0.5); /* color */
+  display: none; /* making it hidden by default */
+  opacity:0.5;
+  z-index: 2000;
+}
+
+.motional-purple-text {
+  color: #5C48F6;
+}
+
+#main {
+  background: #f0f2f5;
+  width: 100%;
+}
+
+#file-header {
+  margin-top: 10px;
+}
+
+.tab-container {
+  margin-left: 15rem;
+}
+
+.tab-content {
+  display: none;
+  padding: 6px 12px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.full-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.navbar {
+  width: 15rem;
+  height: 100%;
+  position: fixed;
+  margin-left: 0;
+  z-index: 1200;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  word-break: break-all;
+  border-right: 1px solid rgba(191, 191, 191, 0.6);
+}
+
+.nav {
+  width: 100%;
+}
+
+.nav-last-item {
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(191, 191, 191, 0.6);
+}
+
+.experiment-file-path-item {
+  margin-top: 10px;
+}
+
+.experiment-file-path-checkbox-group {
+  width: 95% !important;
+  padding: 5px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100% !important;
+}
+
+.experiment-file-path-item .bk-root {
+  height: 90% !important;
+}
+
+.bk-root .bk-input-group {
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.section-table-title {
+  font-size: 1.1em;
+}
+
+.navbar-title {
+  font-size: 1.5em !important;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+.header-bar-tab {
+  display: flex;
+}
+
+.header-bar-tab .sidebar-menu-button {
+  border: none;
+  background-color: transparent;
+}
+
+.header-bar-tab .sidebar-menu-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.nuboard-version {
+  bottom: 5%;
+  right: 20%;
+  position: absolute;
+  font-size: 16px;
+}
+
+.file-header {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-file-path-btn {
+  width: 4rem;
+  height: 3.0rem;
+  border: 0.05rem solid #5755d9;
+  vertical-align: middle;
+}
+
+.sidebar-file-path-remove > .bk-root {
+  display: none;
+}
+
+.file-path-input input[type="file"] {
+  display: none;
+}
+
+
+.sidebar-file-path-selection {
+  padding-left: 2px;
+  padding-right: 1px;
+}
+
+.file-path-selection {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.search-section {
+  font-size: 14px;
+  height: 80px;
+  width: 95%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.search-grid-item-text {
+  padding: 30px 0;
+}
+
+.search-grid-item-widget {
+  padding: 10px;
+  width: 45%;
+}
+
+
+.metric-name-multi-choice {
+  width: auto !important;
+  background: #fff;
+}
+
+.metric-name-multi-choice .choices__inner {
+  overflow: auto;
+  height: 50px;
+}
+
+.planner-checkbox-group {
+  width: 80%;
+  min-width: 65%;
+  max-width: 80%;
+}
+
+.bk-inline label {
+  margin-left: 8px !important;
+}
+
+.bk-root .slick-header.ui-state-default {
+  border: unset !important;
+}
+
+#menu-icon-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+#menu-icon {
+  margin: 0 0.5rem;
+}
+
+.expandable-arrow-svg {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.margin-left-5{
+  margin-left: 5px;
+}
+.bk-tooltip {
+  pointer-events: auto !important;
+}
+
+.bk-tooltip:hover {
+  display: block !important;
+}
+
+.modal-header-panel {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+.modal-body {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.modal-header button.close {
+    color: #FFFFFF;
+}
+
+.modal-btn {
+  height: unset;
+}
+
+.modal-footer-btn-section .bk-root {
+  display: inline-block;
+}
+.white-space-break {
+  white-space: break-spaces;
+}

@@ -1,6 +1,0 @@
-learning_rate_monitor_callback:
-  _target_: pytorch_lightning.callbacks.LearningRateMonitor
-  _convert_: 'all'
-
-  logging_interval: 'step'
-  log_momentum: true
