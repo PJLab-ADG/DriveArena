@@ -37,6 +37,8 @@
 ---
 
 ### 🆕 Updates
+- **`2024-12-30:`** We now intergrate **DreamForge** for video autoregression generation. Please refer to the `video` branch for more details.
+
 - **`2024-11-27:`** **DriveArena V1.2** is released. We now support evaluating driving performance of VAD.
 
 - **`2024-11-26:`** We have presented **Video Autoregression Dreamer** named **DreamForge** on [arXiv](https://arxiv.org/abs/2409.04003).
@@ -62,7 +64,7 @@
   - [1. Open-loop Evaluation Leaderboard](#1-open-loop-evaluation-leaderboard)
   - [2. Closed-loop Evaluation Leaderboard](#2-closed-loop-evaluation-leaderboard)
 - [📌 Roadmap](#-roadmap)
-- [🔍 Video Autoregression Dreamer (Coming Soon)](#-video-autoregression-dreamer-coming-soon)
+- [🔍 Video Autoregression Dreamer](#-video-autoregression-dreamer)
 - [Acknowledgments](#acknowledgments)
 - [📝 License](#-license)
 - [🔖 Citation](#-citation)
@@ -212,6 +214,7 @@ We provide a leaderboard to present the driving performance evaluation of drivin
     - [ ]  LeapAD
 
 ## 🔍 Video Autoregression Dreamer
+
 **Video Autoregression Dreamer Capable of Producing Videos Exceeding 220 Frames**
   <img src="assets/case_country.gif" width="800" style="display: block; margin: 0 auto;">
   
