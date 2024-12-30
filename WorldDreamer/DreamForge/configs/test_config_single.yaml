@@ -1,0 +1,35 @@
+defaults:
+  - config_single
+  - _self_
+
+log_root_prefix: ./work_dirs/dreamforge-log/test
+task_id: 0.2.0
+
+runner:
+  validation_batch_size: 1
+  validation_index: [50, 899, 1324, 1828, 3500] # total 4969
+
+dataset:
+  dataset_type: NuScenesMapDataset
+  dataset_root: ./data/nuscenes
+  dataset_cache_file_tag: 8x200x200_12Hz_interp
+  dataset_cache_dirname: nuscenes_map_aux_12Hz_interp
+  dataset_process_root: ./data/nuscenes_mmdet3d-12Hz_description/
+  data:
+    train:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_updated_description_train.pickle
+      start_on_keyframe: true
+      temporal: false
+    val:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_updated_description_val.pickle
+      start_on_keyframe: true
+      temporal: false
+    test:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_updated_description_val.pickle
+      start_on_keyframe: true
+      temporal: false
+
+resume_on_exists: false
+show_box: true
+
+fix_seed_for_every_generation: false
