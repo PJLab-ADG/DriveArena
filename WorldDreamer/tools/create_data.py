@@ -1,8 +1,6 @@
 import argparse
 
-from data_converter import nuscenes_converter as nuscenes_converter, nuplan_converter
-# this called data_converter from mmdet3d
-from tools.data_converter.create_gt_database import create_groundtruth_database
+from .data_converter import nuscenes_converter as nuscenes_converter, nuplan_converter
 
 
 def nuscenes_data_prep(
@@ -48,13 +46,13 @@ def nuscenes_data_prep(
         # nuscenes_converter.export_2d_annotation(root_path, info_train_path, version=version)
         # nuscenes_converter.export_2d_annotation(root_path, info_val_path, version=version)
 
-    create_groundtruth_database(
-        dataset_name,
-        root_path,
-        info_prefix,
-        f"{out_dir}/{info_prefix}_infos_train.pkl",
-        load_augmented=load_augmented,
-    )
+    # create_groundtruth_database(
+    #     dataset_name,
+    #     root_path,
+    #     info_prefix,
+    #     f"{out_dir}/{info_prefix}_infos_train.pkl",
+    #     load_augmented=load_augmented,
+    # )
 
 
 def nuplan_data_prep(
