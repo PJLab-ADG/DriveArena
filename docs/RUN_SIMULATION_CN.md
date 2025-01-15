@@ -6,11 +6,18 @@ TrafficManager、WorldDreamer 和 DrivingAgent 之间的通信基于 **FastAPI**
 
 ## 步骤一：启动 WorldDreamer 服务
 
-请按照 [README.md](../WorldDreamer/README.md) 准备环境并下载权重。
+请按照 WorldDreamer中的 README.md 准备环境并下载权重。
 
 然后你可以运行以下代码：
+
+原单帧版（BaseDreamer）
 ```shell
-cd WorldDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
+cd WorldDreamer/BaseDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
+```
+
+时序版（DreamForge）
+```shell
+cd WorldDreamer/DreamForge && python tools/run_fastapi.py --model_single ./pretrained/dreamforge-s --model ./pretrained/dreamforge-t
 ```
 
 ## 步骤二：启动 DrivingAgent 服务

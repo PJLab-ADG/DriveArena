@@ -4,12 +4,19 @@ The communication between TrafficManager, WorldDreamer and DrivingAgent is based
 
 ⚠️⚠️**WorldDreamer** and **DrivingAgent** can be run on the **remote server**, while **TrafficManager** needs to be run on **a local machine with a screen**.
 
-## Step 1: Launch WorldDreamer Service
-Please follow the [README.md](../WorldDreamer/README.md) to prepare the environment and download the weights.
+## Step 1: Launch WorldDremer Service
+Please follow the README.md in WorldDreamer to prepare the environment and download the weights.
 
 Then you can run the following code.
+
+For original single-frame version (BaseDreamer):
 ```shell
-cd WorldDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
+cd WorldDreamer/BaseDreamer && python tools/dreamer_fast_api.py --resume=path/to/your/weight
+```
+
+For temporal version (DreamForge):
+```shell
+cd WorldDreamer/DreamForge && python tools/run_fastapi.py --model_single ./pretrained/dreamforge-s --model ./pretrained/dreamforge-t
 ```
 
 ## Step 2: Launch DrivingAgent Service

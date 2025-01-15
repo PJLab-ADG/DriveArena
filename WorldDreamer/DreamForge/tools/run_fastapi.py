@@ -172,7 +172,7 @@ def load_data(cfg, pipe, param=None, scene_idx='0'):
     return val_dataset
 
 
-def load_pipe(resume_from_checkpoint, config_name="test_config_single", device='cuda', is_sr=False):
+def load_pipe(resume_from_checkpoint, config_name="test_config_single", device='cuda'):
     try:
         initialize(version_base=None, config_path="../configs")
     except:
@@ -187,10 +187,8 @@ def load_pipe(resume_from_checkpoint, config_name="test_config_single", device='
 
     #### model ####
     assert cfg.resume_from_checkpoint is not None, "Please set model to load"
-    if not is_sr:
-        pipe, weight_dtype = build_pipe(cfg, device)
-    else:
-        pipe, weight_dtype = build_sr_pipe(cfg, device)
+    pipe, weight_dtype = build_pipe(cfg, device)
+
     update_progress_bar_config(pipe, leave=False)
 
     return pipe, cfg, weight_dtype
@@ -208,6 +206,8 @@ def _get_args():
     parser.add_argument("--is_overlap_condition", type=bool, default=True)
     parser.add_argument("--is_refinement", type=bool, default=True)
     parser.add_argument("--refinement_freq", type=int, default=10)
+    parser.add_argument("--model_single", type=str, default='./pretrained/dreamforge-s')
+    parser.add_argument("--model", type=str, default='./pretrained/dreamforge-t')
 
     args = parser.parse_args()
     return args
@@ -232,8 +232,8 @@ agent_command = 2
 overlap_length = 1 if args.debug else 2
 ###
     
-pipe_single, cfg_single, _ = load_pipe('./pretrained/dreamforge-s', config_name="test_config_single")
-pipe, cfg, weight_dtype = load_pipe('./pretrained/dreamforge-t', config_name="test_config")
+pipe_single, cfg_single, _ = load_pipe(args.model_single, config_name="test_config_single")
+pipe, cfg, weight_dtype = load_pipe(args.model, config_name="test_config")
 val_dataset = load_data(cfg, pipe)
 
 transparent_bg = False

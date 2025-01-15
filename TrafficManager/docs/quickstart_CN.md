@@ -47,7 +47,12 @@ python ./TrafficManager/sim_manager.py
 
 # VAD
 python ./TrafficManager/sim_manage_vad.py
+
+# Temporal version for DreamForge
+python ./TrafficManager/sim_manage_t.py
 ``` 
+对于时间版本，请确保[config.yaml](../config.yaml)中的agent变量与正在运行的Driving Agent保持一致。
+
 程序应当显示如下画面。
 
 程序会在ego_agent 完成规定路径或 ego_agent 发生碰撞后停止，您也可以随时手动终止程序。
