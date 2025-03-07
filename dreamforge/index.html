@@ -179,6 +179,9 @@
                     </a>
                   </span>
                   </div>
+                  <h2 class="subtitle has-text-centered" style="color:#ff9161;">
+                    For optimal experience, we recommend using Chrome on PC. Large videos may load slowly.
+                  </h2>
               </div>
             </div>
           </div>
@@ -308,9 +311,6 @@
     </div>
   </section>
 
-
-
-
   <!-- Image carousel -->
   <section class="hero is-small">
     <div class="hero-body">
@@ -319,6 +319,30 @@
         <div class="columns is-centered">
           <h2 class="title">Long Multiview Video Generation</h2>
         </div>
+
+        <h4 class="title is-4" style="animation: textColorPulse 2s infinite;
+            font-weight: bold;
+            font-size: 1.5em;
+            text-align: left;
+            margin: 25px 0;">
+            Smooth transition between weather conditions
+        </h4>
+
+        <div class="video-container">
+          <span class="video-caption">
+            "Autoregressive generation with smooth weather transitions: 
+            <b>0s <i class="fas fa-cloud-rain" style="color: #4682B4;"></i> Rainy</b> 
+            <i class="fas fa-arrow-right"></i> 
+            <b>8s <i class="fas fa-sun" style="color: #FFD700;"></i> Sunny</b> 
+            <i class="fas fa-arrow-right"></i> 
+            <b>14s <i class="fas fa-moon" style="color: #FFD700;"></i> Night</b>"
+          </span>
+          <video autoplay muted loop>
+            <source src="static/videos/demo_110_shift.mp4" type="video/mp4">
+          </video>
+        </div>
+        <br>
+
 
         <h4 class="title is-4">Various driving scenes</h4>
         <div class="video-container">
@@ -352,22 +376,6 @@
           <span class="video-caption">3. <b>Night <i class="fas fa-moon" style="color: #FFD700;"></i></b>: "A driving scene video at singapre-hollandvillage. <b>night</b>, congestion. difficult lighting. very dark."</span>
           <video autoplay muted loop>
             <source src="static/videos/demo_110_night.mp4" type="video/mp4">
-          </video>
-        </div>
-        <br>
-
-        <h4 class="title is-4">Smooth transition between weather conditions</h4>
-        <div class="video-container">
-          <span class="video-caption">
-            "Autoregressive generation with smooth weather transitions: 
-            <b>0s <i class="fas fa-cloud-rain" style="color: #4682B4;"></i> Rainy</b> 
-            <i class="fas fa-arrow-right"></i> 
-            <b>8s <i class="fas fa-sun" style="color: #FFD700;"></i> Sunny</b> 
-            <i class="fas fa-arrow-right"></i> 
-            <b>14s <i class="fas fa-moon" style="color: #FFD700;"></i> Night</b>"
-          </span>
-          <video autoplay muted loop>
-            <source src="static/videos/demo_110_shift.mp4" type="video/mp4">
           </video>
         </div>
         <br>
@@ -447,7 +455,7 @@
       document.execCommand("copy");
       document.body.removeChild(textarea);
 
-      copyButton.textContent = "âœ? Copied!";
+      copyButton.textContent = " ? Copied!";
 
       setTimeout(function () {
         copyButton.textContent = "Copy";
@@ -471,6 +479,20 @@
       </div>
     </div>
   </footer>
+  
+  <style>
+    @keyframes textColorPulse {
+        0% {
+            color: #ff7e5f;
+        }
+        50% {
+            color: #feb47b;
+        }
+        100% {
+            color: #ff7e5f;
+        }
+    }
+    </style>
 
   <!-- Statcounter tracking code -->
 
