@@ -96,7 +96,7 @@ Download the VAD model [here](https://drive.google.com/file/d/1FLX-4LVm4z-RskghF
 ```shell
 cd VAD
 mkdir ckpts
-wget 'https://github.com/icandle/CAMixerSR/blob/main/pretrained_models/LightSR/CAMixerSRx4_DF.pth'
+wget 'https://github.com/icandle/CAMixerSR/raw/refs/heads/main/pretrained_models/LightSR/CAMixerSRx4_DF.pth'
 ```
 
 ### Running service with FastAPI
