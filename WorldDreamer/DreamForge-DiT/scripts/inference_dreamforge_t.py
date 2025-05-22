@@ -129,6 +129,10 @@ def main():
         dataset, val_dataset = merge_dataset_cfg(
             cfg, cfg.data_cfg_name, cfg.get("dataset_cfg_overrides", []),
             cfg.num_frames)
+        dataset['video_length'] = cfg.num_frames - dataset['ref_length']
+        dataset['candidate_length'] = cfg.num_frames - dataset['ref_length']
+        val_dataset['video_length'] = cfg.num_frames - val_dataset['ref_length']
+        val_dataset['candidate_length'] = cfg.num_frames - val_dataset['ref_length']
     if cfg.get("use_train", False):
         cfg.dataset = dataset
         tag = cfg.get("tag", "")
@@ -474,20 +478,16 @@ def main():
                 )
 
             # == inference ==
-            if i == 0:  # 只针对第一个样本进行特殊处理
-                # 第一阶段：使用model_single生成第一帧
+            if i == 0:  
                 masks_single = torch.full((1, z.shape[2]), True, dtype=torch.bool, device=device)
                 masks_single[0, :1] = True 
                 
-                # 获取原始图像的第一帧作为条件
                 x_encoded = rearrange(vae.encode(x[:, :, :1]), "(B NC) C T ... -> B (C NC) T ...", NC=NC)
                 z_single = z.clone()
                 z_single = z_single[:, :, :1]
                 
-                # 为model_single准备只包含第一帧的参数
                 _model_args_single = copy.deepcopy(_model_args)
                 
-                # 修改_model_args_single中的时序维度，仅保留第一帧
                 _model_args_single["maps"] = _model_args_single["maps"][:, :1]
                 
                 _model_args_single["layouts"] = _model_args_single["layouts"][:, :1]
@@ -500,12 +500,10 @@ def main():
                 
                 _model_args_single["drop_frame_mask"] = _model_args_single["drop_frame_mask"][:, :1]
                 
-                # 处理bbox（可能包含多个键，每个键都有时序维度）
                 if "bbox" in _model_args_single and _model_args_single["bbox"] is not None:
                     for k in _model_args_single["bbox"]:
                         _model_args_single["bbox"][k] = _model_args_single["bbox"][k][:, :1]
 
-                # 在处理img_metas时，需要保持DataContainer结构
                 for k in _model_args_single["img_metas"]:
                     if k in ['lidar2image', 'img2lidars']:
                         _model_args_single["img_metas"][k] = _model_args_single["img_metas"][k][0][:1]  # 只保留第一帧
@@ -513,7 +511,6 @@ def main():
                         _model_args_single["img_metas"][k] = _model_args_single["img_metas"][k][0][:1]  # 只保留第一帧
                 masks_single = masks_single[:, :1]
 
-                # 使用model_single和修改后的参数生成第一帧
                 samples_single = scheduler.sample(
                     model_single,
                     text_encoder,
@@ -526,7 +523,6 @@ def main():
                     mask=masks_single,
                 )
                 
-                # 将结果解码为图像
                 samples_single = rearrange(samples_single, "B (C NC) T ... -> (B NC) C T ...", NC=NC)
                 if cfg.sp_size > 1:
                     samples_single = sp_vae(
@@ -537,23 +533,18 @@ def main():
                 else:
                     samples_single = vae.decode(samples_single.to(dtype), num_frames=_model_args_single["num_frames"])
                 
-                # 提取第一帧作为参考样本
                 first_frame = samples_single[:, :, :1].clone()
                 
-                # 释放model_single的内存
                 del model_single, samples_single
                 gc.collect()
                 torch.cuda.empty_cache()
                 
-                # 第二阶段：使用model生成所有帧，使用生成的第一帧作为条件
                 masks = torch.full((1, z.shape[2]), True, dtype=torch.bool, device=device)
-                masks[0, :1] = False  # 只使用第一帧作为条件
+                masks[0, :1] = False  
                 
-                # 对生成的第一帧进行编码
                 first_frame_encoded = rearrange(vae.encode(first_frame), "(B NC) C T ... -> B (C NC) T ...", NC=NC)
                 z[0, :, :1] = first_frame_encoded
                 
-                # 使用model生成完整视频
                 samples = scheduler.sample(
                     model,
                     text_encoder,
@@ -566,7 +557,6 @@ def main():
                     mask=masks,
                 )
             else:
-                # 其他样本正常处理
                 masks = torch.full((1, z.shape[2]), True, dtype=torch.bool, device=device)
                 if i > 0 and T > 1:
                     masks[0, :3] = False
@@ -588,8 +578,7 @@ def main():
                     progress=verbose >= 1,
                     mask=masks,
                 )
-
-            # 解码为图像
+        
             samples = rearrange(samples, "B (C NC) T ... -> (B NC) C T ...", NC=NC)
             if cfg.sp_size > 1:
                 samples = sp_vae(

@@ -15,7 +15,7 @@ scheduler = dict(
 
 # Dataset settings
 num_frames = 1
-data_cfg_name = "Nuscenes_vectormap_t_val"
+data_cfg_name = "Nuscenes_vectormap_t"
 bbox_mode = 'all-xyz'
 img_collate_param_train = dict(
     # template added by code.

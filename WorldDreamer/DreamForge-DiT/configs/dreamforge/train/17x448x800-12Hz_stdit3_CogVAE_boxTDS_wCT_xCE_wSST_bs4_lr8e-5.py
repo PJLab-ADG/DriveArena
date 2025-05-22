@@ -1,6 +1,6 @@
 # Dataset settings
 num_frames = 17
-data_cfg_name = "Nuscenes_vectormap_t_train"
+data_cfg_name = "Nuscenes_vectormap_t"
 bbox_mode = 'all-xyz'
 img_collate_param_train = dict(
     # template added by code.

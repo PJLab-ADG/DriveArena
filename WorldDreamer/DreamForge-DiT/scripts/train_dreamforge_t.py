@@ -271,11 +271,7 @@ def main():
     vae = build_module(cfg.get("vae", None), MODELS)
     if vae is not None:
         vae = vae.to(device, dtype).eval()
-    # if vae is not None:
-    #     input_size = (dataset.num_frames, *dataset.image_size)
-    #     latent_size = vae.get_latent_size(input_size)
-    #     vae_out_channels = vae.out_channels
-    # else:
+
     latent_size = (None, None, None)
     vae_out_channels = cfg.get("vae_out_channels", 4)
 
@@ -300,8 +296,6 @@ def main():
         if os.path.isdir(load_dir):
             from glob import glob
             weight = {}
-            # for path in glob(os.path.join(load_dir, "model/pytorch_model-*")):
-            #     weight.update(torch.load(path, map_location="cpu"))
             ema_path = os.path.join(load_dir, "ema.pt")
             if os.path.exists(ema_path):
                 logger.info(f"find ema weight: {ema_path}，loading...")
@@ -570,6 +564,9 @@ def main():
                             drop_frame_mask[bs, t_ids] = 0
 
                     # == video meta info ==
+                    # for k, v in batch.items():
+                    #     if isinstance(v, torch.Tensor):
+                    #         model_args[k] = v.to(device, dtype)
                     model_args["maps"] = maps
                     model_args["layouts"] = layouts
                     model_args["bbox"] = bbox
