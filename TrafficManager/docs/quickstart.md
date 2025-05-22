@@ -58,6 +58,9 @@ python ./TrafficManager/sim_manage_vad.py
 
 # Temporal version for DreamForge
 python ./TrafficManager/sim_manage_t.py
+
+# Temporal version for DreamForge-DiT
+python ./TrafficManager/sim_manage_t.py
 ``` 
 For the temporal version, ensure that the `agent` variant in [config.yaml](../config.yaml) is consistent with the running Driving Agent.
 
