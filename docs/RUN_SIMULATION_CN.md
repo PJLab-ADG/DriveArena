@@ -20,6 +20,11 @@ cd WorldDreamer/BaseDreamer && python tools/dreamer_fast_api.py --resume=path/to
 cd WorldDreamer/DreamForge && python tools/run_fastapi.py --model_single ./pretrained/dreamforge-s --model ./pretrained/dreamforge-t
 ```
 
+时序版（DreamForge-DiT）
+```shell
+cd WorldDreamer/DreamForge-DiT && python tools/run_fastapi_dit_t.py
+```
+
 ## 步骤二：启动 DrivingAgent 服务
 
 ### UniAD

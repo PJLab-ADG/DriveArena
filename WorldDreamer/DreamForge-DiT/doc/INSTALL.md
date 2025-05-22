@@ -30,17 +30,17 @@ cd ColossalAI
 BUILD_EXT=1 pip install .
 ```
 
-2. xformer
+2. Install xformer
 ```bash
 pip install xformers==0.0.27.post1
 ```
 
-3. flash-attn
+3. Install flash-attn
 ```bash
 pip install flash-attn==2.7.2.post1
 ```
 
-4. diffusers
+4. Install diffusers
 ```bash
 pip install diffusers==0.30.0
 ```
@@ -56,7 +56,7 @@ pip install -r requirements.txt
 pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" git+https://github.com/NVIDIA/apex.git
 ```
 
-7. mmdet_plugin
+7. Install mmdet_plugin
 ```bash
 cd dreamforgedit/
 pip install -v -e .

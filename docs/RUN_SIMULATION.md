@@ -19,6 +19,11 @@ For temporal version (DreamForge):
 cd WorldDreamer/DreamForge && python tools/run_fastapi.py --model_single ./pretrained/dreamforge-s --model ./pretrained/dreamforge-t
 ```
 
+For temporal version (DreamForge-DiT):
+```shell
+cd WorldDreamer/DreamForge-DiT && python tools/run_fastapi_dit_t.py
+```
+
 ## Step 2: Launch DrivingAgent Service
 
 ### UniAD

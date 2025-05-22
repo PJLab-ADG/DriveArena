@@ -50,8 +50,14 @@ python ./TrafficManager/sim_manage_vad.py
 
 # Temporal version for DreamForge
 python ./TrafficManager/sim_manage_t.py
+
+# Temporal version for DreamForge-DiT
+python ./TrafficManager/sim_manage_t.py
 ``` 
 对于时间版本，请确保[config.yaml](../config.yaml)中的agent变量与正在运行的Driving Agent保持一致。
+
+**注意**：
+对于 DreamForge-DiT，请将 [data_queue](../sim_manager_t.py#L85) 的 `max_size` 配置修改为 17。
 
 程序应当显示如下画面。
 

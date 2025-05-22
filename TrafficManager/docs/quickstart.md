@@ -61,6 +61,9 @@ python ./TrafficManager/sim_manage_t.py
 ``` 
 For the temporal version, ensure that the `agent` variant in [config.yaml](../config.yaml) is consistent with the running Driving Agent.
 
+**Note**：
+For DreamForge-DiT, please modify the `max_size` of the [data_queue](../sim_manager_t.py#L85) to 17.
+
 The program should display the following interface:
 
 ![Simulation Interface of TrafficManager](../../assets/simulation.png)
