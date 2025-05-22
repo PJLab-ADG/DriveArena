@@ -1,0 +1,2 @@
+from .dreamforge_stdit3 import DreamForgeSTDiT3_XL_2
+# /cpfs01/user/meijianbiao/MagicDriveDiT/outputs/MagicDriveSTDiT3-XL-2_stage1_1x448x800_stdit3_CogVAE_noTemp_xCE_wSST_bs4_lr8e-5_20250217-1501/epoch42-global_step37500/ema.pt
