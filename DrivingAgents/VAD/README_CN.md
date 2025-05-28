@@ -96,7 +96,7 @@ git clone https://github.com/icandle/CAMixerSR.git
 ```shell
 cd VAD
 mkdir ckpts
-wget 'https://github.com/icandle/CAMixerSR/blob/main/pretrained_models/LightSR/CAMixerSRx4_DF.pth'
+wget 'https://github.com/icandle/CAMixerSR/raw/refs/heads/main/pretrained_models/LightSR/CAMixerSRx4_DF.pth'
 ```
 
 ### 使用 FastAPI 运行服务

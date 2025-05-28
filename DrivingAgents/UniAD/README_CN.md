@@ -92,7 +92,7 @@ git clone https://github.com/icandle/CAMixerSR.git
 ```shell
 cd UniAD
 mkdir ckpts
-wget 'https://github.com/icandle/CAMixerSR/blob/main/pretrained_models/LightSR/CAMixerSRx4_DF.pth'
+wget 'https://github.com/icandle/CAMixerSR/raw/refs/heads/main/pretrained_models/LightSR/CAMixerSRx4_DF.pth'
 wget 'https://github.com/OpenDriveLab/UniAD/releases/download/v1.0.1/uniad_base_e2e.pth'
 ```
 
