@@ -244,7 +244,7 @@ model_single = dict(
     control_skip_temporal=True,
     use_ope=True,
     # load pretrained
-    from_pretrained="/cpfs01/user/yangxuemeng/hutao/DreamForge-DiT/outputs/DreamForgeSTDiT3-XL-2_stage1_1x448x800_stdit3_CogVAE_noTemp/epoch42-global_step37500",
+    from_pretrained="./",
     # force_huggingface=True,  # if `from_pretrained` is a repo from hf, use this.
 )
 
@@ -293,3 +293,4 @@ ema_decay = 0.99
 adam_eps = 1e-15
 weight_decay = 1e-2
 warmup_steps = 500
+
