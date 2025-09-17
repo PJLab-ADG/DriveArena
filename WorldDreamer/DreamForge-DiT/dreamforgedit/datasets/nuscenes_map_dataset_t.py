@@ -233,7 +233,7 @@ class NuScenesMapDatasetT(NuScenesDataset):
                 else:
                     ref_idx = [0] * ref_length if start == 0 else [0] * max(ref_length-start, 0) + list(range(max(start-ref_length, 0), start))
 
-                if start >= self.ref_length and (start-self.ref_length) % (video_length -1) == 0: # TODO: there is any need to repeat the first frame for ${ref_length} times for the first clip
+                if start >= ref_length and (start-ref_length) % (video_length -1) == 0: # TODO: there is any need to repeat the first frame for ${ref_length} times for the first clip
                     ref = [self.token_data_dict[scene[idx]] for idx in ref_idx]
                     valid_clip = ref + clip
                     valid_clip = [valid_clip[0]] + valid_clip[:-1]
@@ -495,3 +495,4 @@ def stack_tensors_in_dicts(
         out_dict['meta_data'][key] = [ret_dict['meta_data'][key] for ret_dict in dicts]
 
     return out_dict
+
