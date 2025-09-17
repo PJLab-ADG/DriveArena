@@ -244,7 +244,7 @@ model_single = dict(
     control_skip_temporal=True,
     use_ope=True,
     # load pretrained
-    from_pretrained="./",
+    from_pretrained="./pretrained/DreamForgeDiT-t/ema.pt",
     # force_huggingface=True,  # if `from_pretrained` is a repo from hf, use this.
 )
 
@@ -293,4 +293,5 @@ ema_decay = 0.99
 adam_eps = 1e-15
 weight_decay = 1e-2
 warmup_steps = 500
+
 
