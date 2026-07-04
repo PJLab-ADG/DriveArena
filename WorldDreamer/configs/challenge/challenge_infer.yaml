@@ -1,0 +1,12 @@
+mode: no_leakage_limsim
+backend: auto
+fps: 12
+num_future_frames: 180
+max_render_frames: 180
+render_stride: 1
+output_dir_name: basedreamer_limsim_no_leakage
+image_height: 224
+image_width: 400
+num_inference_steps: 20
+guidance_scale: 2.0
+fallback_prototype_if_needed: true
