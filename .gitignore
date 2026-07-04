@@ -183,6 +183,7 @@ cython_debug/
 *.db
 results/
 outputs/
+challenge_data/
 *.ipynb
 *.h5
 WorldDreamer/pretrained/

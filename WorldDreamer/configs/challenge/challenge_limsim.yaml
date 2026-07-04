@@ -1,0 +1,7 @@
+future_seconds: 15.0
+fps: 12
+bridge_seconds: 1.5
+history_tail_seconds: 2.0
+use_limsim: true
+fallback_kinematic_if_needed: true
+output_dir_name: basedreamer_limsim_no_leakage

@@ -1,0 +1,15 @@
+case_id: case_000001
+dataset: nuScenes
+history_seconds: 5.0
+future_seconds: 15.0
+fps: 12
+num_history_frames: 60
+num_future_frames: 180
+camera_order:
+  - CAM_FRONT_LEFT
+  - CAM_FRONT
+  - CAM_FRONT_RIGHT
+  - CAM_BACK_LEFT
+  - CAM_BACK
+  - CAM_BACK_RIGHT
+image_layout: camera_first
